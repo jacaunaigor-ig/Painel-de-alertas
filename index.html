@@ -966,45 +966,26 @@ const map=L.map('map',{zoomControl:false,attributionControl:true}).setView([-4.2
 L.control.zoom({position:'topleft'}).addTo(map);
 
 /* =======================================================================
-   MAPA BASE — CARTO Positron
-   Usa tiles públicos HTTPS, sem API key/token. O mapa base é adicionado
-   antes dos limites municipais para permanecer como plano de fundo.
-   Fallback automático para OpenStreetMap se o endpoint CARTO falhar.
+   MAPA BASE — modo estável SEM API KEY
+   CARTO passou a exigir chave nas basemaps raster públicas. Para impedir
+   que o aviso "API KEY REQUIRED" apareça na tela, o painel usa
+   OpenStreetMap como base nativa, sem token, sem chave e sem watermark.
+   Os limites municipais permanecem acima do mapa-base.
    ======================================================================= */
-const cartoBase=L.tileLayer(
-  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+const baseMap=L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
-    subdomains:'abcd',
-    maxZoom:20,
+    subdomains:'abc',
+    maxZoom:19,
     minZoom:2,
     tileSize:256,
-    attribution:'&copy; OpenStreetMap contributors &copy; CARTO',
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
     crossOrigin:true,
     detectRetina:true
   }
 );
 
-const osmFallback=L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    maxZoom:19,
-    attribution:'&copy; OpenStreetMap contributors',
-    crossOrigin:true
-  }
-);
-
-let baseMap=cartoBase;
-let baseFallbackActivated=false;
-
-cartoBase.on('tileerror',()=>{
-  if(baseFallbackActivated)return;
-  baseFallbackActivated=true;
-  if(map.hasLayer(cartoBase))map.removeLayer(cartoBase);
-  baseMap=osmFallback;
-  osmFallback.addTo(map);
-});
-
-cartoBase.addTo(map);
+baseMap.addTo(map);
 map.getContainer().style.background='#e9eef2';
 
 function featureStyle(f){
