@@ -597,6 +597,2797 @@ body.fullscreen-active .fullscreen-map-btn{right:14px}
   .quick-status-grid button{grid-column:1/-1}
 }
 </style>
+
+<style id="modern-theme-enhancements">
+:root{
+  --bg:#f3f6fa; --surface:#fff; --surface2:#f8fafc; --text:#172033;
+  --muted:#64748b; --border:rgba(15,23,42,.10); --accent:#2563eb;
+  --accent2:#0ea5e9; --shadow:0 10px 28px rgba(15,23,42,.08);
+}
+html.dark-mode{
+  --bg:#09111f; --surface:#111c2d; --surface2:#162338; --text:#e7eef8;
+  --muted:#9aacbf; --border:rgba(148,163,184,.18); --accent:#60a5fa;
+  --accent2:#38bdf8; --shadow:0 14px 34px rgba(0,0,0,.32);
+}
+body{
+  background:var(--bg)!important; color:var(--text)!important;
+  transition:background .25s ease,color .25s ease;
+}
+header,.card,.panel,.panel-card,.dashboard-card,.details-card,.sidebar,
+.toolbar,.filters,.legend,.kpi,.stat,.modal,.sheet,.list,.table,
+.map-tools,.topbar,.bottom-nav{
+  background-color:var(--surface)!important;
+  color:var(--text)!important;
+  border-color:var(--border)!important;
+  box-shadow:var(--shadow);
+}
+input,select,textarea{
+  background:var(--surface2)!important; color:var(--text)!important;
+  border-color:var(--border)!important;
+}
+input::placeholder{color:var(--muted)!important}
+button{
+  border-color:var(--border)!important;
+  color:var(--text)!important;
+}
+#themeToggle{
+  display:inline-flex; align-items:center; justify-content:center; gap:7px;
+  min-height:38px; padding:0 12px; border:1px solid var(--border);
+  border-radius:12px; background:var(--surface); color:var(--text);
+  cursor:pointer; font-weight:750; box-shadow:0 5px 16px rgba(15,23,42,.08);
+}
+#themeToggle:hover{transform:translateY(-1px)}
+#themeToggle .theme-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--accent2);
+  box-shadow:0 0 0 4px rgba(14,165,233,.12)
+}
+html.dark-mode .leaflet-container{background:#0d1727}
+html.dark-mode .leaflet-control-zoom a,
+html.dark-mode .leaflet-control-attribution{
+  background:#111c2d;color:#dbe7f5;border-color:var(--border)
+}
+html.dark-mode .leaflet-control-attribution a{color:#93c5fd}
+html.dark-mode .leaflet-tooltip{
+  background:#111c2d;color:#f8fafc;border-color:var(--border)
+}
+html.dark-mode .leaflet-popup-content-wrapper,
+html.dark-mode .leaflet-popup-tip{
+  background:#111c2d;color:#f8fafc
+}
+/* compact executive cards */
+.kpi,.stat,.dashboard-card{border-radius:16px!important}
+.card,.panel,.details-card{border-radius:18px!important}
+.map-tools{backdrop-filter:blur(10px)}
+@media(max-width:760px){
+  #themeToggle span.theme-label{display:none}
+  #themeToggle{width:42px;padding:0}
+}
+</style>
+
+
+<style id="layout-polish">
+#map{border-radius:18px;overflow:hidden}
+.row,.municipio-row{border-radius:12px}
+.row:hover,.municipio-row:hover{transform:translateY(-1px)}
+.leaflet-container{font-family:inherit}
+</style>
+
+<style id="light-mode-text-fix">
+/* Correção de contraste: textos que tinham cor fixa clara no modo escuro
+   agora herdam a cor correta do tema claro. */
+html:not(.dark-mode) body,
+html:not(.dark-mode) body * {
+  --theme-text-safe: #172033;
+}
+html:not(.dark-mode) .muted,
+html:not(.dark-mode) .text-muted,
+html:not(.dark-mode) .secondary,
+html:not(.dark-mode) .subtle,
+html:not(.dark-mode) .caption,
+html:not(.dark-mode) .label,
+html:not(.dark-mode) .description,
+html:not(.dark-mode) .kpi-label,
+html:not(.dark-mode) .stat-label {
+  color: #64748b !important;
+}
+html:not(.dark-mode) .card,
+html:not(.dark-mode) .panel,
+html:not(.dark-mode) .panel-card,
+html:not(.dark-mode) .dashboard-card,
+html:not(.dark-mode) .details-card,
+html:not(.dark-mode) .sidebar,
+html:not(.dark-mode) .toolbar,
+html:not(.dark-mode) .filters,
+html:not(.dark-mode) .legend,
+html:not(.dark-mode) .kpi,
+html:not(.dark-mode) .stat,
+html:not(.dark-mode) .list,
+html:not(.dark-mode) .table,
+html:not(.dark-mode) .modal,
+html:not(.dark-mode) .sheet {
+  color: #172033 !important;
+}
+html:not(.dark-mode) .card h1,
+html:not(.dark-mode) .card h2,
+html:not(.dark-mode) .card h3,
+html:not(.dark-mode) .card h4,
+html:not(.dark-mode) .panel h1,
+html:not(.dark-mode) .panel h2,
+html:not(.dark-mode) .panel h3,
+html:not(.dark-mode) .panel h4,
+html:not(.dark-mode) .dashboard-card h1,
+html:not(.dark-mode) .dashboard-card h2,
+html:not(.dark-mode) .dashboard-card h3,
+html:not(.dark-mode) .dashboard-card h4,
+html:not(.dark-mode) .kpi strong,
+html:not(.dark-mode) .stat strong {
+  color: #172033 !important;
+}
+html:not(.dark-mode) a {
+  color: #1d4ed8 !important;
+}
+html:not(.dark-mode) button:not(#themeToggle) {
+  color: #172033 !important;
+}
+html:not(.dark-mode) .leaflet-popup-content-wrapper,
+html:not(.dark-mode) .leaflet-popup-tip,
+html:not(.dark-mode) .leaflet-tooltip {
+  color: #172033 !important;
+}
+</style>
+
+
+<style id="inline-light-contrast-fix">
+html:not(.dark-mode) [style*="color:#fff"],
+html:not(.dark-mode) [style*="color: #fff"],
+html:not(.dark-mode) [style*="color:white"],
+html:not(.dark-mode) [style*="color: white"],
+html:not(.dark-mode) [style*="color:#f"],
+html:not(.dark-mode) [style*="color: #f"]{
+  color:#172033 !important;
+}
+html:not(.dark-mode) .badge,
+html:not(.dark-mode) .chip,
+html:not(.dark-mode) .tag{
+  color:inherit;
+}
+</style>
+
+
+<style id="v67-light-mode-complete-fix">
+html:not(.dark-mode){
+  --lm-bg:#f4f7fb;
+  --lm-surface:#ffffff;
+  --lm-surface2:#f1f5f9;
+  --lm-text:#172033;
+  --lm-text2:#334155;
+  --lm-muted:#64748b;
+  --lm-border:rgba(15,23,42,.16);
+  --lm-border2:rgba(15,23,42,.26);
+  --lm-hover:#edf5fc;
+}
+
+/* estrutura */
+html:not(.dark-mode) body{background:var(--lm-bg)!important;color:var(--lm-text)!important}
+html:not(.dark-mode) header,
+html:not(.dark-mode) .panel,
+html:not(.dark-mode) .sidebar,
+html:not(.dark-mode) .details,
+html:not(.dark-mode) .risk-editor,
+html:not(.dark-mode) .risk-help-card{
+  background:var(--lm-surface)!important;
+  color:var(--lm-text)!important;
+  border-color:var(--lm-border)!important;
+}
+
+/* textos principais */
+html:not(.dark-mode) .brand h1,
+html:not(.dark-mode) .header-op strong,
+html:not(.dark-mode) .detail-title,
+html:not(.dark-mode) .metric strong,
+html:not(.dark-mode) .metric .value,
+html:not(.dark-mode) .row b,
+html:not(.dark-mode) .risk-editor-head h2,
+html:not(.dark-mode) .risk-help-head h2,
+html:not(.dark-mode) .risk-level-top strong,
+html:not(.dark-mode) .operational-status .op-copy strong,
+html:not(.dark-mode) .expiry-main strong{
+  color:var(--lm-text)!important;
+}
+html:not(.dark-mode) .brand .meta,
+html:not(.dark-mode) .header-op small,
+html:not(.dark-mode) .hint,
+html:not(.dark-mode) .sidehead h2,
+html:not(.dark-mode) .row span.status,
+html:not(.dark-mode) .details h2,
+html:not(.dark-mode) .details .empty,
+html:not(.dark-mode) .metric small,
+html:not(.dark-mode) .quick-status label,
+html:not(.dark-mode) .expiry-main,
+html:not(.dark-mode) .expiry-sub,
+html:not(.dark-mode) .risk-editor-head p,
+html:not(.dark-mode) .risk-editor-footer span,
+html:not(.dark-mode) .risk-help-head p,
+html:not(.dark-mode) .risk-level p,
+html:not(.dark-mode) .risk-action,
+html:not(.dark-mode) .risk-help-air-head span{
+  color:var(--lm-muted)!important;
+}
+
+/* dashboard */
+html:not(.dark-mode) .kpis{background:var(--lm-bg)!important}
+html:not(.dark-mode) .kpi{
+  background:linear-gradient(160deg,#fff,#f8fafc)!important;
+  color:var(--lm-text)!important;
+  border-color:var(--lm-border)!important;
+  box-shadow:0 2px 8px rgba(15,23,42,.06)!important;
+}
+html:not(.dark-mode) .kpi small{color:#475569!important}
+html:not(.dark-mode) .kpi b{color:#111827!important}
+html:not(.dark-mode) .hint{background:#f8fafc!important}
+
+/* sidebar */
+html:not(.dark-mode) .sidehead{background:#f8fafc!important}
+html:not(.dark-mode) .search{
+  background:#fff!important;color:var(--lm-text)!important;border-color:var(--lm-border)!important;
+}
+html:not(.dark-mode) .search::placeholder{color:#94a3b8!important}
+html:not(.dark-mode) .row:hover,
+html:not(.dark-mode) .row.selected{background:var(--lm-hover)!important}
+
+/* mapa: zoom */
+html:not(.dark-mode) .leaflet-control-zoom{
+  background:#fff!important;
+  border:1px solid var(--lm-border2)!important;
+  box-shadow:0 8px 20px rgba(15,23,42,.11)!important;
+}
+html:not(.dark-mode) .leaflet-control-zoom a{
+  background:#fff!important;
+  color:#17324a!important;
+  border-color:var(--lm-border)!important;
+  text-shadow:none!important;
+}
+html:not(.dark-mode) .leaflet-control-zoom a:hover{
+  background:#eaf3fa!important;color:#0b5e97!important;
+}
+html:not(.dark-mode) .leaflet-control-zoom a.leaflet-disabled{
+  background:#f8fafc!important;color:#94a3b8!important;
+}
+
+/* mapa: Níveis de Risco */
+html:not(.dark-mode) #risk-help-btn{
+  background:rgba(255,255,255,.97)!important;
+  color:#172033!important;
+  border-color:rgba(37,99,235,.30)!important;
+  box-shadow:0 8px 20px rgba(15,23,42,.11)!important;
+}
+html:not(.dark-mode) #risk-help-btn:hover{background:#eef6fc!important;border-color:#2563eb!important}
+html:not(.dark-mode) #risk-help-btn .risk-help-icon{
+  background:#e7f2fb!important;
+  border-color:rgba(37,99,235,.23)!important;
+  color:#155f98!important;
+}
+html:not(.dark-mode) #risk-help-btn .risk-help-icon svg{
+  stroke:#155f98!important;
+}
+html:not(.dark-mode) #risk-help-btn .risk-help-label{color:#172033!important}
+
+/* mapa: 3 pontos / fullscreen / tabs */
+html:not(.dark-mode) .tools-trigger,
+html:not(.dark-mode) .fullscreen-map-btn,
+html:not(.dark-mode) .panel-toggle-tab{
+  background:rgba(255,255,255,.97)!important;
+  color:#17324a!important;
+  border-color:var(--lm-border2)!important;
+  box-shadow:0 8px 20px rgba(15,23,42,.11)!important;
+  text-shadow:none!important;
+}
+html:not(.dark-mode) .tools-trigger:hover,
+html:not(.dark-mode) .fullscreen-map-btn:hover,
+html:not(.dark-mode) .panel-toggle-tab:hover,
+html:not(.dark-mode) .tools-trigger[aria-expanded="true"]{
+  background:#eaf3fa!important;
+  color:#0b5e97!important;
+  border-color:#60a5fa!important;
+}
+html:not(.dark-mode) .mapwrap button svg,
+html:not(.dark-mode) .map-tools button svg,
+html:not(.dark-mode) .fullscreen-map-btn svg{
+  stroke:currentColor!important;
+  color:inherit!important;
+}
+
+/* menu 3 pontos */
+html:not(.dark-mode) .tools-menu{
+  background:#fff!important;color:var(--lm-text)!important;
+  border-color:var(--lm-border2)!important;
+  box-shadow:0 14px 32px rgba(15,23,42,.14)!important;
+}
+html:not(.dark-mode) .tools-item{color:#1e293b!important;background:transparent!important}
+html:not(.dark-mode) .tools-item:hover{background:var(--lm-hover)!important;color:#0b5e97!important}
+
+/* legenda e fontes */
+html:not(.dark-mode) .legend,
+html:not(.dark-mode) .data-source-box{
+  background:rgba(255,255,255,.97)!important;
+  color:var(--lm-text)!important;
+  border-color:var(--lm-border2)!important;
+  box-shadow:0 8px 20px rgba(15,23,42,.11)!important;
+}
+html:not(.dark-mode) .legend h3{color:#0f172a!important}
+html:not(.dark-mode) .leg{color:#334155!important}
+html:not(.dark-mode) .data-source-icon{color:#155f98!important}
+html:not(.dark-mode) .data-source-box small{color:#64748b!important}
+html:not(.dark-mode) .data-source-box strong{color:#1e293b!important}
+
+/* leaflet tooltip / popup */
+html:not(.dark-mode) .leaflet-tooltip,
+html:not(.dark-mode) .leaflet-popup-content-wrapper,
+html:not(.dark-mode) .leaflet-popup-tip{
+  background:#fff!important;
+  color:#172033!important;
+  border-color:var(--lm-border2)!important;
+}
+html:not(.dark-mode) .leaflet-tooltip *,
+html:not(.dark-mode) .leaflet-popup-content,
+html:not(.dark-mode) .leaflet-popup-content *{
+  color:#172033!important;
+}
+html:not(.dark-mode) .leaflet-popup-close-button{color:#475569!important}
+html:not(.dark-mode) .leaflet-popup-close-button:hover{color:#0f172a!important}
+html:not(.dark-mode) .leaflet-control-attribution{
+  background:rgba(255,255,255,.90)!important;color:#64748b!important;
+}
+html:not(.dark-mode) .leaflet-control-attribution a{color:#1d4ed8!important}
+
+/* ficha */
+html:not(.dark-mode) .detail-close-btn{
+  background:#f1f5f9!important;color:#334155!important;border-color:var(--lm-border)!important;
+}
+html:not(.dark-mode) .metric,
+html:not(.dark-mode) .operational-status,
+html:not(.dark-mode) .quick-status,
+html:not(.dark-mode) .alert-expiry{
+  background:#f8fafc!important;
+  color:var(--lm-text)!important;
+  border-color:var(--lm-border)!important;
+}
+html:not(.dark-mode) .quick-status{background:linear-gradient(180deg,#f1f7fc,#fff)!important}
+html:not(.dark-mode) .quick-status select,
+html:not(.dark-mode) .risk-editor-search-wrap input,
+html:not(.dark-mode) .risk-editor-table select{
+  background:#fff!important;color:#172033!important;border-color:var(--lm-border)!important;
+}
+html:not(.dark-mode) .duration-presets button{
+  background:#fff!important;color:#475569!important;border-color:var(--lm-border)!important;
+}
+html:not(.dark-mode) .duration-presets button.active{
+  background:#fff3e9!important;color:#a9470c!important;border-color:#f59e0b!important;
+}
+
+/* modais */
+html:not(.dark-mode) .risk-editor-head,
+html:not(.dark-mode) .risk-help-head,
+html:not(.dark-mode) .risk-editor-footer{
+  background:#f8fafc!important;border-color:var(--lm-border)!important;
+}
+html:not(.dark-mode) .risk-level,
+html:not(.dark-mode) .risk-help-air{
+  background:#f8fafc!important;color:var(--lm-text)!important;border-color:var(--lm-border)!important;
+}
+html:not(.dark-mode) .risk-editor-close,
+html:not(.dark-mode) .risk-help-close{
+  background:#f1f5f9!important;color:#334155!important;border-color:var(--lm-border)!important;
+}
+html:not(.dark-mode) .risk-editor-table thead th{
+  background:#eef3f8!important;color:#475569!important;
+}
+html:not(.dark-mode) .risk-editor-table tbody tr:hover{background:#f3f8fc!important}
+html:not(.dark-mode) .editor-action.secondary{
+  background:#f1f5f9!important;color:#334155!important;
+}
+
+/* chips e botões coloridos que PRECISAM de branco */
+html:not(.dark-mode) .quick-status button,
+html:not(.dark-mode) .editor-action.primary,
+html:not(.dark-mode) .qa-boa,
+html:not(.dark-mode) .qa-ruim,
+html:not(.dark-mode) .qa-mruim,
+html:not(.dark-mode) .qa-pessima{
+  color:#fff!important;
+}
+html:not(.dark-mode) .qa-moderado{color:#25323b!important}
+
+/* status operacionais */
+html:not(.dark-mode) .operational-status .op-chip{color:#334155!important}
+html:not(.dark-mode) .operational-status.active .op-chip{color:#155e95!important}
+html:not(.dark-mode) .operational-status.soon .op-chip{color:#946200!important}
+html:not(.dark-mode) .operational-status.ended .op-chip{color:#b91c1c!important}
+
+/* botão tema */
+html:not(.dark-mode) #themeToggle{
+  background:#fff!important;color:#172033!important;border-color:var(--lm-border)!important;
+  box-shadow:0 5px 14px rgba(15,23,42,.08)!important;
+}
+
+/* mantém modo escuro intacto e legível */
+html.dark-mode #risk-help-btn,
+html.dark-mode .legend,
+html.dark-mode .data-source-box,
+html.dark-mode .tools-trigger,
+html.dark-mode .fullscreen-map-btn,
+html.dark-mode .panel-toggle-tab,
+html.dark-mode .tools-menu{
+  color:#f2f6fc!important;
+}
+html.dark-mode #risk-help-btn .risk-help-icon svg{stroke:#fff!important}
+</style>
+
+
+<style id="v68-modern-header">
+/* ============================================================
+   V68 — Cabeçalho mais moderno, limpo e sem sobreposição
+   ============================================================ */
+header{
+  min-height:72px!important;
+  height:auto!important;
+  padding:9px 14px!important;
+  gap:12px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  overflow:visible!important;
+  position:relative!important;
+  z-index:1100!important;
+}
+
+.brand{
+  min-width:0!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:11px!important;
+  overflow:hidden!important;
+}
+.brand > div{min-width:0!important}
+.brand img{
+  flex:0 0 auto!important;
+  max-height:48px!important;
+  width:auto!important;
+  object-fit:contain!important;
+}
+.brand h1{
+  margin:0!important;
+  font-size:clamp(15px,1.45vw,21px)!important;
+  line-height:1.12!important;
+  letter-spacing:-.02em!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+.brand .meta{
+  margin-top:4px!important;
+  font-size:11px!important;
+  line-height:1.15!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+
+/* Área direita do cabeçalho */
+header .header-actions,
+header .actions,
+header .top-actions,
+header .header-right{
+  min-width:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:7px!important;
+  flex-wrap:nowrap!important;
+}
+
+/* status operacional */
+.header-op{
+  min-width:0!important;
+  max-width:220px!important;
+  padding:7px 10px!important;
+  border-radius:11px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+}
+.header-op > div{min-width:0!important}
+.header-op strong,
+.header-op small{
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  display:block!important;
+}
+
+/* Botões do cabeçalho: ícones nunca se sobrepõem */
+header button,
+header .icon-btn,
+header #themeToggle{
+  flex:0 0 auto!important;
+  position:relative!important;
+  min-width:38px!important;
+  min-height:38px!important;
+  width:38px!important;
+  height:38px!important;
+  padding:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:10px!important;
+  overflow:hidden!important;
+  line-height:1!important;
+}
+header button svg,
+header .icon-btn svg,
+header #themeToggle svg{
+  width:18px!important;
+  height:18px!important;
+  flex:0 0 18px!important;
+  display:block!important;
+}
+header button img,
+header .icon-btn img{
+  width:18px!important;
+  height:18px!important;
+  object-fit:contain!important;
+}
+
+/* separa elementos absolutos antigos que causavam ícones "embrigados" */
+header .theme-toggle,
+header .header-menu,
+header .admin-btn{
+  position:relative!important;
+  inset:auto!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+}
+
+/* visual premium mais leve */
+html:not(.dark-mode) header{
+  background:rgba(255,255,255,.96)!important;
+  border-bottom:1px solid rgba(15,23,42,.09)!important;
+  box-shadow:0 4px 18px rgba(15,23,42,.055)!important;
+}
+html.dark-mode header{
+  background:rgba(10,18,31,.96)!important;
+  border-bottom:1px solid rgba(148,163,184,.12)!important;
+  box-shadow:0 5px 20px rgba(0,0,0,.22)!important;
+}
+html:not(.dark-mode) header button,
+html:not(.dark-mode) header .icon-btn,
+html:not(.dark-mode) header #themeToggle{
+  background:#f7fafc!important;
+  border:1px solid rgba(15,23,42,.11)!important;
+  color:#28445d!important;
+  box-shadow:none!important;
+}
+html:not(.dark-mode) header button:hover,
+html:not(.dark-mode) header .icon-btn:hover,
+html:not(.dark-mode) header #themeToggle:hover{
+  background:#eaf3fa!important;
+  color:#0b5e97!important;
+  border-color:rgba(37,99,235,.28)!important;
+}
+html.dark-mode header button,
+html.dark-mode header .icon-btn,
+html.dark-mode header #themeToggle{
+  background:rgba(255,255,255,.055)!important;
+  border:1px solid rgba(148,163,184,.17)!important;
+  color:#e6eef7!important;
+}
+
+/* dashboard um pouco mais moderno */
+.kpi{
+  border-radius:14px!important;
+}
+.kpi b{
+  letter-spacing:-.025em!important;
+}
+.panel,.sidebar,.details{
+  border-radius:0!important;
+}
+
+/* tablet */
+@media(max-width:1050px){
+  header{
+    grid-template-columns:minmax(0,1fr) auto!important;
+    padding:8px 10px!important;
+  }
+  .header-op{
+    max-width:170px!important;
+  }
+  .brand h1{font-size:16px!important}
+  .brand .meta{font-size:10px!important}
+}
+
+/* mobile: cabeçalho realmente compacto, sem ícones empilhados */
+@media(max-width:720px){
+  header{
+    min-height:58px!important;
+    padding:6px 8px!important;
+    gap:6px!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+  }
+  .brand{gap:7px!important}
+  .brand img{max-height:36px!important;max-width:72px!important}
+  .brand h1{
+    font-size:13.5px!important;
+    line-height:1.08!important;
+  }
+  .brand .meta{
+    font-size:9px!important;
+    margin-top:2px!important;
+  }
+  .header-op{
+    display:none!important;
+  }
+  header button,
+  header .icon-btn,
+  header #themeToggle{
+    width:34px!important;
+    height:34px!important;
+    min-width:34px!important;
+    min-height:34px!important;
+    border-radius:9px!important;
+  }
+  header button svg,
+  header .icon-btn svg,
+  header #themeToggle svg{
+    width:16px!important;
+    height:16px!important;
+    flex-basis:16px!important;
+  }
+}
+
+/* telas muito estreitas */
+@media(max-width:430px){
+  header{padding:6px!important}
+  .brand img{max-width:56px!important;max-height:32px!important}
+  .brand h1{font-size:12.5px!important}
+  .brand .meta{display:none!important}
+  header button,
+  header .icon-btn,
+  header #themeToggle{
+    width:32px!important;height:32px!important;
+    min-width:32px!important;min-height:32px!important;
+  }
+}
+</style>
+
+
+<style id="v69-modern-shell">
+/* ============================================================
+   V69 — cabeçalho enxuto + rodapé operacional
+   ============================================================ */
+.app{
+  grid-template-rows:58px 72px 24px minmax(0,1fr) 30px!important;
+}
+
+/* HEADER: só identidade + produto + controles essenciais */
+header{
+  min-height:58px!important;
+  height:58px!important;
+  padding:6px 12px!important;
+  gap:10px!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  border-bottom:1px solid rgba(15,23,42,.08)!important;
+  box-shadow:none!important;
+  backdrop-filter:blur(12px)!important;
+}
+html:not(.dark-mode) header{
+  background:rgba(255,255,255,.97)!important;
+}
+html.dark-mode header{
+  background:rgba(8,17,30,.96)!important;
+}
+
+header .brand{
+  gap:9px!important;
+}
+header .brand img,
+header .logo{
+  max-height:42px!important;
+  height:42px!important;
+  width:auto!important;
+  flex-basis:auto!important;
+}
+header .brand h1{
+  font-size:18px!important;
+  line-height:1.05!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+header .brand .meta{
+  display:none!important;
+}
+
+/* produto ativo mais discreto */
+.alert-type-bar{
+  margin-top:3px!important;
+}
+.alert-type-select{
+  min-height:26px!important;
+  padding-top:3px!important;
+  padding-bottom:3px!important;
+  font-size:9.5px!important;
+  border-radius:999px!important;
+}
+
+/* remove infos redundantes do topo: serão lidas no rodapé */
+header .header-op{
+  display:none!important;
+}
+
+/* ações essenciais */
+.v68-header-actions,
+.header-actions,
+header .actions,
+header .top-actions,
+header .header-right{
+  gap:6px!important;
+}
+header button,
+header .icon-btn,
+header #themeToggle{
+  width:34px!important;
+  height:34px!important;
+  min-width:34px!important;
+  min-height:34px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+
+/* dashboard mais leve */
+.kpis{
+  padding:7px 12px!important;
+  gap:7px!important;
+}
+.kpi{
+  border-radius:12px!important;
+  box-shadow:none!important;
+  border-color:rgba(15,23,42,.09)!important;
+}
+html.dark-mode .kpi{
+  border-color:rgba(148,163,184,.13)!important;
+}
+.kpi:hover{
+  transform:translateY(-1px)!important;
+}
+.kpi.active{
+  transform:none!important;
+}
+.kpi b{
+  font-size:24px!important;
+}
+.kpi small{
+  font-size:8px!important;
+}
+
+/* mapa e painéis mais “flat premium” */
+.panel{
+  border-radius:12px!important;
+  box-shadow:none!important;
+}
+.mapwrap{
+  border-radius:12px!important;
+  overflow:hidden!important;
+}
+#map{
+  border-radius:12px!important;
+}
+.sidebar{
+  border-radius:12px!important;
+}
+.details{
+  border-radius:12px!important;
+}
+
+/* controles no mapa mais compactos */
+#risk-help-btn{
+  min-height:40px!important;
+  padding:5px 10px 5px 6px!important;
+  border-radius:10px!important;
+}
+#risk-help-btn .risk-help-icon{
+  width:29px!important;
+  height:29px!important;
+}
+.tools-trigger,
+.fullscreen-map-btn{
+  width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  border-radius:9px!important;
+}
+
+/* legenda e fontes mais refinadas */
+.legend,
+.data-source-box{
+  box-shadow:none!important;
+  border-radius:10px!important;
+}
+.legend{
+  padding:10px 12px!important;
+}
+.data-source-box{
+  padding:7px 10px!important;
+}
+
+/* FOOTER */
+.v69-footer{
+  min-height:30px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 12px;
+  border-top:1px solid rgba(15,23,42,.08);
+  font-size:8px;
+  letter-spacing:.01em;
+  white-space:nowrap;
+  overflow:hidden;
+}
+html:not(.dark-mode) .v69-footer{
+  background:#ffffff;
+  color:#64748b;
+}
+html.dark-mode .v69-footer{
+  background:#0a1423;
+  color:#94a8bb;
+  border-top-color:rgba(148,163,184,.10);
+}
+.v69-footer-left,
+.v69-footer-right{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-width:0;
+}
+.v69-footer-right{
+  justify-content:flex-end;
+  overflow:hidden;
+}
+.v69-footer-item{
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.v69-footer-chip b{
+  color:inherit;
+  font-weight:900;
+}
+.v69-footer-sep{
+  opacity:.45;
+}
+
+/* mobile */
+@media(max-width:760px){
+  .app{
+    grid-template-rows:54px 58px 22px minmax(0,1fr) 28px!important;
+  }
+  header{
+    height:54px!important;
+    min-height:54px!important;
+    padding:5px 7px!important;
+  }
+  header .brand img,
+  header .logo{
+    height:36px!important;
+    max-height:36px!important;
+  }
+  header .brand h1{
+    font-size:13px!important;
+  }
+  .alert-type-select{
+    font-size:7.5px!important;
+    min-height:24px!important;
+  }
+  .v69-footer{
+    height:28px;
+    min-height:28px;
+    padding:0 8px;
+    font-size:7px;
+  }
+  .v69-footer-right .v69-footer-item:first-child,
+  .v69-footer-right .v69-footer-sep{
+    display:none;
+  }
+}
+</style>
+
+
+<style id="v73-first-evolution">
+:root{
+  --v73-blue:#69b7ff;
+  --v73-line-light:rgba(15,23,42,.10);
+  --v73-line-dark:rgba(148,163,184,.13);
+}
+
+/* ============================================================
+   1. DASHBOARD — MENOS “CAIXAS”, MAIS LEITURA
+   ============================================================ */
+.kpis{
+  gap:5px!important;
+  padding:6px 11px!important;
+  align-items:stretch!important;
+}
+.kpi{
+  position:relative!important;
+  min-height:56px!important;
+  padding:7px 10px!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+  transform:none!important;
+  overflow:hidden!important;
+}
+.kpi::before{
+  width:3px!important;
+  opacity:.9!important;
+}
+.kpi:hover{
+  transform:translateY(-1px)!important;
+  box-shadow:none!important;
+}
+.kpi.active{
+  transform:none!important;
+  box-shadow:none!important;
+}
+.kpi.active::after{
+  content:"";
+  position:absolute;
+  left:9px;
+  right:9px;
+  bottom:0;
+  height:3px;
+  border-radius:3px 3px 0 0;
+  background:var(--kpi-accent,#69b7ff);
+}
+.kpi small{
+  font-size:7.5px!important;
+  letter-spacing:.055em!important;
+  color:inherit!important;
+  opacity:.72;
+}
+.kpi b{
+  margin-top:5px!important;
+  font-size:22px!important;
+  line-height:1!important;
+}
+html:not(.dark-mode) .kpi{
+  background:#fff!important;
+  border-color:var(--v73-line-light)!important;
+}
+html.dark-mode .kpi{
+  background:#0f1d30!important;
+  border-color:var(--v73-line-dark)!important;
+}
+
+/* ============================================================
+   2. MAPA — CONTROLES MAIS ORGANIZADOS
+   ============================================================ */
+
+/* botão Níveis de Risco permanece isolado à esquerda */
+#risk-help-btn{
+  top:12px!important;
+  left:12px!important;
+  min-height:38px!important;
+  padding:5px 9px 5px 5px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+#risk-help-btn .risk-help-icon{
+  width:27px!important;
+  height:27px!important;
+  border-radius:7px!important;
+}
+#risk-help-btn .risk-help-label{
+  font-size:8.5px!important;
+}
+
+/* ferramentas no lado direito */
+.map-tools{
+  top:12px!important;
+  right:12px!important;
+}
+.tools-trigger{
+  width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+.tools-menu{
+  top:40px!important;
+  width:174px!important;
+  border-radius:10px!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.16)!important;
+}
+.tools-item{
+  min-height:34px!important;
+  padding:6px 9px!important;
+  font-size:8.5px!important;
+}
+
+/* zoom logo abaixo do menu, no lado direito */
+.leaflet-top.leaflet-left{
+  top:52px!important;
+  left:auto!important;
+  right:12px!important;
+}
+.leaflet-control-zoom{
+  margin:0!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+.leaflet-control-zoom a{
+  width:34px!important;
+  height:34px!important;
+  line-height:34px!important;
+  font-size:17px!important;
+}
+
+/* tela cheia logo abaixo do zoom */
+.fullscreen-map-btn{
+  top:128px!important;
+  bottom:auto!important;
+  right:12px!important;
+  width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+
+/* legenda mais simples na tela */
+.legend{
+  max-width:188px!important;
+  padding:9px 11px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+.legend h3{
+  font-size:9px!important;
+  margin-bottom:6px!important;
+}
+.leg{
+  gap:7px!important;
+  margin:4px 0!important;
+  font-size:8.7px!important;
+}
+.sw{
+  width:10px!important;
+  height:10px!important;
+}
+
+/* fontes discretas */
+.data-source-box{
+  max-width:245px!important;
+  padding:7px 9px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+.data-source-box small{font-size:6.8px!important}
+.data-source-box strong{font-size:8.8px!important}
+
+/* ============================================================
+   3. MUNICÍPIO SELECIONADO — MAIS EVIDENTE
+   ============================================================ */
+.mapwrap.v73-selection-active .leaflet-overlay-pane svg path{
+  fill-opacity:.55!important;
+  stroke-opacity:.65!important;
+  transition:fill-opacity .10s ease,stroke-opacity .10s ease,stroke-width .10s ease!important;
+}
+.mapwrap.v73-selection-active .leaflet-overlay-pane svg path.v73-selected-path{
+  fill-opacity:.96!important;
+  stroke:#ffffff!important;
+  stroke-width:3.5!important;
+  stroke-opacity:1!important;
+  filter:drop-shadow(0 0 4px rgba(0,0,0,.30));
+}
+
+/* claro: contorno azul adicional na seleção */
+html:not(.dark-mode) .mapwrap.v73-selection-active .leaflet-overlay-pane svg path.v73-selected-path{
+  stroke:#0b5e97!important;
+  stroke-width:4!important;
+}
+
+/* ============================================================
+   4. FICHA — MENOS PESADA E MAIS HIERÁRQUICA
+   ============================================================ */
+.details{
+  border-radius:11px!important;
+  box-shadow:none!important;
+}
+.details h2{
+  margin-bottom:2px!important;
+}
+.detail-title{
+  font-size:19px!important;
+  margin-top:2px!important;
+}
+.metric{
+  margin-top:8px!important;
+  padding:9px 10px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+.quick-status{
+  margin-top:9px!important;
+  padding:10px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+.operational-status{
+  margin-top:9px!important;
+  padding:9px 11px!important;
+  border-radius:9px!important;
+}
+.alert-expiry{
+  margin-top:8px!important;
+  padding:9px 10px!important;
+  border-radius:9px!important;
+}
+
+/* ============================================================
+   5. RODAPÉ — MAIS DISCRETO
+   ============================================================ */
+.v69-footer{
+  font-size:7.5px!important;
+}
+html:not(.dark-mode) .v69-footer{
+  background:#fbfcfe!important;
+}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media(max-width:720px){
+  .leaflet-top.leaflet-left{
+    top:48px!important;
+    right:8px!important;
+    left:auto!important;
+  }
+  .fullscreen-map-btn{
+    top:120px!important;
+    right:8px!important;
+    bottom:auto!important;
+  }
+  .map-tools{
+    top:8px!important;
+    right:8px!important;
+  }
+  #risk-help-btn{
+    top:8px!important;
+    left:8px!important;
+  }
+  .legend{
+    max-width:145px!important;
+  }
+}
+</style>
+
+
+<style id="v74-operational-evolution">
+:root{
+  --v74-blue:#5eaef2;
+  --v74-text:#1f2d3d;
+}
+
+/* ============================================================
+   1. INDICADOR OPERACIONAL SOBRE O MAPA
+   ============================================================ */
+.v74-map-status{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:710;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:34px;
+  max-width:min(520px,55%);
+  padding:6px 11px;
+  border-radius:999px;
+  font-size:8.5px;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  pointer-events:none;
+}
+html:not(.dark-mode) .v74-map-status{
+  background:rgba(255,255,255,.94);
+  color:#2c4053;
+  border:1px solid rgba(15,23,42,.12);
+}
+html.dark-mode .v74-map-status{
+  background:rgba(8,25,42,.90);
+  color:#dceaf5;
+  border:1px solid rgba(148,163,184,.18);
+}
+.v74-map-status .v74-status-dot{
+  width:7px;
+  height:7px;
+  min-width:7px;
+  border-radius:50%;
+  background:var(--v74-blue);
+}
+.v74-map-status strong{
+  font-weight:900;
+}
+.v74-map-status .v74-status-count{
+  opacity:.72;
+}
+
+/* ============================================================
+   2. DASHBOARD COM FOCO MAIS CLARO
+   ============================================================ */
+.kpi{
+  cursor:pointer!important;
+}
+.kpi:not(.active){
+  opacity:.92;
+}
+.kpi.active{
+  opacity:1!important;
+}
+.kpi.active small,
+.kpi.active b{
+  font-weight:900!important;
+}
+.kpi.active::after{
+  height:4px!important;
+}
+.kpi:focus-visible{
+  outline:2px solid rgba(94,174,242,.7)!important;
+  outline-offset:2px!important;
+}
+
+/* ============================================================
+   3. FICHA MUNICIPAL MAIS LIMPA
+   ============================================================ */
+#detailBody{
+  padding-bottom:15px!important;
+}
+.detail-title{
+  font-size:20px!important;
+  line-height:1.15!important;
+}
+.badge{
+  margin-top:7px!important;
+  padding:4px 9px!important;
+  font-size:8.5px!important;
+}
+.metric{
+  grid-template-columns:30px 1fr auto!important;
+  min-height:52px!important;
+  padding:8px 9px!important;
+  gap:8px!important;
+}
+.metric .ico{
+  font-size:16px!important;
+}
+.metric small{
+  font-size:7px!important;
+}
+.metric strong{
+  font-size:9.8px!important;
+}
+.metric .value{
+  font-size:9.8px!important;
+}
+.operational-status{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+}
+.quick-status{
+  border-width:1px!important;
+}
+.quick-status-grid{
+  gap:6px!important;
+}
+.quick-status select,
+.quick-status button{
+  min-height:34px!important;
+  font-size:8.8px!important;
+}
+.duration-presets{
+  gap:4px!important;
+}
+.duration-presets button{
+  padding:4px 8px!important;
+  font-size:7.5px!important;
+}
+
+/* ============================================================
+   4. PAINÉIS FLUTUANTES MAIS COERENTES
+   ============================================================ */
+.legend,
+.data-source-box,
+#risk-help-btn,
+.tools-trigger,
+.fullscreen-map-btn{
+  backdrop-filter:blur(10px)!important;
+}
+html:not(.dark-mode) .legend,
+html:not(.dark-mode) .data-source-box,
+html:not(.dark-mode) #risk-help-btn,
+html:not(.dark-mode) .tools-trigger,
+html:not(.dark-mode) .fullscreen-map-btn{
+  background:rgba(255,255,255,.93)!important;
+}
+html.dark-mode .legend,
+html.dark-mode .data-source-box,
+html.dark-mode #risk-help-btn,
+html.dark-mode .tools-trigger,
+html.dark-mode .fullscreen-map-btn{
+  background:rgba(8,25,42,.88)!important;
+}
+
+/* ============================================================
+   5. LISTA LATERAL MAIS LEVE
+   ============================================================ */
+.sidebar{
+  border-radius:10px!important;
+}
+.sidehead{
+  padding:11px 11px 8px!important;
+}
+.sidehead h2{
+  margin-bottom:7px!important;
+  font-size:9px!important;
+}
+.search{
+  height:32px!important;
+  font-size:9px!important;
+}
+.list{
+  padding:4px 5px 8px!important;
+}
+.row{
+  padding:7px 7px!important;
+  min-height:40px!important;
+}
+.row b{
+  font-size:9.5px!important;
+}
+.row span.status{
+  font-size:7.5px!important;
+}
+
+/* ============================================================
+   6. RODAPÉ
+   ============================================================ */
+.v69-footer{
+  height:28px!important;
+  min-height:28px!important;
+}
+.v69-footer-item{
+  font-size:7.2px!important;
+}
+
+/* ============================================================
+   7. RESPONSIVO
+   ============================================================ */
+@media(max-width:900px){
+  .v74-map-status{
+    max-width:48%;
+    font-size:7.5px;
+  }
+}
+@media(max-width:720px){
+  .v74-map-status{
+    top:8px;
+    max-width:52%;
+    min-height:30px;
+    padding:5px 8px;
+    font-size:6.8px;
+  }
+  .v74-map-status .v74-status-count{
+    display:none;
+  }
+}
+</style>
+
+
+<style id="v75-operational-indicator">
+.v74-map-status{
+  max-width:min(680px,68%)!important;
+  padding-left:12px!important;
+  padding-right:12px!important;
+}
+.v74-map-status .v74-status-product{
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media(max-width:720px){
+  .v74-map-status{
+    max-width:62%!important;
+  }
+}
+</style>
+
+
+<style id="v76-evolution">
+/* indicador operacional */
+.v74-map-status{
+  min-height:36px!important;
+  max-width:min(760px,72%)!important;
+  padding:6px 14px!important;
+  font-size:9px!important;
+  letter-spacing:.005em!important;
+  box-shadow:none!important;
+}
+.v74-map-status .v74-status-dot{
+  width:8px!important;
+  height:8px!important;
+  min-width:8px!important;
+  box-shadow:0 0 0 3px rgba(94,174,242,.12);
+}
+html:not(.dark-mode) .v74-map-status{
+  background:rgba(255,255,255,.95)!important;
+  border-color:rgba(15,23,42,.13)!important;
+}
+html.dark-mode .v74-map-status{
+  background:rgba(7,24,40,.91)!important;
+}
+
+/* dashboard mais plano */
+.kpis{
+  padding-top:5px!important;
+  padding-bottom:5px!important;
+}
+.kpi{
+  min-height:54px!important;
+  border-radius:9px!important;
+}
+.kpi::before{
+  width:3px!important;
+}
+.kpi.active{
+  background-image:none!important;
+}
+html:not(.dark-mode) .kpi.active{
+  background:#f8fbfe!important;
+}
+html.dark-mode .kpi.active{
+  background:#12243a!important;
+}
+
+/* ficha: título e nível dominam a leitura */
+.details .sidehead{
+  padding-bottom:9px!important;
+}
+.detail-title{
+  font-size:21px!important;
+  font-weight:900!important;
+  letter-spacing:-.025em!important;
+}
+.badge{
+  border-radius:999px!important;
+  min-height:25px!important;
+}
+.metric{
+  border:1px solid rgba(148,163,184,.11)!important;
+}
+html:not(.dark-mode) .metric{
+  background:#fbfcfe!important;
+}
+.operational-status{
+  border-width:1px!important;
+}
+.quick-status{
+  border-width:1px!important;
+}
+.quick-status-field label{
+  letter-spacing:.035em!important;
+}
+
+/* controles do mapa mais consistentes */
+.tools-trigger,
+.fullscreen-map-btn,
+.leaflet-control-zoom a{
+  box-shadow:none!important;
+}
+.tools-trigger,
+.fullscreen-map-btn,
+#risk-help-btn,
+.legend,
+.data-source-box{
+  border-width:1px!important;
+}
+.leaflet-control-zoom{
+  overflow:hidden!important;
+}
+
+/* legenda compacta: explicações completas ficam no modal */
+.legend h3{
+  letter-spacing:.035em!important;
+}
+.leg{
+  line-height:1.1!important;
+}
+
+/* popup do município */
+.leaflet-popup-content-wrapper{
+  border-radius:12px!important;
+}
+.leaflet-popup-content{
+  margin:12px 14px!important;
+}
+.leaflet-popup-tip-container{
+  opacity:.95;
+}
+
+/* sidebar refinada */
+.row{
+  border-radius:7px!important;
+}
+.row.selected{
+  box-shadow:inset 3px 0 0 #69b7ff!important;
+}
+
+/* rodapé ainda menos intrusivo */
+.v69-footer{
+  opacity:.92;
+}
+</style>
+
+
+<style id="v77-refinement">
+/* V77 — refinamento operacional sem alterar a base aprovada */
+
+/* Mais área visual para o mapa */
+.main{
+  gap:6px!important;
+  padding:6px!important;
+}
+.mapwrap{
+  border-radius:11px!important;
+}
+
+/* Indicador operacional: aparência de informação, não de botão */
+.v74-map-status{
+  min-height:34px!important;
+  padding:5px 13px!important;
+  font-size:8.8px!important;
+  border-radius:10px!important;
+  backdrop-filter:blur(9px)!important;
+}
+.v74-map-status .v74-status-dot{
+  box-shadow:none!important;
+}
+
+/* Dashboard: números como foco principal */
+.kpi{
+  min-height:52px!important;
+  padding:6px 9px!important;
+}
+.kpi small{
+  font-size:7.2px!important;
+}
+.kpi b{
+  font-size:21px!important;
+}
+.kpi-dot{
+  width:8px!important;
+  height:8px!important;
+}
+
+/* Sidebar */
+.sidebar{
+  box-shadow:none!important;
+}
+.sidehead{
+  padding:9px!important;
+}
+.search{
+  border-radius:8px!important;
+}
+.row{
+  min-height:38px!important;
+  padding:6px 7px!important;
+  margin-bottom:2px!important;
+}
+.row:hover{
+  transform:none!important;
+}
+
+/* Ficha municipal */
+.details{
+  width:390px!important;
+  max-width:min(390px,36vw)!important;
+}
+.detail-title{
+  font-size:22px!important;
+}
+.metric{
+  min-height:50px!important;
+}
+.quick-status{
+  background-image:none!important;
+}
+
+/* Níveis de risco */
+#risk-help-btn{
+  border-radius:10px!important;
+}
+.risk-help-card{
+  border-radius:14px!important;
+}
+.risk-level{
+  box-shadow:none!important;
+  border-radius:9px!important;
+}
+
+/* Legenda em tela */
+.legend{
+  min-width:165px!important;
+  max-width:185px!important;
+}
+.legend h3{
+  font-size:9.5px!important;
+}
+.leg{
+  font-size:8.5px!important;
+}
+
+/* Rodapé institucional-operacional */
+.v69-footer{
+  padding-left:10px!important;
+  padding-right:10px!important;
+  font-size:7.2px!important;
+}
+.v69-footer-sep{
+  opacity:.30!important;
+}
+
+/* Modo claro */
+html:not(.dark-mode) .mapwrap,
+html:not(.dark-mode) .sidebar,
+html:not(.dark-mode) .details{
+  border-color:rgba(15,23,42,.10)!important;
+}
+html:not(.dark-mode) .v74-map-status{
+  box-shadow:0 3px 12px rgba(15,23,42,.06)!important;
+}
+
+/* Modo escuro */
+html.dark-mode .v74-map-status{
+  box-shadow:0 4px 14px rgba(0,0,0,.16)!important;
+}
+
+/* Mobile */
+@media(max-width:720px){
+  .main{
+    padding:4px!important;
+    gap:4px!important;
+  }
+  .details{
+    width:100%!important;
+    max-width:none!important;
+  }
+  .v74-map-status{
+    max-width:60%!important;
+    font-size:6.8px!important;
+  }
+}
+</style>
+
+
+<style id="v78-refine">
+/* ============================================================
+   V78 — refino visual e operacional
+   ============================================================ */
+
+/* mais protagonismo para o mapa */
+.app{
+  grid-template-rows:58px 66px 22px minmax(0,1fr) 28px!important;
+}
+.main{
+  gap:5px!important;
+  padding:5px!important;
+}
+
+/* dashboard mais enxuto */
+.kpis{
+  padding:5px 10px!important;
+  gap:5px!important;
+}
+.kpi{
+  min-height:50px!important;
+  padding:6px 9px!important;
+  border-radius:9px!important;
+}
+.kpi small{
+  font-size:7px!important;
+}
+.kpi b{
+  font-size:20px!important;
+  margin-top:4px!important;
+}
+.kpi.active::after{
+  height:3px!important;
+  left:8px!important;
+  right:8px!important;
+}
+
+/* indicador operacional: leve, centralizado e mais legível */
+.v74-map-status{
+  top:10px!important;
+  min-height:32px!important;
+  max-width:min(800px,74%)!important;
+  padding:5px 13px!important;
+  border-radius:9px!important;
+  font-size:8.7px!important;
+  font-weight:800!important;
+  box-shadow:none!important;
+}
+.v74-map-status .v74-status-dot{
+  width:7px!important;
+  height:7px!important;
+  min-width:7px!important;
+}
+.v74-map-status strong{
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+
+/* mapa */
+.mapwrap,
+#map{
+  border-radius:10px!important;
+}
+
+/* sidebar mais discreta */
+.sidebar{
+  border-radius:10px!important;
+}
+.sidehead{
+  padding:9px 9px 7px!important;
+}
+.sidehead h2{
+  font-size:8.7px!important;
+}
+.search{
+  height:31px!important;
+  min-height:31px!important;
+}
+.list{
+  padding:4px 5px 7px!important;
+}
+.row{
+  min-height:37px!important;
+  padding:6px 7px!important;
+  border-radius:7px!important;
+}
+.row b{
+  font-size:9.2px!important;
+}
+.row span.status{
+  font-size:7.2px!important;
+}
+
+/* ficha municipal mais organizada */
+.details{
+  width:382px!important;
+  max-width:min(382px,35vw)!important;
+  border-radius:10px!important;
+}
+.detail-title{
+  font-size:21px!important;
+}
+.badge{
+  margin-top:6px!important;
+}
+.metric{
+  min-height:49px!important;
+  margin-top:7px!important;
+  padding:8px 9px!important;
+}
+.metric .ico{
+  font-size:15px!important;
+}
+.metric small{
+  font-size:6.8px!important;
+}
+.metric strong,
+.metric .value{
+  font-size:9.5px!important;
+}
+.operational-status{
+  margin-top:8px!important;
+  padding:8px 10px!important;
+}
+.quick-status{
+  margin-top:8px!important;
+  padding:9px!important;
+}
+.alert-expiry{
+  margin-top:7px!important;
+  padding:8px 9px!important;
+}
+
+/* controles mais discretos */
+#risk-help-btn{
+  top:10px!important;
+  left:10px!important;
+}
+.map-tools{
+  top:10px!important;
+  right:10px!important;
+}
+.leaflet-top.leaflet-left{
+  top:50px!important;
+  right:10px!important;
+}
+.fullscreen-map-btn{
+  top:124px!important;
+  right:10px!important;
+}
+.legend{
+  bottom:10px!important;
+  left:10px!important;
+}
+.data-source-box{
+  bottom:10px!important;
+  right:10px!important;
+}
+
+/* modais */
+.risk-help-card,
+.risk-editor{
+  border-radius:13px!important;
+}
+.risk-level{
+  border-radius:8px!important;
+}
+
+/* rodapé */
+.v69-footer{
+  height:28px!important;
+  min-height:28px!important;
+  padding:0 10px!important;
+}
+
+/* modo claro */
+html:not(.dark-mode) .v74-map-status{
+  background:rgba(255,255,255,.96)!important;
+  border-color:rgba(15,23,42,.11)!important;
+}
+html:not(.dark-mode) .details,
+html:not(.dark-mode) .sidebar,
+html:not(.dark-mode) .mapwrap{
+  box-shadow:none!important;
+}
+
+/* modo escuro */
+html.dark-mode .v74-map-status{
+  background:rgba(8,25,42,.92)!important;
+}
+
+/* mobile */
+@media(max-width:720px){
+  .app{
+    grid-template-rows:54px 56px 22px minmax(0,1fr) 28px!important;
+  }
+  .v74-map-status{
+    top:8px!important;
+    max-width:58%!important;
+    font-size:6.7px!important;
+  }
+  .details{
+    width:100%!important;
+    max-width:none!important;
+  }
+}
+</style>
+
+
+<style id="v79-consolidation">
+/* ============================================================
+   V79 — consolidação visual e operacional
+   ============================================================ */
+
+/* estrutura */
+.app{
+  grid-template-rows:56px 64px 22px minmax(0,1fr) 28px!important;
+}
+.main{
+  gap:5px!important;
+  padding:5px!important;
+}
+
+/* cabeçalho mais fino */
+header{
+  min-height:56px!important;
+  height:56px!important;
+  padding:5px 11px!important;
+}
+header .brand img,
+header .logo{
+  height:40px!important;
+  max-height:40px!important;
+}
+header .brand h1{
+  font-size:17px!important;
+}
+.alert-type-select{
+  min-height:25px!important;
+  font-size:9px!important;
+}
+
+/* dashboard */
+.kpis{
+  padding:5px 10px!important;
+  gap:5px!important;
+}
+.kpi{
+  min-height:49px!important;
+  padding:6px 9px!important;
+  border-radius:9px!important;
+}
+.kpi small{
+  font-size:6.9px!important;
+}
+.kpi b{
+  font-size:19px!important;
+}
+.kpi.active::after{
+  height:3px!important;
+}
+
+/* indicador operacional */
+.v74-map-status{
+  top:9px!important;
+  min-height:31px!important;
+  max-width:min(820px,76%)!important;
+  padding:5px 13px!important;
+  border-radius:9px!important;
+  font-size:8.5px!important;
+}
+.v74-map-status .v74-status-dot{
+  width:7px!important;
+  height:7px!important;
+  min-width:7px!important;
+}
+
+/* mapa */
+.mapwrap,
+#map{
+  border-radius:10px!important;
+}
+
+/* sidebar */
+.sidebar{
+  width:auto!important;
+  border-radius:10px!important;
+}
+.sidehead{
+  padding:8px 9px 7px!important;
+}
+.sidehead h2{
+  font-size:8.5px!important;
+  margin-bottom:6px!important;
+}
+.search{
+  height:30px!important;
+  min-height:30px!important;
+  font-size:8.7px!important;
+}
+.row{
+  min-height:36px!important;
+  padding:6px 7px!important;
+  border-radius:7px!important;
+}
+.row b{
+  font-size:9px!important;
+}
+.row span.status{
+  font-size:7px!important;
+}
+
+/* ficha */
+.details{
+  width:372px!important;
+  max-width:min(372px,34vw)!important;
+  border-radius:10px!important;
+}
+.details h2{
+  font-size:9px!important;
+}
+.detail-title{
+  font-size:20px!important;
+}
+.badge{
+  font-size:8px!important;
+}
+.metric{
+  min-height:48px!important;
+  margin-top:6px!important;
+}
+.metric small{
+  font-size:6.7px!important;
+}
+.metric strong,
+.metric .value{
+  font-size:9.3px!important;
+}
+.operational-status{
+  margin-top:7px!important;
+  padding:8px 9px!important;
+}
+.quick-status{
+  margin-top:7px!important;
+  padding:8px!important;
+}
+.quick-status select,
+.quick-status button{
+  min-height:33px!important;
+}
+.duration-presets button{
+  padding:4px 7px!important;
+}
+.alert-expiry{
+  margin-top:6px!important;
+}
+
+/* controles mapa */
+#risk-help-btn{
+  top:9px!important;
+  left:9px!important;
+}
+.map-tools{
+  top:9px!important;
+  right:9px!important;
+}
+.leaflet-top.leaflet-left{
+  top:48px!important;
+  right:9px!important;
+}
+.fullscreen-map-btn{
+  top:122px!important;
+  right:9px!important;
+}
+.legend{
+  left:9px!important;
+  bottom:9px!important;
+}
+.data-source-box{
+  right:9px!important;
+  bottom:9px!important;
+}
+
+/* legenda e fonte */
+.legend{
+  max-width:178px!important;
+  min-width:160px!important;
+}
+.legend h3{
+  font-size:9.2px!important;
+}
+.leg{
+  font-size:8.2px!important;
+}
+.data-source-box{
+  max-width:230px!important;
+}
+.data-source-box small{
+  font-size:6.5px!important;
+}
+.data-source-box strong{
+  font-size:8.4px!important;
+}
+
+/* rodapé */
+.v69-footer{
+  height:28px!important;
+  min-height:28px!important;
+  padding:0 9px!important;
+  font-size:7px!important;
+}
+
+/* light */
+html:not(.dark-mode) .kpi,
+html:not(.dark-mode) .sidebar,
+html:not(.dark-mode) .details,
+html:not(.dark-mode) .mapwrap{
+  box-shadow:none!important;
+}
+html:not(.dark-mode) .v74-map-status{
+  background:rgba(255,255,255,.96)!important;
+  border-color:rgba(15,23,42,.11)!important;
+}
+
+/* dark */
+html.dark-mode .v74-map-status{
+  background:rgba(7,24,40,.92)!important;
+}
+
+/* responsivo */
+@media(max-width:1000px){
+  .details{
+    width:350px!important;
+    max-width:350px!important;
+  }
+}
+@media(max-width:720px){
+  .app{
+    grid-template-rows:52px 56px 22px minmax(0,1fr) 28px!important;
+  }
+  header{
+    height:52px!important;
+    min-height:52px!important;
+  }
+  .v74-map-status{
+    top:8px!important;
+    max-width:58%!important;
+    font-size:6.5px!important;
+  }
+  .details{
+    width:100%!important;
+    max-width:none!important;
+  }
+}
+</style>
+
+
+<style id="v80-narrow-details">
+/* V80 — ficha municipal ligeiramente mais estreita */
+.details{
+  width:340px!important;
+  max-width:min(340px,31vw)!important;
+}
+
+/* preserva boa leitura interna mesmo com menor largura */
+.details .sidehead{
+  padding-left:10px!important;
+  padding-right:10px!important;
+}
+#detailBody{
+  padding-left:10px!important;
+  padding-right:10px!important;
+}
+.metric{
+  grid-template-columns:28px minmax(0,1fr) auto!important;
+  gap:7px!important;
+}
+.quick-status-grid{
+  grid-template-columns:minmax(0,1fr) auto!important;
+  gap:6px!important;
+}
+
+@media(max-width:1100px) and (min-width:721px){
+  .details{
+    width:320px!important;
+    max-width:320px!important;
+  }
+}
+@media(max-width:720px){
+  .details{
+    width:100%!important;
+    max-width:none!important;
+  }
+}
+</style>
+
+
+<style id="v81-details-no-crop">
+/* V81 — ficha municipal estreita, mas sem cortes */
+
+/* largura preservada */
+.details{
+  width:340px!important;
+  max-width:min(340px,31vw)!important;
+  overflow-x:hidden!important;
+}
+
+/* garante que qualquer texto longo quebre corretamente */
+.details *,
+#detailBody *{
+  min-width:0!important;
+}
+.details p,
+.details span,
+.details strong,
+.details small,
+.details label,
+.details .value,
+.details .metric,
+.details .operational-status,
+.details .quick-status,
+.details .alert-expiry{
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+
+/* cabeçalho da ficha */
+.details h2{
+  font-size:8.2px!important;
+  line-height:1.25!important;
+}
+.detail-title{
+  font-size:18.5px!important;
+  line-height:1.14!important;
+  white-space:normal!important;
+}
+
+/* métricas: valor pode quebrar linha, sem ser empurrado para fora */
+.metric{
+  grid-template-columns:26px minmax(0,1fr)!important;
+  grid-template-areas:
+    "ico label"
+    "ico value"!important;
+  align-items:start!important;
+  gap:3px 7px!important;
+  padding:8px!important;
+}
+.metric .ico{
+  grid-area:ico!important;
+  align-self:center!important;
+  width:26px!important;
+  font-size:14px!important;
+}
+.metric small{
+  grid-area:label!important;
+  font-size:6.5px!important;
+  line-height:1.25!important;
+}
+.metric strong,
+.metric .value{
+  grid-area:value!important;
+  font-size:8.9px!important;
+  line-height:1.3!important;
+  text-align:left!important;
+  max-width:none!important;
+  white-space:normal!important;
+}
+
+/* status operacional */
+.operational-status{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:6px!important;
+}
+.operational-status .op-copy strong{
+  font-size:9.8px!important;
+  white-space:normal!important;
+}
+.operational-status .op-chip{
+  justify-self:start!important;
+  max-width:100%!important;
+  white-space:normal!important;
+}
+
+/* alteração rápida: empilha campos se necessário */
+.quick-status-grid{
+  grid-template-columns:1fr!important;
+  gap:6px!important;
+}
+.quick-status-field{
+  min-width:0!important;
+}
+.quick-status select,
+.quick-status input,
+.quick-status button{
+  width:100%!important;
+  min-width:0!important;
+}
+.quick-status button{
+  justify-self:stretch!important;
+}
+
+/* presets podem quebrar para nova linha */
+.duration-presets{
+  flex-wrap:wrap!important;
+}
+
+/* expiração */
+.alert-expiry{
+  font-size:8.3px!important;
+  line-height:1.35!important;
+}
+.expiry-main,
+.expiry-sub{
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+
+/* close button não invade texto */
+.detail-close-btn{
+  margin-right:8px!important;
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+}
+
+/* telas intermediárias */
+@media(max-width:1100px) and (min-width:721px){
+  .details{
+    width:315px!important;
+    max-width:315px!important;
+  }
+  .detail-title{
+    font-size:17px!important;
+  }
+}
+
+/* mobile */
+@media(max-width:720px){
+  .details{
+    width:100%!important;
+    max-width:none!important;
+  }
+  .metric{
+    grid-template-columns:24px minmax(0,1fr)!important;
+  }
+}
+</style>
+
+
+<style id="v82-refinement">
+/* ============================================================
+   V82 — refino visual sem mexer na lógica operacional
+   ============================================================ */
+
+/* mapa mais protagonista */
+.main{
+  gap:4px!important;
+  padding:4px!important;
+}
+.mapwrap,
+#map{
+  border-radius:9px!important;
+}
+
+/* dashboard: mais leitura, menos peso */
+.kpis{
+  padding:4px 9px!important;
+  gap:4px!important;
+}
+.kpi{
+  min-height:48px!important;
+  padding:6px 8px!important;
+  border-radius:8px!important;
+}
+.kpi small{
+  font-size:6.8px!important;
+}
+.kpi b{
+  font-size:18.5px!important;
+}
+.kpi.active::after{
+  height:3px!important;
+  left:7px!important;
+  right:7px!important;
+}
+
+/* indicador operacional mais elegante */
+.v74-map-status{
+  top:8px!important;
+  min-height:30px!important;
+  max-width:min(820px,74%)!important;
+  padding:5px 12px!important;
+  border-radius:8px!important;
+  font-size:8.2px!important;
+}
+.v74-map-status .v74-status-dot{
+  width:6px!important;
+  height:6px!important;
+  min-width:6px!important;
+}
+
+/* sidebar mais leve */
+.sidebar{
+  border-radius:9px!important;
+}
+.sidehead{
+  padding:8px 8px 6px!important;
+}
+.sidehead h2{
+  font-size:8.2px!important;
+  margin-bottom:5px!important;
+}
+.search{
+  height:29px!important;
+  min-height:29px!important;
+}
+.row{
+  min-height:35px!important;
+  padding:5px 6px!important;
+  border-radius:6px!important;
+}
+.row b{
+  font-size:8.8px!important;
+}
+.row span.status{
+  font-size:6.8px!important;
+}
+
+/* ficha: leve sensação de painel flutuante */
+.details{
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+html:not(.dark-mode) .details{
+  background:rgba(255,255,255,.98)!important;
+}
+html.dark-mode .details{
+  background:rgba(9,24,40,.98)!important;
+}
+.detail-title{
+  font-size:18px!important;
+}
+.metric{
+  border-radius:8px!important;
+}
+.operational-status,
+.quick-status,
+.alert-expiry{
+  border-radius:8px!important;
+}
+
+/* controles flutuantes */
+#risk-help-btn{
+  top:8px!important;
+  left:8px!important;
+  min-height:36px!important;
+}
+.map-tools{
+  top:8px!important;
+  right:8px!important;
+}
+.tools-trigger{
+  width:32px!important;
+  height:32px!important;
+  min-height:32px!important;
+}
+.leaflet-top.leaflet-left{
+  top:46px!important;
+  right:8px!important;
+}
+.leaflet-control-zoom a{
+  width:32px!important;
+  height:32px!important;
+  line-height:32px!important;
+}
+.fullscreen-map-btn{
+  top:116px!important;
+  right:8px!important;
+  width:32px!important;
+  height:32px!important;
+  min-height:32px!important;
+}
+
+/* legenda e fonte */
+.legend{
+  left:8px!important;
+  bottom:8px!important;
+  min-width:155px!important;
+  max-width:172px!important;
+  padding:8px 10px!important;
+}
+.legend h3{
+  font-size:8.8px!important;
+}
+.leg{
+  font-size:8px!important;
+}
+.data-source-box{
+  right:8px!important;
+  bottom:8px!important;
+  max-width:220px!important;
+  padding:6px 8px!important;
+}
+
+/* rodapé */
+.v69-footer{
+  height:27px!important;
+  min-height:27px!important;
+  font-size:6.9px!important;
+}
+
+/* modos */
+html:not(.dark-mode) .sidebar,
+html:not(.dark-mode) .details,
+html:not(.dark-mode) .mapwrap,
+html:not(.dark-mode) .kpi{
+  box-shadow:none!important;
+}
+html.dark-mode .sidebar,
+html.dark-mode .details,
+html.dark-mode .mapwrap,
+html.dark-mode .kpi{
+  box-shadow:none!important;
+}
+
+/* mobile */
+@media(max-width:720px){
+  .main{
+    padding:2px!important;
+    gap:2px!important;
+  }
+  .v74-map-status{
+    top:6px!important;
+    max-width:56%!important;
+    font-size:6.3px!important;
+  }
+  .legend{
+    bottom:56px!important;
+  }
+}
+</style>
+
+
+<style id="v83-advance">
+/* ============================================================
+   V83 — avanço visual e operacional
+   ============================================================ */
+
+/* mais área visual para o mapa */
+.app{
+  grid-template-rows:54px 60px 20px minmax(0,1fr) 26px!important;
+}
+header{
+  min-height:54px!important;
+  height:54px!important;
+  padding:5px 10px!important;
+}
+header .brand img,
+header .logo{
+  height:38px!important;
+  max-height:38px!important;
+}
+header .brand h1{
+  font-size:16px!important;
+}
+.alert-type-select{
+  min-height:24px!important;
+  font-size:8.7px!important;
+}
+
+/* dashboard ainda mais executivo */
+.kpis{
+  padding:4px 8px!important;
+  gap:4px!important;
+}
+.kpi{
+  min-height:46px!important;
+  padding:5px 8px!important;
+  border-radius:8px!important;
+}
+.kpi small{
+  font-size:6.6px!important;
+}
+.kpi b{
+  font-size:18px!important;
+  margin-top:3px!important;
+}
+.kpi.active::after{
+  height:3px!important;
+  left:6px!important;
+  right:6px!important;
+}
+
+/* indicador operacional menos chamativo */
+.v74-map-status{
+  top:7px!important;
+  min-height:29px!important;
+  max-width:min(820px,72%)!important;
+  padding:4px 11px!important;
+  font-size:8px!important;
+  border-radius:8px!important;
+}
+.v74-map-status .v74-status-dot{
+  width:6px!important;
+  height:6px!important;
+  min-width:6px!important;
+}
+
+/* mapa */
+.main{
+  gap:3px!important;
+  padding:3px!important;
+}
+.mapwrap,
+#map{
+  border-radius:8px!important;
+}
+
+/* sidebar mais “utility panel” */
+.sidebar{
+  border-radius:8px!important;
+}
+.sidehead{
+  padding:7px 8px 6px!important;
+}
+.sidehead h2{
+  font-size:8px!important;
+  margin-bottom:5px!important;
+}
+.search{
+  height:28px!important;
+  min-height:28px!important;
+  font-size:8.5px!important;
+}
+.row{
+  min-height:34px!important;
+  padding:5px 6px!important;
+  border-radius:6px!important;
+}
+.row b{
+  font-size:8.6px!important;
+}
+.row span.status{
+  font-size:6.6px!important;
+}
+
+/* ficha operacional */
+.details{
+  width:332px!important;
+  max-width:min(332px,30vw)!important;
+  border-radius:8px!important;
+}
+.detail-title{
+  font-size:17.5px!important;
+}
+.badge{
+  font-size:7.8px!important;
+  min-height:23px!important;
+}
+.metric{
+  min-height:46px!important;
+  margin-top:5px!important;
+  padding:7px 8px!important;
+  border-radius:7px!important;
+}
+.metric small{
+  font-size:6.4px!important;
+}
+.metric strong,
+.metric .value{
+  font-size:8.8px!important;
+}
+.operational-status{
+  margin-top:6px!important;
+  padding:7px 8px!important;
+  border-radius:7px!important;
+}
+.operational-status .op-copy strong{
+  font-size:9.2px!important;
+}
+.quick-status{
+  margin-top:6px!important;
+  padding:7px!important;
+  border-radius:7px!important;
+}
+.quick-status select,
+.quick-status button{
+  min-height:32px!important;
+  font-size:8.4px!important;
+}
+.duration-presets{
+  margin-top:5px!important;
+}
+.duration-presets button{
+  padding:3px 6px!important;
+  font-size:7px!important;
+}
+.alert-expiry{
+  margin-top:5px!important;
+  padding:7px 8px!important;
+  border-radius:7px!important;
+}
+
+/* seleção de município mais limpa */
+.mapwrap.v73-selection-active .leaflet-overlay-pane svg path{
+  fill-opacity:.48!important;
+  stroke-opacity:.55!important;
+}
+.mapwrap.v73-selection-active .leaflet-overlay-pane svg path.v73-selected-path{
+  fill-opacity:1!important;
+  stroke-width:4!important;
+  filter:drop-shadow(0 0 3px rgba(0,0,0,.25))!important;
+}
+
+/* controles menores */
+#risk-help-btn{
+  top:7px!important;
+  left:7px!important;
+  min-height:34px!important;
+  padding:4px 8px 4px 4px!important;
+}
+#risk-help-btn .risk-help-icon{
+  width:25px!important;
+  height:25px!important;
+}
+.map-tools{
+  top:7px!important;
+  right:7px!important;
+}
+.tools-trigger{
+  width:30px!important;
+  height:30px!important;
+  min-height:30px!important;
+}
+.leaflet-top.leaflet-left{
+  top:43px!important;
+  right:7px!important;
+}
+.leaflet-control-zoom a{
+  width:30px!important;
+  height:30px!important;
+  line-height:30px!important;
+  font-size:16px!important;
+}
+.fullscreen-map-btn{
+  top:109px!important;
+  right:7px!important;
+  width:30px!important;
+  height:30px!important;
+  min-height:30px!important;
+}
+
+/* legenda mais compacta */
+.legend{
+  left:7px!important;
+  bottom:7px!important;
+  min-width:150px!important;
+  max-width:165px!important;
+  padding:7px 9px!important;
+}
+.legend h3{
+  font-size:8.5px!important;
+}
+.leg{
+  font-size:7.7px!important;
+  margin:3px 0!important;
+}
+.data-source-box{
+  right:7px!important;
+  bottom:7px!important;
+  max-width:210px!important;
+  padding:6px 7px!important;
+}
+
+/* rodapé quase invisível */
+.v69-footer{
+  height:26px!important;
+  min-height:26px!important;
+  font-size:6.7px!important;
+}
+
+/* mobile */
+@media(max-width:720px){
+  .app{
+    grid-template-rows:50px 54px 20px minmax(0,1fr) 26px!important;
+  }
+  header{
+    height:50px!important;
+    min-height:50px!important;
+  }
+  .details{
+    width:100%!important;
+    max-width:none!important;
+  }
+  .v74-map-status{
+    top:6px!important;
+    max-width:54%!important;
+    font-size:6px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -658,6 +3449,10 @@ body.fullscreen-active .fullscreen-map-btn{right:14px}
     </div>
 
     <div class="map-tools" id="mapTools">
+<button id="themeToggle" type="button" aria-label="Ativar modo escuro" title="Alternar modo claro/escuro">
+  <span class="theme-dot"></span><span id="themeIcon">🌙</span><span class="theme-label" id="themeLabel">Escuro</span>
+</button>
+
       <button class="tools-trigger" id="toolsTrigger" type="button" aria-expanded="false" title="Ferramentas do mapa">⋮</button>
       <div class="tools-menu" id="toolsMenu" aria-hidden="true">
         <button class="tools-item" id="centerTool" type="button">◎ <span>Centralizar Amazonas</span></button>
@@ -1724,5 +4519,623 @@ updateHeaderSummary();
 setInterval(()=>{processExpiredAlerts();refreshOperationalStatus();updateHeaderSummary()},60000);
 setInterval(refreshOperationalStatus,15000);
 </script>
+
+<script id="theme-mode-controller">
+(function(){
+  const KEY='cemoa_theme';
+  const root=document.documentElement;
+  const btn=document.getElementById('themeToggle');
+  const icon=document.getElementById('themeIcon');
+  const label=document.getElementById('themeLabel');
+  function apply(mode){
+    const dark=mode==='dark';
+    root.classList.toggle('dark-mode',dark);
+    document.body.classList.toggle('dark-mode',dark);
+    if(icon)icon.textContent=dark?'☀️':'🌙';
+    if(label)label.textContent=dark?'Claro':'Escuro';
+    if(btn){
+      btn.setAttribute('aria-pressed',String(dark));
+      btn.setAttribute('aria-label',dark?'Ativar modo claro':'Ativar modo escuro');
+      btn.title=dark?'Modo claro':'Modo escuro';
+    }
+    try{localStorage.setItem(KEY,mode)}catch(e){}
+    if(typeof map!=='undefined' && map && map.invalidateSize)
+      setTimeout(()=>map.invalidateSize(false),80);
+  }
+  let saved=null;
+  try{saved=localStorage.getItem(KEY)}catch(e){}
+  const initial=saved || ((matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');
+  apply(initial);
+  if(btn)btn.addEventListener('click',()=>apply(root.classList.contains('dark-mode')?'light':'dark'));
+})();
+</script>
+
+
+<script id="v67-theme-refresh">
+(function(){
+  const btn=document.getElementById('themeToggle');
+  if(!btn)return;
+  btn.addEventListener('click',()=>{
+    setTimeout(()=>{
+      try{
+        if(typeof map!=='undefined' && map){
+          map.invalidateSize({pan:false});
+          if(typeof geoLayer!=='undefined' && geoLayer && typeof featureStyle==='function'){
+            geoLayer.setStyle(featureStyle);
+          }
+        }
+      }catch(e){}
+    },80);
+  });
+})();
+</script>
+
+
+<script id="v68-header-layout-fix">
+(function(){
+  function modernizeHeader(){
+    const header=document.querySelector('header');
+    if(!header || header.dataset.v68Ready) return;
+    header.dataset.v68Ready='1';
+
+    const brand=header.querySelector('.brand');
+    let actions=header.querySelector('.header-actions,.actions,.top-actions,.header-right');
+
+    if(!actions){
+      actions=document.createElement('div');
+      actions.className='header-actions v68-header-actions';
+      Array.from(header.children).forEach(el=>{
+        if(el!==brand && el!==actions) actions.appendChild(el);
+      });
+      header.appendChild(actions);
+    }else{
+      actions.classList.add('v68-header-actions');
+    }
+
+    actions.style.display='flex';
+    actions.style.alignItems='center';
+    actions.style.justifyContent='flex-end';
+    actions.style.gap='7px';
+    actions.style.flexWrap='nowrap';
+
+    /* normaliza ícones/botões que tenham posicionamento inline legado */
+    actions.querySelectorAll('button,.icon-btn,#themeToggle,.theme-toggle,.header-menu,.admin-btn').forEach(el=>{
+      el.style.position='relative';
+      el.style.inset='auto';
+      el.style.transform='none';
+      el.style.flex='0 0 auto';
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',modernizeHeader);
+  }else{
+    modernizeHeader();
+  }
+})();
+</script>
+
+
+<div class="v69-footer" id="v69Footer">
+  <div class="v69-footer-left">
+    <span class="v69-footer-chip"><b>CEMOA</b> · Defesa Civil do Amazonas</span>
+    <span class="v69-footer-sep">•</span>
+    <span class="v69-footer-item" id="v69FooterProduct">Produto ativo</span>
+  </div>
+  <div class="v69-footer-right">
+    <span class="v69-footer-item">Fontes: CEMOA · INMET · CENSIPAM · ANA · SGB</span>
+    <span class="v69-footer-sep">•</span>
+    <span class="v69-footer-item" id="v69FooterTime"></span>
+  </div>
+</div>
+
+
+<script id="v69-footer-sync">
+(function(){
+  function getProductLabel(){
+    const sel=document.getElementById('alertTypeSelect');
+    if(!sel) return 'Produto ativo';
+    const opt=sel.options[sel.selectedIndex];
+    return opt ? opt.textContent.trim() : 'Produto ativo';
+  }
+
+  function updateFooter(){
+    const product=document.getElementById('v69FooterProduct');
+    const time=document.getElementById('v69FooterTime');
+
+    if(product){
+      product.textContent=getProductLabel();
+    }
+
+    if(time){
+      const d=new Date();
+      time.textContent=
+        d.toLocaleDateString('pt-BR')+' · '+
+        d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    }
+  }
+
+  const sel=document.getElementById('alertTypeSelect');
+  if(sel) sel.addEventListener('change',updateFooter);
+
+  updateFooter();
+  setInterval(updateFooter,60000);
+})();
+</script>
+
+
+<script id="v73-selection-highlight">
+(function(){
+  function clearSelection(){
+    const mapwrap=document.querySelector('.mapwrap');
+    if(mapwrap) mapwrap.classList.remove('v73-selection-active');
+    document.querySelectorAll('.leaflet-overlay-pane svg path.v73-selected-path')
+      .forEach(p=>p.classList.remove('v73-selected-path'));
+  }
+
+  function applySelection(){
+    clearSelection();
+
+    if(typeof selectedName==='undefined' || !selectedName) return;
+    if(typeof geoLayer==='undefined' || !geoLayer) return;
+
+    let selectedLayer=null;
+    geoLayer.eachLayer(layer=>{
+      try{
+        if(layer.feature && layer.feature.properties &&
+           layer.feature.properties.nome===selectedName){
+          selectedLayer=layer;
+        }
+      }catch(e){}
+    });
+
+    if(!selectedLayer) return;
+
+    const mapwrap=document.querySelector('.mapwrap');
+    if(mapwrap) mapwrap.classList.add('v73-selection-active');
+
+    try{
+      const path=selectedLayer.getElement && selectedLayer.getElement();
+      if(path) path.classList.add('v73-selected-path');
+
+      /* traz o município selecionado para frente sem alterar zoom */
+      if(selectedLayer.bringToFront) selectedLayer.bringToFront();
+    }catch(e){}
+  }
+
+  document.addEventListener('click',()=>setTimeout(applySelection,80));
+  document.addEventListener('change',()=>setTimeout(applySelection,80));
+
+  /* observa fechamento da ficha */
+  const details=document.getElementById('details');
+  if(details && 'MutationObserver' in window){
+    new MutationObserver(()=>{
+      if(!details.classList.contains('open')){
+        clearSelection();
+      }else{
+        setTimeout(applySelection,50);
+      }
+    }).observe(details,{attributes:true,attributeFilter:['class']});
+  }
+
+  setTimeout(applySelection,500);
+})();
+</script>
+
+
+<script id="v75-operational-ui">
+(function(){
+  function getCurrentProductText(){
+    const sel=document.getElementById('alertTypeSelect');
+    if(!sel) return 'Risco';
+    const opt=sel.options[sel.selectedIndex];
+    return opt ? opt.textContent.trim() : 'Risco';
+  }
+
+  function getCurrentRiskLabel(){
+    /* Prioriza a legenda/nome técnico do produto quando disponível */
+    try{
+      if(typeof currentConfig==='function'){
+        const cfg=currentConfig();
+        if(cfg){
+          if(cfg.legendTitle) return String(cfg.legendTitle).trim();
+          if(cfg.riskLabel) return String(cfg.riskLabel).trim();
+          if(cfg.subtitle) return String(cfg.subtitle).trim();
+        }
+      }
+    }catch(e){}
+
+    const product=getCurrentProductText();
+
+    /* Padronização dos produtos já usados pelo painel */
+    const p=product.toLowerCase();
+    if(p.includes('aviso meteor')) return 'Risco de Tempestade Local/ Convectiva';
+    if(p.includes('chuva intensa')) return 'Risco de Chuva Intensa';
+    if(p.includes('movimento de massa')) return 'Risco de Movimento de Massa';
+    if(p.includes('alagamento')) return 'Risco de Alagamento';
+    if(p.includes('qualidade do ar')) return 'Qualidade do Ar';
+
+    return product;
+  }
+
+  function countOutsideBase(){
+    try{
+      if(typeof GEO==='undefined' || typeof getRisk!=='function') return 0;
+      const low=(typeof currentLowLevel==='function')?currentLowLevel():'BAIXO';
+      return GEO.features.reduce((acc,f)=>acc+(getRisk(f)!==low?1:0),0);
+    }catch(e){
+      return 0;
+    }
+  }
+
+  function ensureStatus(){
+    const mapwrap=document.querySelector('.mapwrap');
+    if(!mapwrap) return null;
+
+    let box=document.getElementById('v74MapStatus');
+    if(box) return box;
+
+    box=document.createElement('div');
+    box.id='v74MapStatus';
+    box.className='v74-map-status';
+    mapwrap.appendChild(box);
+    return box;
+  }
+
+  function refreshStatus(){
+    const box=ensureStatus();
+    if(!box) return;
+
+    const total=countOutsideBase();
+    const risk=getCurrentRiskLabel();
+
+    let phrase;
+    if(total===0){
+      phrase='Nenhum município está sob a iminência de '+risk;
+    }else if(total===1){
+      phrase='1 município está sob a iminência de '+risk;
+    }else{
+      phrase=total+' municípios estão sob a iminência de '+risk;
+    }
+
+    box.innerHTML=
+      '<span class="v74-status-dot"></span>'+
+      '<strong class="v74-status-product">'+phrase+'</strong>';
+  }
+
+  function enhanceDashboard(){
+    document.querySelectorAll('.kpi').forEach(kpi=>{
+      if(!kpi.hasAttribute('tabindex')) kpi.setAttribute('tabindex','0');
+      if(!kpi.hasAttribute('role')) kpi.setAttribute('role','button');
+
+      if(!kpi.dataset.v75Keyboard){
+        kpi.dataset.v75Keyboard='1';
+        kpi.addEventListener('keydown',ev=>{
+          if(ev.key==='Enter' || ev.key===' '){
+            ev.preventDefault();
+            kpi.click();
+          }
+        });
+      }
+    });
+  }
+
+  const sel=document.getElementById('alertTypeSelect');
+  if(sel) sel.addEventListener('change',()=>setTimeout(refreshStatus,60));
+
+  document.addEventListener('click',()=>setTimeout(refreshStatus,90));
+  document.addEventListener('change',()=>setTimeout(refreshStatus,60));
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>{
+      enhanceDashboard();
+      refreshStatus();
+    });
+  }else{
+    enhanceDashboard();
+    refreshStatus();
+  }
+
+  setInterval(refreshStatus,30000);
+})();
+</script>
+
+
+<script id="v76-dashboard-toggle">
+(function(){
+  let lastKpi=null;
+  let lastClick=0;
+
+  function resetStateView(){
+    try{
+      if(typeof clearKpiFilter==='function'){
+        clearKpiFilter();
+      }
+    }catch(e){}
+
+    try{
+      if(typeof resetMapView==='function'){
+        resetMapView();
+        return;
+      }
+    }catch(e){}
+
+    try{
+      if(typeof geoLayer!=='undefined' && geoLayer && typeof map!=='undefined' && map){
+        const bounds=geoLayer.getBounds();
+        if(bounds && bounds.isValid()){
+          map.fitBounds(bounds,{padding:[24,24],animate:true,maxZoom:7});
+        }
+      }
+    }catch(e){}
+  }
+
+  document.querySelectorAll('.kpi').forEach(kpi=>{
+    kpi.addEventListener('click',()=>{
+      const now=Date.now();
+
+      /* segundo clique consecutivo no mesmo nível: visão estadual */
+      if(lastKpi===kpi && (now-lastClick)<1800){
+        setTimeout(resetStateView,60);
+        lastKpi=null;
+        lastClick=0;
+        return;
+      }
+
+      lastKpi=kpi;
+      lastClick=now;
+    });
+  });
+})();
+</script>
+
+
+<script id="v77-operational-refresh">
+(function(){
+  function updateOperationalIndicator(){
+    const box=document.getElementById('v74MapStatus');
+    if(!box) return;
+
+    let total=0;
+    try{
+      if(typeof GEO!=='undefined' && typeof getRisk==='function'){
+        const low=(typeof currentLowLevel==='function')?currentLowLevel():'BAIXO';
+        total=GEO.features.reduce((n,f)=>n+(getRisk(f)!==low?1:0),0);
+      }
+    }catch(e){}
+
+    let risk='risco';
+    try{
+      if(typeof currentConfig==='function'){
+        const cfg=currentConfig();
+        if(cfg){
+          risk=cfg.legendTitle || cfg.riskLabel || cfg.subtitle || risk;
+        }
+      }
+    }catch(e){}
+
+    if(risk==='risco' || !risk){
+      const sel=document.getElementById('alertTypeSelect');
+      const text=sel && sel.options[sel.selectedIndex]
+        ? sel.options[sel.selectedIndex].textContent.trim()
+        : '';
+      const p=text.toLowerCase();
+
+      if(p.includes('aviso meteor')) risk='Risco de Tempestade Local/ Convectiva';
+      else if(p.includes('chuva intensa')) risk='Risco de Chuva Intensa';
+      else if(p.includes('movimento de massa')) risk='Risco de Movimento de Massa';
+      else if(p.includes('alagamento')) risk='Risco de Alagamento';
+      else if(p.includes('qualidade do ar')) risk='Qualidade do Ar';
+      else if(text) risk=text;
+    }
+
+    const phrase = total===0
+      ? 'Nenhum município está sob a iminência de '+risk
+      : total===1
+        ? '1 município está sob a iminência de '+risk
+        : total+' municípios estão sob a iminência de '+risk;
+
+    box.innerHTML='<span class="v74-status-dot"></span><strong>'+phrase+'</strong>';
+  }
+
+  /* MutationObserver permite refletir edições no painel sem depender
+     exclusivamente dos handlers antigos. */
+  const observer=new MutationObserver(()=>{
+    clearTimeout(window.__v77IndicatorTimer);
+    window.__v77IndicatorTimer=setTimeout(updateOperationalIndicator,60);
+  });
+
+  const dashboard=document.querySelector('.kpis');
+  if(dashboard){
+    observer.observe(dashboard,{subtree:true,childList:true,characterData:true});
+  }
+
+  document.addEventListener('change',()=>setTimeout(updateOperationalIndicator,80));
+  document.addEventListener('click',()=>setTimeout(updateOperationalIndicator,100));
+  window.addEventListener('storage',()=>setTimeout(updateOperationalIndicator,80));
+
+  setTimeout(updateOperationalIndicator,400);
+})();
+</script>
+
+
+<script id="v78-indicator-color">
+(function(){
+  const priority=['EXTREMO','SEVERO','ALTO','MODERADO','BAIXO'];
+  const colorMap={
+    EXTREMO:'#9026c9',
+    SEVERO:'#e21c2b',
+    ALTO:'#f2790f',
+    MODERADO:'#f0b90b',
+    BAIXO:'#27ae52',
+    BOA:'#27ae52',
+    RUIM:'#f2790f',
+    MUITO_RUIM:'#e21c2b',
+    PESSIMA:'#9026c9'
+  };
+
+  function getHighest(){
+    try{
+      if(typeof GEO==='undefined' || typeof getRisk!=='function') return null;
+      const levels=GEO.features.map(f=>getRisk(f));
+      for(const p of priority){
+        if(levels.includes(p)) return p;
+      }
+      if(levels.includes('PESSIMA')) return 'PESSIMA';
+      if(levels.includes('MUITO_RUIM')) return 'MUITO_RUIM';
+      if(levels.includes('RUIM')) return 'RUIM';
+      if(levels.includes('MODERADO')) return 'MODERADO';
+      if(levels.includes('BOA')) return 'BOA';
+    }catch(e){}
+    return null;
+  }
+
+  function refreshIndicatorColor(){
+    const box=document.getElementById('v74MapStatus');
+    if(!box) return;
+    const dot=box.querySelector('.v74-status-dot');
+    if(!dot) return;
+    const level=getHighest();
+    dot.style.background=colorMap[level] || '#5eaef2';
+  }
+
+  document.addEventListener('click',()=>setTimeout(refreshIndicatorColor,80));
+  document.addEventListener('change',()=>setTimeout(refreshIndicatorColor,80));
+  setInterval(refreshIndicatorColor,30000);
+  setTimeout(refreshIndicatorColor,400);
+})();
+</script>
+
+
+<script id="v79-operational-summary">
+(function(){
+  function getCounts(){
+    const result={total:0,outside:0,highest:null};
+    try{
+      if(typeof GEO==='undefined' || typeof getRisk!=='function') return result;
+
+      const low=(typeof currentLowLevel==='function')?currentLowLevel():'BAIXO';
+      const levels=GEO.features.map(f=>getRisk(f));
+
+      result.total=levels.length;
+      result.outside=levels.filter(v=>v!==low).length;
+
+      const order=['EXTREMO','PESSIMA','SEVERO','MUITO_RUIM','ALTO','RUIM','MODERADO','BAIXO','BOA'];
+      result.highest=order.find(l=>levels.includes(l))||null;
+    }catch(e){}
+    return result;
+  }
+
+  function getRiskLabel(){
+    const sel=document.getElementById('alertTypeSelect');
+    const text=sel && sel.options[sel.selectedIndex]
+      ? sel.options[sel.selectedIndex].textContent.trim()
+      : '';
+
+    const p=text.toLowerCase();
+    if(p.includes('aviso meteor')) return 'Risco de Tempestade Local/ Convectiva';
+    if(p.includes('chuva intensa')) return 'Risco de Chuva Intensa';
+    if(p.includes('movimento de massa')) return 'Risco de Movimento de Massa';
+    if(p.includes('alagamento')) return 'Risco de Alagamento';
+    if(p.includes('qualidade do ar')) return 'Qualidade do Ar';
+    return text || 'risco';
+  }
+
+  function refresh(){
+    const box=document.getElementById('v74MapStatus');
+    if(!box) return;
+
+    const c=getCounts();
+    const label=getRiskLabel();
+
+    const phrase=c.outside===0
+      ? 'Nenhum município está sob a iminência de '+label
+      : c.outside===1
+        ? '1 município está sob a iminência de '+label
+        : c.outside+' municípios estão sob a iminência de '+label;
+
+    const colorMap={
+      EXTREMO:'#9026c9',
+      PESSIMA:'#9026c9',
+      SEVERO:'#e21c2b',
+      MUITO_RUIM:'#e21c2b',
+      ALTO:'#f2790f',
+      RUIM:'#f2790f',
+      MODERADO:'#f0b90b',
+      BAIXO:'#27ae52',
+      BOA:'#27ae52'
+    };
+
+    box.innerHTML='<span class="v74-status-dot"></span><strong>'+phrase+'</strong>';
+    const dot=box.querySelector('.v74-status-dot');
+    if(dot) dot.style.background=colorMap[c.highest]||'#5eaef2';
+
+    box.title=phrase;
+  }
+
+  document.addEventListener('click',()=>setTimeout(refresh,80));
+  document.addEventListener('change',()=>setTimeout(refresh,80));
+  window.addEventListener('storage',()=>setTimeout(refresh,80));
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(refresh,250));
+  }else{
+    setTimeout(refresh,250);
+  }
+
+  setInterval(refresh,30000);
+})();
+</script>
+
+
+<script id="v82-focus-details">
+(function(){
+  const details=document.getElementById('details');
+  const mapwrap=document.querySelector('.mapwrap');
+  if(!details || !mapwrap) return;
+
+  const update=()=>{
+    mapwrap.classList.toggle('v82-details-open',details.classList.contains('open'));
+  };
+
+  const style=document.createElement('style');
+  style.textContent=`
+    .mapwrap.v82-details-open .legend,
+    .mapwrap.v82-details-open .data-source-box{
+      opacity:.86;
+    }
+  `;
+  document.head.appendChild(style);
+
+  new MutationObserver(update).observe(details,{attributes:true,attributeFilter:['class']});
+  update();
+})();
+</script>
+
+
+<script id="v83-selection-focus">
+(function(){
+  const details=document.getElementById('details');
+  const mapwrap=document.querySelector('.mapwrap');
+  if(!details || !mapwrap) return;
+
+  function sync(){
+    const open=details.classList.contains('open');
+    mapwrap.classList.toggle('v83-detail-focus',open);
+  }
+
+  const style=document.createElement('style');
+  style.textContent=`
+    .mapwrap.v83-detail-focus.v73-selection-active .leaflet-overlay-pane svg path:not(.v73-selected-path){
+      filter:saturate(.82);
+    }
+  `;
+  document.head.appendChild(style);
+
+  new MutationObserver(sync).observe(details,{attributes:true,attributeFilter:['class']});
+  sync();
+})();
+</script>
+
 </body>
 </html>
