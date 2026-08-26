@@ -1,26 +1,31 @@
-# 🗺️ Painel de Alertas - Mapa Interativo
+[readme.md.md](https://github.com/user-attachments/files/31476553/readme.md.md)
+# 🗺️ Painel de Alertas CEMOA
 
-Mapa interativo para visualização de pontos de interesse.
+Mapa interativo desenvolvido para a Defesa Civil do Amazonas - CEMOA.
 
-## 🔗 Acesse
+## 🔗 Acesse o Painel
 [https://jacaunaigor-ig.github.io/Painel-de-alertas/](https://jacaunaigor-ig.github.io/Painel-de-alertas/)
 
 ## ✨ Funcionalidades
-- 📍 Marcadores interativos com informações
-- ℹ️ Popups com descrição dos locais
-- 📱 Design responsivo para todos os dispositivos
-- 🎨 Interface moderna e intuitiva
+- 📍 Mapa interativo com Leaflet.js
+- 🏷️ Marcadores de risco (Baixo, Moderado, Alto, Severo, Extremo)
+- 📊 Painel de indicadores (KPIs)
+- 🎨 Design "sala de operações"
+- 📱 Responsivo
 
 ## 🛠️ Tecnologias
-- **Leaflet.js** - Biblioteca de mapas
-- **OpenStreetMap** - Mapas gratuitos
-- **HTML5, CSS3, JavaScript** - Tecnologias web
+- **Leaflet.js** - Mapas interativos
+- **OpenStreetMap** - Base cartográfica
+- **HTML5, CSS3, JavaScript** - Frontend
+- **Fonts:** Inter, JetBrains Mono
 
-## 📍 Pontos no Mapa
-- Parque Ibirapuera
-- MASP - Museu de Arte
-- Catedral da Sé
-- Mercado Municipal
+## 📊 Indicadores
+- Níveis de risco: Baixo, Moderado, Alto, Severo, Extremo
+- Qualidade do ar
+- Alertas ativos
 
 ## 📄 Licença
 MIT
+
+## 👨‍💻 Desenvolvido por
+jacaunaigor-ig
