@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Painel de Alertas CEMOA — Defesa Civil do Amazonas</title>
+<title>Painel de Alertas CEMOA — Defesa Civil do Amazonas | V95 Final</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2001,1394 +2001,6 @@ html.dark-mode .fullscreen-map-btn{
 </style>
 
 
-<style id="v75-operational-indicator">
-.v74-map-status{
-  max-width:min(680px,68%)!important;
-  padding-left:12px!important;
-  padding-right:12px!important;
-}
-.v74-map-status .v74-status-product{
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-@media(max-width:720px){
-  .v74-map-status{
-    max-width:62%!important;
-  }
-}
-</style>
-
-
-<style id="v76-evolution">
-/* indicador operacional */
-.v74-map-status{
-  min-height:36px!important;
-  max-width:min(760px,72%)!important;
-  padding:6px 14px!important;
-  font-size:9px!important;
-  letter-spacing:.005em!important;
-  box-shadow:none!important;
-}
-.v74-map-status .v74-status-dot{
-  width:8px!important;
-  height:8px!important;
-  min-width:8px!important;
-  box-shadow:0 0 0 3px rgba(94,174,242,.12);
-}
-html:not(.dark-mode) .v74-map-status{
-  background:rgba(255,255,255,.95)!important;
-  border-color:rgba(15,23,42,.13)!important;
-}
-html.dark-mode .v74-map-status{
-  background:rgba(7,24,40,.91)!important;
-}
-
-/* dashboard mais plano */
-.kpis{
-  padding-top:5px!important;
-  padding-bottom:5px!important;
-}
-.kpi{
-  min-height:54px!important;
-  border-radius:9px!important;
-}
-.kpi::before{
-  width:3px!important;
-}
-.kpi.active{
-  background-image:none!important;
-}
-html:not(.dark-mode) .kpi.active{
-  background:#f8fbfe!important;
-}
-html.dark-mode .kpi.active{
-  background:#12243a!important;
-}
-
-/* ficha: título e nível dominam a leitura */
-.details .sidehead{
-  padding-bottom:9px!important;
-}
-.detail-title{
-  font-size:21px!important;
-  font-weight:900!important;
-  letter-spacing:-.025em!important;
-}
-.badge{
-  border-radius:999px!important;
-  min-height:25px!important;
-}
-.metric{
-  border:1px solid rgba(148,163,184,.11)!important;
-}
-html:not(.dark-mode) .metric{
-  background:#fbfcfe!important;
-}
-.operational-status{
-  border-width:1px!important;
-}
-.quick-status{
-  border-width:1px!important;
-}
-.quick-status-field label{
-  letter-spacing:.035em!important;
-}
-
-/* controles do mapa mais consistentes */
-.tools-trigger,
-.fullscreen-map-btn,
-.leaflet-control-zoom a{
-  box-shadow:none!important;
-}
-.tools-trigger,
-.fullscreen-map-btn,
-#risk-help-btn,
-.legend,
-.data-source-box{
-  border-width:1px!important;
-}
-.leaflet-control-zoom{
-  overflow:hidden!important;
-}
-
-/* legenda compacta: explicações completas ficam no modal */
-.legend h3{
-  letter-spacing:.035em!important;
-}
-.leg{
-  line-height:1.1!important;
-}
-
-/* popup do município */
-.leaflet-popup-content-wrapper{
-  border-radius:12px!important;
-}
-.leaflet-popup-content{
-  margin:12px 14px!important;
-}
-.leaflet-popup-tip-container{
-  opacity:.95;
-}
-
-/* sidebar refinada */
-.row{
-  border-radius:7px!important;
-}
-.row.selected{
-  box-shadow:inset 3px 0 0 #69b7ff!important;
-}
-
-/* rodapé ainda menos intrusivo */
-.v69-footer{
-  opacity:.92;
-}
-</style>
-
-
-<style id="v77-refinement">
-/* V77 — refinamento operacional sem alterar a base aprovada */
-
-/* Mais área visual para o mapa */
-.main{
-  gap:6px!important;
-  padding:6px!important;
-}
-.mapwrap{
-  border-radius:11px!important;
-}
-
-/* Indicador operacional: aparência de informação, não de botão */
-.v74-map-status{
-  min-height:34px!important;
-  padding:5px 13px!important;
-  font-size:8.8px!important;
-  border-radius:10px!important;
-  backdrop-filter:blur(9px)!important;
-}
-.v74-map-status .v74-status-dot{
-  box-shadow:none!important;
-}
-
-/* Dashboard: números como foco principal */
-.kpi{
-  min-height:52px!important;
-  padding:6px 9px!important;
-}
-.kpi small{
-  font-size:7.2px!important;
-}
-.kpi b{
-  font-size:21px!important;
-}
-.kpi-dot{
-  width:8px!important;
-  height:8px!important;
-}
-
-/* Sidebar */
-.sidebar{
-  box-shadow:none!important;
-}
-.sidehead{
-  padding:9px!important;
-}
-.search{
-  border-radius:8px!important;
-}
-.row{
-  min-height:38px!important;
-  padding:6px 7px!important;
-  margin-bottom:2px!important;
-}
-.row:hover{
-  transform:none!important;
-}
-
-/* Ficha municipal */
-.details{
-  width:390px!important;
-  max-width:min(390px,36vw)!important;
-}
-.detail-title{
-  font-size:22px!important;
-}
-.metric{
-  min-height:50px!important;
-}
-.quick-status{
-  background-image:none!important;
-}
-
-/* Níveis de risco */
-#risk-help-btn{
-  border-radius:10px!important;
-}
-.risk-help-card{
-  border-radius:14px!important;
-}
-.risk-level{
-  box-shadow:none!important;
-  border-radius:9px!important;
-}
-
-/* Legenda em tela */
-.legend{
-  min-width:165px!important;
-  max-width:185px!important;
-}
-.legend h3{
-  font-size:9.5px!important;
-}
-.leg{
-  font-size:8.5px!important;
-}
-
-/* Rodapé institucional-operacional */
-.v69-footer{
-  padding-left:10px!important;
-  padding-right:10px!important;
-  font-size:7.2px!important;
-}
-.v69-footer-sep{
-  opacity:.30!important;
-}
-
-/* Modo claro */
-html:not(.dark-mode) .mapwrap,
-html:not(.dark-mode) .sidebar,
-html:not(.dark-mode) .details{
-  border-color:rgba(15,23,42,.10)!important;
-}
-html:not(.dark-mode) .v74-map-status{
-  box-shadow:0 3px 12px rgba(15,23,42,.06)!important;
-}
-
-/* Modo escuro */
-html.dark-mode .v74-map-status{
-  box-shadow:0 4px 14px rgba(0,0,0,.16)!important;
-}
-
-/* Mobile */
-@media(max-width:720px){
-  .main{
-    padding:4px!important;
-    gap:4px!important;
-  }
-  .details{
-    width:100%!important;
-    max-width:none!important;
-  }
-  .v74-map-status{
-    max-width:60%!important;
-    font-size:6.8px!important;
-  }
-}
-</style>
-
-
-<style id="v78-refine">
-/* ============================================================
-   V78 — refino visual e operacional
-   ============================================================ */
-
-/* mais protagonismo para o mapa */
-.app{
-  grid-template-rows:58px 66px 22px minmax(0,1fr) 28px!important;
-}
-.main{
-  gap:5px!important;
-  padding:5px!important;
-}
-
-/* dashboard mais enxuto */
-.kpis{
-  padding:5px 10px!important;
-  gap:5px!important;
-}
-.kpi{
-  min-height:50px!important;
-  padding:6px 9px!important;
-  border-radius:9px!important;
-}
-.kpi small{
-  font-size:7px!important;
-}
-.kpi b{
-  font-size:20px!important;
-  margin-top:4px!important;
-}
-.kpi.active::after{
-  height:3px!important;
-  left:8px!important;
-  right:8px!important;
-}
-
-/* indicador operacional: leve, centralizado e mais legível */
-.v74-map-status{
-  top:10px!important;
-  min-height:32px!important;
-  max-width:min(800px,74%)!important;
-  padding:5px 13px!important;
-  border-radius:9px!important;
-  font-size:8.7px!important;
-  font-weight:800!important;
-  box-shadow:none!important;
-}
-.v74-map-status .v74-status-dot{
-  width:7px!important;
-  height:7px!important;
-  min-width:7px!important;
-}
-.v74-map-status strong{
-  overflow:hidden!important;
-  text-overflow:ellipsis!important;
-}
-
-/* mapa */
-.mapwrap,
-#map{
-  border-radius:10px!important;
-}
-
-/* sidebar mais discreta */
-.sidebar{
-  border-radius:10px!important;
-}
-.sidehead{
-  padding:9px 9px 7px!important;
-}
-.sidehead h2{
-  font-size:8.7px!important;
-}
-.search{
-  height:31px!important;
-  min-height:31px!important;
-}
-.list{
-  padding:4px 5px 7px!important;
-}
-.row{
-  min-height:37px!important;
-  padding:6px 7px!important;
-  border-radius:7px!important;
-}
-.row b{
-  font-size:9.2px!important;
-}
-.row span.status{
-  font-size:7.2px!important;
-}
-
-/* ficha municipal mais organizada */
-.details{
-  width:382px!important;
-  max-width:min(382px,35vw)!important;
-  border-radius:10px!important;
-}
-.detail-title{
-  font-size:21px!important;
-}
-.badge{
-  margin-top:6px!important;
-}
-.metric{
-  min-height:49px!important;
-  margin-top:7px!important;
-  padding:8px 9px!important;
-}
-.metric .ico{
-  font-size:15px!important;
-}
-.metric small{
-  font-size:6.8px!important;
-}
-.metric strong,
-.metric .value{
-  font-size:9.5px!important;
-}
-.operational-status{
-  margin-top:8px!important;
-  padding:8px 10px!important;
-}
-.quick-status{
-  margin-top:8px!important;
-  padding:9px!important;
-}
-.alert-expiry{
-  margin-top:7px!important;
-  padding:8px 9px!important;
-}
-
-/* controles mais discretos */
-#risk-help-btn{
-  top:10px!important;
-  left:10px!important;
-}
-.map-tools{
-  top:10px!important;
-  right:10px!important;
-}
-.leaflet-top.leaflet-left{
-  top:50px!important;
-  right:10px!important;
-}
-.fullscreen-map-btn{
-  top:124px!important;
-  right:10px!important;
-}
-.legend{
-  bottom:10px!important;
-  left:10px!important;
-}
-.data-source-box{
-  bottom:10px!important;
-  right:10px!important;
-}
-
-/* modais */
-.risk-help-card,
-.risk-editor{
-  border-radius:13px!important;
-}
-.risk-level{
-  border-radius:8px!important;
-}
-
-/* rodapé */
-.v69-footer{
-  height:28px!important;
-  min-height:28px!important;
-  padding:0 10px!important;
-}
-
-/* modo claro */
-html:not(.dark-mode) .v74-map-status{
-  background:rgba(255,255,255,.96)!important;
-  border-color:rgba(15,23,42,.11)!important;
-}
-html:not(.dark-mode) .details,
-html:not(.dark-mode) .sidebar,
-html:not(.dark-mode) .mapwrap{
-  box-shadow:none!important;
-}
-
-/* modo escuro */
-html.dark-mode .v74-map-status{
-  background:rgba(8,25,42,.92)!important;
-}
-
-/* mobile */
-@media(max-width:720px){
-  .app{
-    grid-template-rows:54px 56px 22px minmax(0,1fr) 28px!important;
-  }
-  .v74-map-status{
-    top:8px!important;
-    max-width:58%!important;
-    font-size:6.7px!important;
-  }
-  .details{
-    width:100%!important;
-    max-width:none!important;
-  }
-}
-</style>
-
-
-<style id="v79-consolidation">
-/* ============================================================
-   V79 — consolidação visual e operacional
-   ============================================================ */
-
-/* estrutura */
-.app{
-  grid-template-rows:56px 64px 22px minmax(0,1fr) 28px!important;
-}
-.main{
-  gap:5px!important;
-  padding:5px!important;
-}
-
-/* cabeçalho mais fino */
-header{
-  min-height:56px!important;
-  height:56px!important;
-  padding:5px 11px!important;
-}
-header .brand img,
-header .logo{
-  height:40px!important;
-  max-height:40px!important;
-}
-header .brand h1{
-  font-size:17px!important;
-}
-.alert-type-select{
-  min-height:25px!important;
-  font-size:9px!important;
-}
-
-/* dashboard */
-.kpis{
-  padding:5px 10px!important;
-  gap:5px!important;
-}
-.kpi{
-  min-height:49px!important;
-  padding:6px 9px!important;
-  border-radius:9px!important;
-}
-.kpi small{
-  font-size:6.9px!important;
-}
-.kpi b{
-  font-size:19px!important;
-}
-.kpi.active::after{
-  height:3px!important;
-}
-
-/* indicador operacional */
-.v74-map-status{
-  top:9px!important;
-  min-height:31px!important;
-  max-width:min(820px,76%)!important;
-  padding:5px 13px!important;
-  border-radius:9px!important;
-  font-size:8.5px!important;
-}
-.v74-map-status .v74-status-dot{
-  width:7px!important;
-  height:7px!important;
-  min-width:7px!important;
-}
-
-/* mapa */
-.mapwrap,
-#map{
-  border-radius:10px!important;
-}
-
-/* sidebar */
-.sidebar{
-  width:auto!important;
-  border-radius:10px!important;
-}
-.sidehead{
-  padding:8px 9px 7px!important;
-}
-.sidehead h2{
-  font-size:8.5px!important;
-  margin-bottom:6px!important;
-}
-.search{
-  height:30px!important;
-  min-height:30px!important;
-  font-size:8.7px!important;
-}
-.row{
-  min-height:36px!important;
-  padding:6px 7px!important;
-  border-radius:7px!important;
-}
-.row b{
-  font-size:9px!important;
-}
-.row span.status{
-  font-size:7px!important;
-}
-
-/* ficha */
-.details{
-  width:372px!important;
-  max-width:min(372px,34vw)!important;
-  border-radius:10px!important;
-}
-.details h2{
-  font-size:9px!important;
-}
-.detail-title{
-  font-size:20px!important;
-}
-.badge{
-  font-size:8px!important;
-}
-.metric{
-  min-height:48px!important;
-  margin-top:6px!important;
-}
-.metric small{
-  font-size:6.7px!important;
-}
-.metric strong,
-.metric .value{
-  font-size:9.3px!important;
-}
-.operational-status{
-  margin-top:7px!important;
-  padding:8px 9px!important;
-}
-.quick-status{
-  margin-top:7px!important;
-  padding:8px!important;
-}
-.quick-status select,
-.quick-status button{
-  min-height:33px!important;
-}
-.duration-presets button{
-  padding:4px 7px!important;
-}
-.alert-expiry{
-  margin-top:6px!important;
-}
-
-/* controles mapa */
-#risk-help-btn{
-  top:9px!important;
-  left:9px!important;
-}
-.map-tools{
-  top:9px!important;
-  right:9px!important;
-}
-.leaflet-top.leaflet-left{
-  top:48px!important;
-  right:9px!important;
-}
-.fullscreen-map-btn{
-  top:122px!important;
-  right:9px!important;
-}
-.legend{
-  left:9px!important;
-  bottom:9px!important;
-}
-.data-source-box{
-  right:9px!important;
-  bottom:9px!important;
-}
-
-/* legenda e fonte */
-.legend{
-  max-width:178px!important;
-  min-width:160px!important;
-}
-.legend h3{
-  font-size:9.2px!important;
-}
-.leg{
-  font-size:8.2px!important;
-}
-.data-source-box{
-  max-width:230px!important;
-}
-.data-source-box small{
-  font-size:6.5px!important;
-}
-.data-source-box strong{
-  font-size:8.4px!important;
-}
-
-/* rodapé */
-.v69-footer{
-  height:28px!important;
-  min-height:28px!important;
-  padding:0 9px!important;
-  font-size:7px!important;
-}
-
-/* light */
-html:not(.dark-mode) .kpi,
-html:not(.dark-mode) .sidebar,
-html:not(.dark-mode) .details,
-html:not(.dark-mode) .mapwrap{
-  box-shadow:none!important;
-}
-html:not(.dark-mode) .v74-map-status{
-  background:rgba(255,255,255,.96)!important;
-  border-color:rgba(15,23,42,.11)!important;
-}
-
-/* dark */
-html.dark-mode .v74-map-status{
-  background:rgba(7,24,40,.92)!important;
-}
-
-/* responsivo */
-@media(max-width:1000px){
-  .details{
-    width:350px!important;
-    max-width:350px!important;
-  }
-}
-@media(max-width:720px){
-  .app{
-    grid-template-rows:52px 56px 22px minmax(0,1fr) 28px!important;
-  }
-  header{
-    height:52px!important;
-    min-height:52px!important;
-  }
-  .v74-map-status{
-    top:8px!important;
-    max-width:58%!important;
-    font-size:6.5px!important;
-  }
-  .details{
-    width:100%!important;
-    max-width:none!important;
-  }
-}
-</style>
-
-
-<style id="v80-narrow-details">
-/* V80 — ficha municipal ligeiramente mais estreita */
-.details{
-  width:340px!important;
-  max-width:min(340px,31vw)!important;
-}
-
-/* preserva boa leitura interna mesmo com menor largura */
-.details .sidehead{
-  padding-left:10px!important;
-  padding-right:10px!important;
-}
-#detailBody{
-  padding-left:10px!important;
-  padding-right:10px!important;
-}
-.metric{
-  grid-template-columns:28px minmax(0,1fr) auto!important;
-  gap:7px!important;
-}
-.quick-status-grid{
-  grid-template-columns:minmax(0,1fr) auto!important;
-  gap:6px!important;
-}
-
-@media(max-width:1100px) and (min-width:721px){
-  .details{
-    width:320px!important;
-    max-width:320px!important;
-  }
-}
-@media(max-width:720px){
-  .details{
-    width:100%!important;
-    max-width:none!important;
-  }
-}
-</style>
-
-
-<style id="v81-details-no-crop">
-/* V81 — ficha municipal estreita, mas sem cortes */
-
-/* largura preservada */
-.details{
-  width:340px!important;
-  max-width:min(340px,31vw)!important;
-  overflow-x:hidden!important;
-}
-
-/* garante que qualquer texto longo quebre corretamente */
-.details *,
-#detailBody *{
-  min-width:0!important;
-}
-.details p,
-.details span,
-.details strong,
-.details small,
-.details label,
-.details .value,
-.details .metric,
-.details .operational-status,
-.details .quick-status,
-.details .alert-expiry{
-  overflow-wrap:anywhere!important;
-  word-break:normal!important;
-}
-
-/* cabeçalho da ficha */
-.details h2{
-  font-size:8.2px!important;
-  line-height:1.25!important;
-}
-.detail-title{
-  font-size:18.5px!important;
-  line-height:1.14!important;
-  white-space:normal!important;
-}
-
-/* métricas: valor pode quebrar linha, sem ser empurrado para fora */
-.metric{
-  grid-template-columns:26px minmax(0,1fr)!important;
-  grid-template-areas:
-    "ico label"
-    "ico value"!important;
-  align-items:start!important;
-  gap:3px 7px!important;
-  padding:8px!important;
-}
-.metric .ico{
-  grid-area:ico!important;
-  align-self:center!important;
-  width:26px!important;
-  font-size:14px!important;
-}
-.metric small{
-  grid-area:label!important;
-  font-size:6.5px!important;
-  line-height:1.25!important;
-}
-.metric strong,
-.metric .value{
-  grid-area:value!important;
-  font-size:8.9px!important;
-  line-height:1.3!important;
-  text-align:left!important;
-  max-width:none!important;
-  white-space:normal!important;
-}
-
-/* status operacional */
-.operational-status{
-  grid-template-columns:minmax(0,1fr)!important;
-  gap:6px!important;
-}
-.operational-status .op-copy strong{
-  font-size:9.8px!important;
-  white-space:normal!important;
-}
-.operational-status .op-chip{
-  justify-self:start!important;
-  max-width:100%!important;
-  white-space:normal!important;
-}
-
-/* alteração rápida: empilha campos se necessário */
-.quick-status-grid{
-  grid-template-columns:1fr!important;
-  gap:6px!important;
-}
-.quick-status-field{
-  min-width:0!important;
-}
-.quick-status select,
-.quick-status input,
-.quick-status button{
-  width:100%!important;
-  min-width:0!important;
-}
-.quick-status button{
-  justify-self:stretch!important;
-}
-
-/* presets podem quebrar para nova linha */
-.duration-presets{
-  flex-wrap:wrap!important;
-}
-
-/* expiração */
-.alert-expiry{
-  font-size:8.3px!important;
-  line-height:1.35!important;
-}
-.expiry-main,
-.expiry-sub{
-  white-space:normal!important;
-  overflow-wrap:anywhere!important;
-}
-
-/* close button não invade texto */
-.detail-close-btn{
-  margin-right:8px!important;
-  width:28px!important;
-  height:28px!important;
-  min-width:28px!important;
-}
-
-/* telas intermediárias */
-@media(max-width:1100px) and (min-width:721px){
-  .details{
-    width:315px!important;
-    max-width:315px!important;
-  }
-  .detail-title{
-    font-size:17px!important;
-  }
-}
-
-/* mobile */
-@media(max-width:720px){
-  .details{
-    width:100%!important;
-    max-width:none!important;
-  }
-  .metric{
-    grid-template-columns:24px minmax(0,1fr)!important;
-  }
-}
-</style>
-
-
-<style id="v82-refinement">
-/* ============================================================
-   V82 — refino visual sem mexer na lógica operacional
-   ============================================================ */
-
-/* mapa mais protagonista */
-.main{
-  gap:4px!important;
-  padding:4px!important;
-}
-.mapwrap,
-#map{
-  border-radius:9px!important;
-}
-
-/* dashboard: mais leitura, menos peso */
-.kpis{
-  padding:4px 9px!important;
-  gap:4px!important;
-}
-.kpi{
-  min-height:48px!important;
-  padding:6px 8px!important;
-  border-radius:8px!important;
-}
-.kpi small{
-  font-size:6.8px!important;
-}
-.kpi b{
-  font-size:18.5px!important;
-}
-.kpi.active::after{
-  height:3px!important;
-  left:7px!important;
-  right:7px!important;
-}
-
-/* indicador operacional mais elegante */
-.v74-map-status{
-  top:8px!important;
-  min-height:30px!important;
-  max-width:min(820px,74%)!important;
-  padding:5px 12px!important;
-  border-radius:8px!important;
-  font-size:8.2px!important;
-}
-.v74-map-status .v74-status-dot{
-  width:6px!important;
-  height:6px!important;
-  min-width:6px!important;
-}
-
-/* sidebar mais leve */
-.sidebar{
-  border-radius:9px!important;
-}
-.sidehead{
-  padding:8px 8px 6px!important;
-}
-.sidehead h2{
-  font-size:8.2px!important;
-  margin-bottom:5px!important;
-}
-.search{
-  height:29px!important;
-  min-height:29px!important;
-}
-.row{
-  min-height:35px!important;
-  padding:5px 6px!important;
-  border-radius:6px!important;
-}
-.row b{
-  font-size:8.8px!important;
-}
-.row span.status{
-  font-size:6.8px!important;
-}
-
-/* ficha: leve sensação de painel flutuante */
-.details{
-  border-radius:9px!important;
-  box-shadow:none!important;
-}
-html:not(.dark-mode) .details{
-  background:rgba(255,255,255,.98)!important;
-}
-html.dark-mode .details{
-  background:rgba(9,24,40,.98)!important;
-}
-.detail-title{
-  font-size:18px!important;
-}
-.metric{
-  border-radius:8px!important;
-}
-.operational-status,
-.quick-status,
-.alert-expiry{
-  border-radius:8px!important;
-}
-
-/* controles flutuantes */
-#risk-help-btn{
-  top:8px!important;
-  left:8px!important;
-  min-height:36px!important;
-}
-.map-tools{
-  top:8px!important;
-  right:8px!important;
-}
-.tools-trigger{
-  width:32px!important;
-  height:32px!important;
-  min-height:32px!important;
-}
-.leaflet-top.leaflet-left{
-  top:46px!important;
-  right:8px!important;
-}
-.leaflet-control-zoom a{
-  width:32px!important;
-  height:32px!important;
-  line-height:32px!important;
-}
-.fullscreen-map-btn{
-  top:116px!important;
-  right:8px!important;
-  width:32px!important;
-  height:32px!important;
-  min-height:32px!important;
-}
-
-/* legenda e fonte */
-.legend{
-  left:8px!important;
-  bottom:8px!important;
-  min-width:155px!important;
-  max-width:172px!important;
-  padding:8px 10px!important;
-}
-.legend h3{
-  font-size:8.8px!important;
-}
-.leg{
-  font-size:8px!important;
-}
-.data-source-box{
-  right:8px!important;
-  bottom:8px!important;
-  max-width:220px!important;
-  padding:6px 8px!important;
-}
-
-/* rodapé */
-.v69-footer{
-  height:27px!important;
-  min-height:27px!important;
-  font-size:6.9px!important;
-}
-
-/* modos */
-html:not(.dark-mode) .sidebar,
-html:not(.dark-mode) .details,
-html:not(.dark-mode) .mapwrap,
-html:not(.dark-mode) .kpi{
-  box-shadow:none!important;
-}
-html.dark-mode .sidebar,
-html.dark-mode .details,
-html.dark-mode .mapwrap,
-html.dark-mode .kpi{
-  box-shadow:none!important;
-}
-
-/* mobile */
-@media(max-width:720px){
-  .main{
-    padding:2px!important;
-    gap:2px!important;
-  }
-  .v74-map-status{
-    top:6px!important;
-    max-width:56%!important;
-    font-size:6.3px!important;
-  }
-  .legend{
-    bottom:56px!important;
-  }
-}
-</style>
-
-
-<style id="v83-advance">
-/* ============================================================
-   V83 — avanço visual e operacional
-   ============================================================ */
-
-/* mais área visual para o mapa */
-.app{
-  grid-template-rows:54px 60px 20px minmax(0,1fr) 26px!important;
-}
-header{
-  min-height:54px!important;
-  height:54px!important;
-  padding:5px 10px!important;
-}
-header .brand img,
-header .logo{
-  height:38px!important;
-  max-height:38px!important;
-}
-header .brand h1{
-  font-size:16px!important;
-}
-.alert-type-select{
-  min-height:24px!important;
-  font-size:8.7px!important;
-}
-
-/* dashboard ainda mais executivo */
-.kpis{
-  padding:4px 8px!important;
-  gap:4px!important;
-}
-.kpi{
-  min-height:46px!important;
-  padding:5px 8px!important;
-  border-radius:8px!important;
-}
-.kpi small{
-  font-size:6.6px!important;
-}
-.kpi b{
-  font-size:18px!important;
-  margin-top:3px!important;
-}
-.kpi.active::after{
-  height:3px!important;
-  left:6px!important;
-  right:6px!important;
-}
-
-/* indicador operacional menos chamativo */
-.v74-map-status{
-  top:7px!important;
-  min-height:29px!important;
-  max-width:min(820px,72%)!important;
-  padding:4px 11px!important;
-  font-size:8px!important;
-  border-radius:8px!important;
-}
-.v74-map-status .v74-status-dot{
-  width:6px!important;
-  height:6px!important;
-  min-width:6px!important;
-}
-
-/* mapa */
-.main{
-  gap:3px!important;
-  padding:3px!important;
-}
-.mapwrap,
-#map{
-  border-radius:8px!important;
-}
-
-/* sidebar mais “utility panel” */
-.sidebar{
-  border-radius:8px!important;
-}
-.sidehead{
-  padding:7px 8px 6px!important;
-}
-.sidehead h2{
-  font-size:8px!important;
-  margin-bottom:5px!important;
-}
-.search{
-  height:28px!important;
-  min-height:28px!important;
-  font-size:8.5px!important;
-}
-.row{
-  min-height:34px!important;
-  padding:5px 6px!important;
-  border-radius:6px!important;
-}
-.row b{
-  font-size:8.6px!important;
-}
-.row span.status{
-  font-size:6.6px!important;
-}
-
-/* ficha operacional */
-.details{
-  width:332px!important;
-  max-width:min(332px,30vw)!important;
-  border-radius:8px!important;
-}
-.detail-title{
-  font-size:17.5px!important;
-}
-.badge{
-  font-size:7.8px!important;
-  min-height:23px!important;
-}
-.metric{
-  min-height:46px!important;
-  margin-top:5px!important;
-  padding:7px 8px!important;
-  border-radius:7px!important;
-}
-.metric small{
-  font-size:6.4px!important;
-}
-.metric strong,
-.metric .value{
-  font-size:8.8px!important;
-}
-.operational-status{
-  margin-top:6px!important;
-  padding:7px 8px!important;
-  border-radius:7px!important;
-}
-.operational-status .op-copy strong{
-  font-size:9.2px!important;
-}
-.quick-status{
-  margin-top:6px!important;
-  padding:7px!important;
-  border-radius:7px!important;
-}
-.quick-status select,
-.quick-status button{
-  min-height:32px!important;
-  font-size:8.4px!important;
-}
-.duration-presets{
-  margin-top:5px!important;
-}
-.duration-presets button{
-  padding:3px 6px!important;
-  font-size:7px!important;
-}
-.alert-expiry{
-  margin-top:5px!important;
-  padding:7px 8px!important;
-  border-radius:7px!important;
-}
-
-/* seleção de município mais limpa */
-.mapwrap.v73-selection-active .leaflet-overlay-pane svg path{
-  fill-opacity:.48!important;
-  stroke-opacity:.55!important;
-}
-.mapwrap.v73-selection-active .leaflet-overlay-pane svg path.v73-selected-path{
-  fill-opacity:1!important;
-  stroke-width:4!important;
-  filter:drop-shadow(0 0 3px rgba(0,0,0,.25))!important;
-}
-
-/* controles menores */
-#risk-help-btn{
-  top:7px!important;
-  left:7px!important;
-  min-height:34px!important;
-  padding:4px 8px 4px 4px!important;
-}
-#risk-help-btn .risk-help-icon{
-  width:25px!important;
-  height:25px!important;
-}
-.map-tools{
-  top:7px!important;
-  right:7px!important;
-}
-.tools-trigger{
-  width:30px!important;
-  height:30px!important;
-  min-height:30px!important;
-}
-.leaflet-top.leaflet-left{
-  top:43px!important;
-  right:7px!important;
-}
-.leaflet-control-zoom a{
-  width:30px!important;
-  height:30px!important;
-  line-height:30px!important;
-  font-size:16px!important;
-}
-.fullscreen-map-btn{
-  top:109px!important;
-  right:7px!important;
-  width:30px!important;
-  height:30px!important;
-  min-height:30px!important;
-}
-
-/* legenda mais compacta */
-.legend{
-  left:7px!important;
-  bottom:7px!important;
-  min-width:150px!important;
-  max-width:165px!important;
-  padding:7px 9px!important;
-}
-.legend h3{
-  font-size:8.5px!important;
-}
-.leg{
-  font-size:7.7px!important;
-  margin:3px 0!important;
-}
-.data-source-box{
-  right:7px!important;
-  bottom:7px!important;
-  max-width:210px!important;
-  padding:6px 7px!important;
-}
-
-/* rodapé quase invisível */
-.v69-footer{
-  height:26px!important;
-  min-height:26px!important;
-  font-size:6.7px!important;
-}
-
-/* mobile */
-@media(max-width:720px){
-  .app{
-    grid-template-rows:50px 54px 20px minmax(0,1fr) 26px!important;
-  }
-  header{
-    height:50px!important;
-    min-height:50px!important;
-  }
-  .details{
-    width:100%!important;
-    max-width:none!important;
-  }
-  .v74-map-status{
-    top:6px!important;
-    max-width:54%!important;
-    font-size:6px!important;
-  }
-}
-</style>
-
-
 <style id="v84-details-fix">
 /* V84 — corrige cortes da ficha sem alterar o restante da V83 */
 
@@ -3506,6 +2118,293 @@ header .brand h1{
     max-width:none!important;
     min-width:0!important;
   }
+}
+</style>
+
+
+<style id="v88-modern-consolidation">
+.app{grid-template-rows:50px 56px 19px minmax(0,1fr) 24px!important}
+.main{padding:2px!important;gap:2px!important}
+header{min-height:50px!important;height:50px!important;padding:4px 8px!important}
+header .brand{gap:8px!important}
+header .brand img,header .logo{height:34px!important;max-height:34px!important}
+header .brand h1{font-size:15px!important;letter-spacing:-.018em!important}
+.alert-type-select{min-height:22px!important;font-size:8.2px!important;border-radius:8px!important}
+.kpis{padding:4px 6px!important;gap:3px!important}
+.kpi{min-height:42px!important;padding:5px 7px!important;border-radius:7px!important;border-width:1px!important;box-shadow:none!important}
+.kpi::before{width:2px!important}
+.kpi small{font-size:6.1px!important;letter-spacing:.045em!important}
+.kpi b{font-size:17px!important;margin-top:3px!important}
+.kpi.active::after{height:2px!important;left:5px!important;right:5px!important}
+.v74-map-status{top:5px!important;min-height:27px!important;max-width:min(880px,70%)!important;padding:4px 9px!important;border-radius:7px!important;font-size:7.6px!important}
+.v74-map-status .v74-status-dot{width:6px!important;height:6px!important;min-width:6px!important}
+.mapwrap,#map{border-radius:6px!important}
+.sidebar{border-radius:6px!important}
+.sidehead{padding:6px 7px 5px!important}
+.sidehead h2{font-size:7.6px!important;margin-bottom:4px!important}
+.search{height:26px!important;min-height:26px!important;font-size:8px!important;border-radius:6px!important}
+.list{padding:3px 4px 5px!important}
+.row{min-height:32px!important;padding:5px!important;border-radius:5px!important}
+.row b{font-size:8.2px!important}
+.row span.status{font-size:6.2px!important}
+.details{width:360px!important;max-width:min(360px,34vw)!important;border-radius:6px!important;box-shadow:none!important}
+.details .sidehead{padding-top:7px!important;padding-bottom:6px!important}
+.details h2{font-size:7.5px!important}
+.detail-title{font-size:17px!important;line-height:1.1!important}
+.badge{min-height:21px!important;padding:3px 8px!important;font-size:7.4px!important}
+.metric{min-height:43px!important;margin-top:4px!important;padding:6px 7px!important;border-radius:6px!important}
+.metric small{font-size:6.1px!important}
+.metric strong,.metric .value{font-size:8.4px!important}
+.operational-status{margin-top:5px!important;padding:6px 7px!important;border-radius:6px!important}
+.operational-status .op-copy strong{font-size:9px!important}
+.operational-status .op-chip{font-size:7.3px!important;padding:4px 7px!important}
+.quick-status{margin-top:7px!important;padding:6px!important;border-radius:6px!important}
+.quick-status label{font-size:6.5px!important}
+.quick-status select,.quick-status button{min-height:30px!important;font-size:8px!important}
+.duration-presets{gap:3px!important;margin-top:4px!important}
+.duration-presets button{padding:3px 6px!important;font-size:6.6px!important}
+.alert-expiry{margin-top:4px!important;padding:6px 7px!important;border-radius:6px!important}
+#risk-help-btn{top:5px!important;left:5px!important;min-height:31px!important;padding:3px 7px 3px 3px!important;border-radius:7px!important}
+#risk-help-btn .risk-help-icon{width:23px!important;height:23px!important;border-radius:6px!important}
+#risk-help-btn .risk-help-label{font-size:7.5px!important}
+.map-tools{top:5px!important;right:5px!important}
+.tools-trigger{width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;border-radius:7px!important}
+.leaflet-top.leaflet-left{top:39px!important;right:5px!important;left:auto!important}
+.leaflet-control-zoom{border-radius:7px!important}
+.leaflet-control-zoom a{width:28px!important;height:28px!important;line-height:28px!important;font-size:14px!important}
+.fullscreen-map-btn{top:99px!important;right:5px!important;width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;border-radius:7px!important}
+.legend{left:5px!important;bottom:5px!important;min-width:142px!important;max-width:154px!important;padding:6px 7px!important;border-radius:7px!important}
+.legend h3{font-size:8px!important;margin-bottom:4px!important}
+.leg{font-size:7.2px!important;margin:2px 0!important}
+.data-source-box{right:5px!important;bottom:5px!important;max-width:192px!important;padding:5px 6px!important;border-radius:7px!important}
+.data-source-box small{font-size:6px!important}
+.data-source-box strong{font-size:7.8px!important}
+.leaflet-tooltip{font-size:7.8px!important;padding:5px 7px!important;border-radius:6px!important}
+.mapwrap.v73-selection-active .leaflet-overlay-pane svg path{fill-opacity:.44!important;stroke-opacity:.50!important}
+.mapwrap.v73-selection-active .leaflet-overlay-pane svg path.v73-selected-path{fill-opacity:1!important;stroke-width:3.3!important;stroke-opacity:1!important}
+.v69-footer{height:24px!important;min-height:24px!important;font-size:6.3px!important;opacity:.84!important}
+@media(max-width:720px){
+  .app{grid-template-rows:46px 50px 18px minmax(0,1fr) 24px!important}
+  header{height:46px!important;min-height:46px!important}
+  header .brand img,header .logo{height:32px!important;max-height:32px!important}
+  .details{width:100%!important;max-width:none!important;min-width:0!important}
+  .v74-map-status{top:5px!important;max-width:50%!important;font-size:5.6px!important}
+  #risk-help-btn .risk-help-label{display:none!important}
+}
+</style>
+
+
+
+<style id="v91-final-consolidated">
+/* ============================================================
+   V91 RC — camada final consolidada
+   ============================================================ */
+:root{
+  --final-radius:7px;
+  --final-soft-border:rgba(148,163,184,.14);
+}
+
+/* Estrutura preservada, limpa e estável */
+.app{grid-template-rows:50px 56px 19px minmax(0,1fr) 24px!important}
+.main{padding:2px!important;gap:2px!important}
+.mapwrap,#map{border-radius:6px!important}
+
+/* Dashboard */
+.kpis{padding:4px 6px!important;gap:3px!important}
+.kpi{
+  min-height:42px!important;padding:5px 7px!important;border-radius:7px!important;
+  border-width:1px!important;box-shadow:none!important;transition-duration:.10s!important
+}
+.kpi::before{width:2px!important}
+.kpi small{font-size:6.1px!important;letter-spacing:.045em!important}
+.kpi b{font-size:17px!important;margin-top:3px!important}
+.kpi.active::after{height:2px!important;left:5px!important;right:5px!important}
+
+/* Indicador de iminência */
+.v74-map-status{
+  top:5px!important;min-height:27px!important;max-width:min(880px,70%)!important;
+  padding:4px 9px!important;border-radius:7px!important;font-size:7.6px!important;
+  box-shadow:none!important;z-index:715!important
+}
+.v74-map-status .v74-status-dot{width:6px!important;height:6px!important;min-width:6px!important}
+
+/* Resumo operacional */
+.v91-opbar{
+  position:absolute;top:36px;left:50%;transform:translateX(-50%);
+  z-index:712;display:flex;gap:5px;align-items:center;max-width:72%;
+  pointer-events:none
+}
+.v91-pill{
+  display:flex;align-items:center;gap:5px;padding:4px 8px;border-radius:999px;
+  font-size:7px;font-weight:850;white-space:nowrap;border:1px solid var(--final-soft-border)
+}
+html:not(.dark-mode) .v91-pill{background:rgba(255,255,255,.94);color:#334155}
+html.dark-mode .v91-pill{background:rgba(8,25,42,.90);color:#dceaf5}
+.v91-pill b{font-size:8px}
+.v91-dot{width:6px;height:6px;border-radius:50%}
+.v91-dot.active{background:#3b82f6}.v91-dot.up{background:#ef4444}.v91-dot.exp{background:#f59e0b}
+
+/* Sidebar */
+.sidebar{border-radius:6px!important;box-shadow:none!important}
+.sidehead{padding:6px 7px 5px!important}
+.sidehead h2{font-size:7.6px!important;margin-bottom:4px!important}
+.search{height:26px!important;min-height:26px!important;font-size:8px!important;border-radius:6px!important}
+.list{padding:3px 4px 5px!important}
+.row{min-height:32px!important;padding:5px!important;border-radius:5px!important;transition-duration:.10s!important}
+.row b{font-size:8.2px!important}.row span.status{font-size:6.2px!important}
+
+/* Ficha — largura segura e sem cortes */
+.details{
+  width:360px!important;max-width:min(360px,34vw)!important;border-radius:6px!important;
+  box-shadow:none!important;overflow-x:hidden!important;overflow-y:auto!important
+}
+.details *,#detailBody *{min-width:0!important;box-sizing:border-box!important}
+#detailBody{width:100%!important;padding-left:10px!important;padding-right:10px!important;overflow-x:hidden!important}
+.details p,.details span,.details strong,.details small,.details label,.details .value{
+  white-space:normal!important;overflow-wrap:break-word!important
+}
+.detail-title{font-size:17px!important;line-height:1.1!important}
+.badge{min-height:21px!important;padding:3px 8px!important;font-size:7.4px!important}
+.metric{
+  width:100%!important;min-height:43px!important;margin-top:4px!important;padding:6px 7px!important;
+  border-radius:6px!important;grid-template-columns:27px minmax(0,1fr)!important;
+  grid-template-areas:"ico label" "ico value"!important;gap:3px 8px!important
+}
+.metric .ico{grid-area:ico!important}.metric small{grid-area:label!important;font-size:6.1px!important}
+.metric strong,.metric .value{grid-area:value!important;width:100%!important;text-align:left!important;font-size:8.4px!important}
+
+/* Situação / vigência */
+.operational-status{
+  width:100%!important;margin-top:5px!important;padding:6px 7px!important;border-radius:6px!important;
+  grid-template-columns:minmax(0,1fr)!important;gap:6px!important
+}
+.operational-status .op-chip{justify-self:start!important;max-width:100%!important;white-space:normal!important}
+.quick-status{width:100%!important;margin-top:7px!important;padding:6px!important;border-radius:6px!important}
+.quick-status-grid{grid-template-columns:minmax(0,1fr)!important;gap:6px!important}
+.quick-status-field,.quick-status select,.quick-status input,.quick-status button{width:100%!important;max-width:100%!important}
+.quick-status select,.quick-status button{min-height:30px!important;font-size:8px!important}
+.duration-presets{display:flex!important;flex-wrap:wrap!important;gap:3px!important;margin-top:4px!important;width:100%!important}
+.duration-presets button{width:auto!important;flex:0 0 auto!important;padding:3px 6px!important;font-size:6.6px!important}
+.alert-expiry{width:100%!important;margin-top:4px!important;padding:6px 7px!important;border-radius:6px!important}
+
+/* Camada operacional final */
+.v91-section{margin-top:6px;padding:7px;border:1px solid var(--final-soft-border);border-radius:7px}
+.v91-section-title{font-size:6.3px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;opacity:.62;margin-bottom:6px}
+.v91-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.v91-item{min-width:0;padding:5px 6px;border-radius:6px;background:rgba(148,163,184,.07)}
+html:not(.dark-mode) .v91-item{background:#f6f9fc!important}
+.v91-item small{display:block;font-size:6.1px!important;opacity:.62;margin-bottom:3px}
+.v91-item strong{display:block;font-size:8.2px!important;line-height:1.25;overflow-wrap:anywhere}
+.v91-trend{display:inline-flex!important;align-items:center;gap:4px;padding:3px 6px;border-radius:999px;width:auto!important}
+.v91-trend.up{background:rgba(239,68,68,.10);color:#dc2626}
+.v91-trend.down{background:rgba(34,197,94,.10);color:#16a34a}
+.v91-trend.flat{background:rgba(59,130,246,.10);color:#2563eb}
+.v91-history{display:flex;flex-direction:column;gap:4px;max-height:104px;overflow:auto}
+.v91-history-row{display:grid;grid-template-columns:42px minmax(0,1fr);gap:6px;padding:5px 6px;border-radius:5px;background:rgba(148,163,184,.06)}
+.v91-history-time{font-size:6.5px;font-weight:800;opacity:.58}
+.v91-history-text{font-size:7.4px;line-height:1.25}
+.v91-empty{font-size:7px;opacity:.58;padding:4px 0}
+.v91-warning{
+  margin-top:6px;padding:6px 8px;border-radius:6px;font-size:7.2px;font-weight:800;
+  background:rgba(245,158,11,.10);color:#b45309;border:1px solid rgba(245,158,11,.18)
+}
+html.dark-mode .v91-warning{color:#fbbf24}
+
+/* Controles do mapa */
+#risk-help-btn{top:5px!important;left:5px!important;min-height:31px!important;padding:3px 7px 3px 3px!important;border-radius:7px!important}
+#risk-help-btn .risk-help-icon{width:23px!important;height:23px!important;border-radius:6px!important}
+#risk-help-btn .risk-help-label{font-size:7.5px!important}
+.map-tools{top:5px!important;right:5px!important}
+.tools-trigger{width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;border-radius:7px!important}
+.leaflet-top.leaflet-left{top:39px!important;right:5px!important;left:auto!important}
+.leaflet-control-zoom{border-radius:7px!important;box-shadow:none!important}
+.leaflet-control-zoom a{width:28px!important;height:28px!important;line-height:28px!important;font-size:14px!important}
+.fullscreen-map-btn{top:99px!important;right:5px!important;width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;border-radius:7px!important}
+.legend{left:5px!important;bottom:5px!important;min-width:142px!important;max-width:154px!important;padding:6px 7px!important;border-radius:7px!important;box-shadow:none!important}
+.legend h3{font-size:8px!important;margin-bottom:4px!important}.leg{font-size:7.2px!important;margin:2px 0!important}
+.data-source-box{right:5px!important;bottom:5px!important;max-width:192px!important;padding:5px 6px!important;border-radius:7px!important;box-shadow:none!important}
+.leaflet-tooltip{font-size:7.8px!important;padding:5px 7px!important;border-radius:6px!important}
+
+/* Seleção */
+.mapwrap.v73-selection-active .leaflet-overlay-pane svg path{fill-opacity:.44!important;stroke-opacity:.50!important}
+.mapwrap.v73-selection-active .leaflet-overlay-pane svg path.v73-selected-path{fill-opacity:1!important;stroke-width:3.3!important;stroke-opacity:1!important}
+
+/* Performance */
+.leaflet-overlay-pane svg path{transition:none!important}
+.kpi,.row,.details,.tools-trigger,.fullscreen-map-btn,#risk-help-btn{transition-duration:.10s!important}
+
+/* Rodapé */
+.v69-footer{height:24px!important;min-height:24px!important;font-size:6.3px!important;opacity:.84!important}
+
+/* Mobile: mantém só controles úteis e torna as abas legadas discretas */
+@media(max-width:720px){
+  .app{grid-template-rows:46px 50px 18px minmax(0,1fr) 24px!important}
+  header{height:46px!important;min-height:46px!important}
+  .details{width:100%!important;max-width:none!important;min-width:0!important}
+  .v74-map-status{top:5px!important;max-width:50%!important;font-size:5.6px!important}
+  .v91-opbar{top:33px!important;max-width:54%!important;overflow:auto!important;scrollbar-width:none}
+  .v91-opbar::-webkit-scrollbar{display:none}
+  .v91-pill{font-size:5.3px!important;padding:3px 5px!important}
+  #risk-help-btn .risk-help-label{display:none!important}
+  .panel-toggle-tabs{display:flex!important}
+}
+</style>
+
+
+<style id="v92-air-quality-legend">
+/* V92 — Qualidade do Ar: faixas de MP2,5 */
+.risk-help-air{
+  padding-bottom:14px!important;
+}
+.risk-help-air-scale{
+  align-items:stretch;
+}
+.risk-help-air-scale span{
+  display:inline-flex!important;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  min-width:92px;
+  line-height:1.15;
+}
+.risk-help-air-scale span small{
+  display:block;
+  font-size:6.8px!important;
+  font-weight:800;
+  opacity:.92;
+  color:inherit!important;
+}
+.v92-air-note{
+  margin-top:10px;
+  padding:9px 10px;
+  border-radius:8px;
+  border:1px solid rgba(148,163,184,.18);
+  background:rgba(59,130,246,.055);
+  font-size:7.7px;
+  line-height:1.48;
+}
+.v92-air-note strong{
+  display:block;
+  margin-bottom:3px;
+  font-size:8.2px;
+}
+.v92-air-note b{
+  font-weight:900;
+}
+.legend .leg.v92-air-leg{
+  align-items:flex-start!important;
+  line-height:1.22!important;
+}
+.legend .leg.v92-air-leg .v92-range{
+  display:block;
+  margin-top:1px;
+  font-size:6.6px;
+  opacity:.72;
+}
+@media(max-width:720px){
+  .risk-help-air-scale span{min-width:78px}
+  .v92-air-note{font-size:7px}
 }
 </style>
 
@@ -3713,13 +2612,19 @@ header .brand h1{
         <span>Não segue o art. 12 da Portaria MIDR nº 2.458/2026.</span>
       </div>
       <div class="risk-help-air-scale">
-        <span class="qa-boa">Boa</span>
-        <span class="qa-moderado">Moderado</span>
-        <span class="qa-ruim">Ruim</span>
-        <span class="qa-mruim">Muito Ruim</span>
-        <span class="qa-pessima">Péssima</span>
+        <span class="qa-boa">Boa<small>0–15 µg/m³</small></span>
+        <span class="qa-moderado">Moderada<small>15–50 µg/m³</small></span>
+        <span class="qa-ruim">Ruim<small>50–75 µg/m³</small></span>
+        <span class="qa-mruim">Muito Ruim<small>75–125 µg/m³</small></span>
+        <span class="qa-pessima">Péssimo<small>&gt;125 µg/m³</small></span>
+      </div>
+      <div class="v92-air-note">
+        <strong>Material particulado fino — MP2,5</strong>
+        A classificação considera a <b>concentração de material particulado fino com diâmetro ≤ 2,5 micrômetros</b>,
+        expressa em <b>µg/m³</b> — microgramas por metro cúbico de ar.
       </div>
     </div>
+  </div>
   </section>
 </div>
 
@@ -3819,13 +2724,65 @@ function remainingText(ts){
   const h=Math.floor(mins/60),m=mins%60;
   return m?`${h}h ${m}min restantes`:`${h}h restantes`;
 }
-function setAlertWithDuration(f,newRisk,hours){
-  setRisk(f,newRisk);
-  const meta=getAlertMeta(f);
+
+const FINAL_HISTORY_KEY='cemoa_v91_operational_history';
+function loadOperationalHistory(){
+  try{return JSON.parse(localStorage.getItem(FINAL_HISTORY_KEY)||'{}')}catch(e){return {}}
+}
+function saveOperationalHistory(db){
+  try{localStorage.setItem(FINAL_HISTORY_KEY,JSON.stringify(db));return true}catch(e){return false}
+}
+function operationalHistoryKey(nome,type=currentAlertType){return `${type}::${nome}`}
+function recordOperationalChange(f,fromRisk,toRisk,reason='manual',type=currentAlertType,expiresAt=null,durationHours=null){
+  if(!f||!f.properties||fromRisk===toRisk)return;
+  const nome=f.properties.nome||'';
+  if(!nome)return;
+  const db=loadOperationalHistory();
+  const k=operationalHistoryKey(nome,type);
+  const item=db[k]||{current:fromRisk,previous:null,changedAt:null,history:[]};
+  item.previous=fromRisk;
+  item.current=toRisk;
+  item.changedAt=Date.now();
+  item.history=[
+    {at:Date.now(),from:fromRisk,to:toRisk,reason,expiresAt:expiresAt||null,durationHours:durationHours||null},
+    ...(Array.isArray(item.history)?item.history:[])
+  ].slice(0,30);
+  db[k]=item;
+  saveOperationalHistory(db);
+}
+function operationalHistoryFor(nome,type=currentAlertType){
+  const db=loadOperationalHistory();
+  return db[operationalHistoryKey(nome,type)]||null;
+}
+function operationalReasonLabel(reason){
+  return ({
+    manual:'alteração manual',
+    edicao_em_massa:'edição em massa',
+    expiracao_automatica:'encerramento automático',
+    nivel_base:'retorno ao nível-base'
+  })[reason]||reason||'alteração';
+}
+
+function setAlertWithDuration(f,newRisk,hours,reason='manual'){
+  if(!f||!f.properties)return;
   const cfg=currentConfig();
-  if(!cfg.isAlert || newRisk===cfg.low){meta.expiresAt=null;return}
-  const h=Math.max(2,Math.min(72,Number(hours)||2));
-  meta.expiresAt=Date.now()+h*60*60*1000;
+  const oldRisk=getRisk(f);
+  const meta=getAlertMeta(f);
+  const isBase=newRisk===cfg.low;
+
+  let h=null;
+  let expiresAt=null;
+  if(cfg.isAlert && !isBase){
+    h=Math.max(2,Math.min(72,Number(hours)||2));
+    expiresAt=Date.now()+h*60*60*1000;
+  }
+
+  setRisk(f,newRisk);
+  meta.expiresAt=expiresAt;
+
+  if(oldRisk!==newRisk){
+    recordOperationalChange(f,oldRisk,newRisk,isBase?'nivel_base':reason,currentAlertType,expiresAt,h);
+  }
 }
 function processExpiredAlerts(){
   let changed=false;
@@ -3833,10 +2790,16 @@ function processExpiredAlerts(){
   GEO.features.forEach(f=>{
     Object.keys(ALERT_TYPES).forEach(type=>{
       const cfg=ALERT_TYPES[type];
-      if(!cfg.isAlert) return;
+      if(!cfg.isAlert)return;
       const meta=getAlertMeta(f,type);
-      if(!meta.expiresAt || meta.expiresAt>now) return;
-      if(f.properties.alertas[type]!==cfg.low){f.properties.alertas[type]=cfg.low;changed=true}
+      if(!meta.expiresAt || meta.expiresAt>now)return;
+
+      const oldRisk=f.properties.alertas[type]||cfg.low;
+      if(oldRisk!==cfg.low){
+        f.properties.alertas[type]=cfg.low;
+        recordOperationalChange(f,oldRisk,cfg.low,'expiracao_automatica',type,null,null);
+        changed=true;
+      }
       meta.expiresAt=null;
     });
   });
@@ -3844,7 +2807,8 @@ function processExpiredAlerts(){
     saveAllAlertRisks();
     activeFilter='TODOS';
     rebuildDashboard();rebuildLegend();drawMap();renderList();
-    if(selectedName) setTimeout(()=>selectMunicipio(selectedName),30);
+    if(selectedName)setTimeout(()=>selectMunicipio(selectedName),30);
+    try{window.dispatchEvent(new CustomEvent('cemoa:operational-change'))}catch(e){}
   }
   return changed;
 }
@@ -4001,6 +2965,20 @@ function rebuildLegend(){
   const legend=document.getElementById('legendBox');
   if(!legend) return;
   const colors=currentColors();
+
+  if(currentAlertType==='AR'){
+    const airLegend=[
+      ['BOA','Boa','0–15'],
+      ['MODERADO','Moderada','15–50'],
+      ['RUIM','Ruim','50–75'],
+      ['MUITO_RUIM','Muito Ruim','75–125'],
+      ['PESSIMA','Péssimo','>125']
+    ];
+    legend.innerHTML='<h3>Qualidade do Ar (µg/m³)</h3>'+
+      airLegend.map(([lvl,label,range])=>`<div class="leg v92-air-leg"><i class="sw" style="background:${colors[lvl]}"></i><span>${label}<span class="v92-range">${range}</span></span></div>`).join('');
+    return;
+  }
+
   legend.innerHTML=`<h3>${currentProductLegend()}</h3>`+
     currentLevels().map(l=>`<div class="leg"><i class="sw" style="background:${colors[l]}"></i>${formatLevel(l)}</div>`).join('');
 }
@@ -4260,7 +3238,14 @@ document.getElementById('restoreRiskBtn').onclick=()=>{
 document.getElementById('applyRiskBtn').onclick=()=>{
   editorBody.querySelectorAll('select[data-municipio]').forEach(s=>{
     const f=getFeatureByName(s.dataset.municipio);
-    if(f)setRisk(f,s.value);
+    if(!f)return;
+    const oldRisk=getRisk(f);
+    const newRisk=s.value;
+    if(oldRisk===newRisk)return;
+    setRisk(f,newRisk);
+    const meta=getAlertMeta(f);
+    if(newRisk===currentLowLevel())meta.expiresAt=null;
+    recordOperationalChange(f,oldRisk,newRisk,'edicao_em_massa',currentAlertType,meta.expiresAt,null);
   });
   saveAllAlertRisks();
   activeFilter='TODOS';selectedName=null;
@@ -4306,6 +3291,7 @@ if(alertTypeSelect){
 }
 
 /* ---------- exportação em PNG ------------------------------------------*/
+/* V91: exportação PNG isolada da camada operacional */
 document.getElementById('exportTool').onclick=()=>{
   setTools(false);
   const exportBtn=document.getElementById('exportTool');
@@ -4451,17 +3437,16 @@ document.getElementById('exportTool').onclick=()=>{
     ctx.fillStyle='#ffffff';roundRect(panelX,panelY,panelW,panelH,18,true,false);
     ctx.strokeStyle='#c8d5de';ctx.lineWidth=2;roundRect(panelX,panelY,panelW,panelH,18,false,true);
 
-    ctx.fillStyle='#0a2b4d';ctx.font='900 50px Arial, sans-serif';
-    ctx.fillText('NÍVEIS DE RISCO',panelX+38,panelY+68);
+    ctx.fillStyle='#0a2b4d';ctx.font=currentAlertType==='AR'?'900 23px Arial, sans-serif':'900 26px Arial, sans-serif';ctx.fillText(currentAlertType==='AR'?'QUALIDADE DO AR (µg/m³)':'NÍVEIS DE RISCO',panelX+38,panelY+68);
     ctx.fillStyle='#61798b';ctx.font='800 22px Arial, sans-serif';
     ctx.fillText(productLegend,panelX+38,panelY+108);
 
     const legendItems=currentAlertType==='AR'
-      ? [['BOA','Boa','Condição favorável de qualidade do ar, sem indicação de impacto relevante.'],
-         ['MODERADO','Moderado','Condição intermediária que requer acompanhamento da evolução dos indicadores.'],
-         ['RUIM','Ruim','Condição com potencial de impactos à saúde, especialmente em grupos sensíveis.'],
-         ['MUITO_RUIM','Muito Ruim','Condição crítica com maior potencial de efeitos adversos à saúde.'],
-         ['PESSIMA','Péssima','Condição extrema de qualidade do ar, exigindo atenção e medidas de proteção.']]
+      ? [['BOA','Boa · 0–15','Concentração de MP2,5 dentro da faixa indicada para a classificação Boa.'],
+         ['MODERADO','Moderada · 15–50','Concentração de MP2,5 dentro da faixa indicada para a classificação Moderada.'],
+         ['RUIM','Ruim · 50–75','Concentração de MP2,5 dentro da faixa indicada para a classificação Ruim.'],
+         ['MUITO_RUIM','Muito Ruim · 75–125','Concentração de MP2,5 dentro da faixa indicada para a classificação Muito Ruim.'],
+         ['PESSIMA','Péssimo · >125','Concentração de MP2,5 acima de 125 µg/m³.']]
       : [['BAIXO','Baixo – Monitoramento','Situação dentro da normalidade; manter observação e acompanhar eventuais atualizações.'],
          ['MODERADO','Moderado – Atenção','Possibilidade de evolução do risco; aumentar a atenção e adotar medidas preventivas.'],
          ['ALTO','Alto – Preparação','Risco relevante de desastre; antecipar medidas de preparação, evacuação ou autoproteção.'],
@@ -4485,6 +3470,16 @@ document.getElementById('exportTool').onclick=()=>{
       ctx.beginPath();ctx.moveTo(panelX+38,y);ctx.lineTo(panelX+panelW-38,y);ctx.stroke();
       y+=34;
     });
+    if(currentAlertType==='AR'){
+      y+=18;
+      ctx.fillStyle='#eef4f8';roundRect(panelX+28,y-8,panelW-56,118,12,true,false);
+      ctx.strokeStyle='#d5e1e8';ctx.lineWidth=1.5;roundRect(panelX+28,y-8,panelW-56,118,12,false,true);
+      ctx.fillStyle='#173044';ctx.textAlign='left';ctx.font='900 20px Arial, sans-serif';
+      ctx.fillText('MP2,5 — MATERIAL PARTICULADO FINO',panelX+48,y+24);
+      ctx.fillStyle='#526b7b';ctx.font='700 16px Arial, sans-serif';
+      wrapText('Concentração de material particulado fino com diâmetro ≤ 2,5 micrômetros, expressa em µg/m³ (microgramas por metro cúbico de ar).',panelX+48,y+52,panelW-96,22,'700 16px Arial, sans-serif');
+    }
+
 
     const footY=1515,footH=185;
     ctx.fillStyle='#031b35';ctx.fillRect(0,footY,W,footH);
@@ -4561,8 +3556,7 @@ document.getElementById('exportTool').onclick=()=>{
       mapBtn.setAttribute('aria-label',active?'Sair da tela cheia':'Tela cheia');
       mapBtn.innerHTML=active?'<span aria-hidden="true">×</span>':'<span aria-hidden="true">⛶</span>';
     }
-    setTimeout(()=>map.invalidateSize(false),80);
-    setTimeout(()=>map.invalidateSize(false),260);
+    if(typeof refreshMapLayout==='function')refreshMapLayout(90);else setTimeout(()=>map.invalidateSize(false),90);
   }
   if(mapBtn)mapBtn.addEventListener('click',toggleFullscreen);
   document.addEventListener('fullscreenchange',syncFullscreenUI);
@@ -4577,7 +3571,7 @@ document.getElementById('exportTool').onclick=()=>{
   const quickDash=document.getElementById('quickDashboardToggle');
   const mainGrid=document.getElementById('mainGrid');
 
-  function refreshMap(){setTimeout(()=>map.invalidateSize(false),60);setTimeout(()=>map.invalidateSize(false),220)}
+  function refreshMap(){if(typeof refreshMapLayout==='function')refreshMapLayout(70);else setTimeout(()=>map.invalidateSize(false),70)}
   function syncLabels(){
     const listHidden=mainGrid.classList.contains('list-hidden');
     const dashHidden=body.classList.contains('hide-top-dashboard');
@@ -4598,8 +3592,7 @@ document.getElementById('exportTool').onclick=()=>{
     const hidden=mainGrid.classList.toggle('details-manually-hidden');
     handle.title=hidden?'Mostrar ficha do município':'Ocultar ficha do município';
     handle.setAttribute('aria-label',handle.title);
-    setTimeout(()=>map.invalidateSize(false),80);
-    setTimeout(()=>map.invalidateSize(false),260);
+    if(typeof refreshMapLayout==='function')refreshMapLayout(90);else setTimeout(()=>map.invalidateSize(false),90);
   });
 })();
 
@@ -4668,26 +3661,6 @@ setInterval(refreshOperationalStatus,15000);
   const initial=saved || ((matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');
   apply(initial);
   if(btn)btn.addEventListener('click',()=>apply(root.classList.contains('dark-mode')?'light':'dark'));
-})();
-</script>
-
-
-<script id="v67-theme-refresh">
-(function(){
-  const btn=document.getElementById('themeToggle');
-  if(!btn)return;
-  btn.addEventListener('click',()=>{
-    setTimeout(()=>{
-      try{
-        if(typeof map!=='undefined' && map){
-          map.invalidateSize({pan:false});
-          if(typeof geoLayer!=='undefined' && geoLayer && typeof featureStyle==='function'){
-            geoLayer.setStyle(featureStyle);
-          }
-        }
-      }catch(e){}
-    },80);
-  });
 })();
 </script>
 
@@ -4844,124 +3817,6 @@ setInterval(refreshOperationalStatus,15000);
 </script>
 
 
-<script id="v75-operational-ui">
-(function(){
-  function getCurrentProductText(){
-    const sel=document.getElementById('alertTypeSelect');
-    if(!sel) return 'Risco';
-    const opt=sel.options[sel.selectedIndex];
-    return opt ? opt.textContent.trim() : 'Risco';
-  }
-
-  function getCurrentRiskLabel(){
-    /* Prioriza a legenda/nome técnico do produto quando disponível */
-    try{
-      if(typeof currentConfig==='function'){
-        const cfg=currentConfig();
-        if(cfg){
-          if(cfg.legendTitle) return String(cfg.legendTitle).trim();
-          if(cfg.riskLabel) return String(cfg.riskLabel).trim();
-          if(cfg.subtitle) return String(cfg.subtitle).trim();
-        }
-      }
-    }catch(e){}
-
-    const product=getCurrentProductText();
-
-    /* Padronização dos produtos já usados pelo painel */
-    const p=product.toLowerCase();
-    if(p.includes('aviso meteor')) return 'Risco de Tempestade Local/ Convectiva';
-    if(p.includes('chuva intensa')) return 'Risco de Chuva Intensa';
-    if(p.includes('movimento de massa')) return 'Risco de Movimento de Massa';
-    if(p.includes('alagamento')) return 'Risco de Alagamento';
-    if(p.includes('qualidade do ar')) return 'Qualidade do Ar';
-
-    return product;
-  }
-
-  function countOutsideBase(){
-    try{
-      if(typeof GEO==='undefined' || typeof getRisk!=='function') return 0;
-      const low=(typeof currentLowLevel==='function')?currentLowLevel():'BAIXO';
-      return GEO.features.reduce((acc,f)=>acc+(getRisk(f)!==low?1:0),0);
-    }catch(e){
-      return 0;
-    }
-  }
-
-  function ensureStatus(){
-    const mapwrap=document.querySelector('.mapwrap');
-    if(!mapwrap) return null;
-
-    let box=document.getElementById('v74MapStatus');
-    if(box) return box;
-
-    box=document.createElement('div');
-    box.id='v74MapStatus';
-    box.className='v74-map-status';
-    mapwrap.appendChild(box);
-    return box;
-  }
-
-  function refreshStatus(){
-    const box=ensureStatus();
-    if(!box) return;
-
-    const total=countOutsideBase();
-    const risk=getCurrentRiskLabel();
-
-    let phrase;
-    if(total===0){
-      phrase='Nenhum município está sob a iminência de '+risk;
-    }else if(total===1){
-      phrase='1 município está sob a iminência de '+risk;
-    }else{
-      phrase=total+' municípios estão sob a iminência de '+risk;
-    }
-
-    box.innerHTML=
-      '<span class="v74-status-dot"></span>'+
-      '<strong class="v74-status-product">'+phrase+'</strong>';
-  }
-
-  function enhanceDashboard(){
-    document.querySelectorAll('.kpi').forEach(kpi=>{
-      if(!kpi.hasAttribute('tabindex')) kpi.setAttribute('tabindex','0');
-      if(!kpi.hasAttribute('role')) kpi.setAttribute('role','button');
-
-      if(!kpi.dataset.v75Keyboard){
-        kpi.dataset.v75Keyboard='1';
-        kpi.addEventListener('keydown',ev=>{
-          if(ev.key==='Enter' || ev.key===' '){
-            ev.preventDefault();
-            kpi.click();
-          }
-        });
-      }
-    });
-  }
-
-  const sel=document.getElementById('alertTypeSelect');
-  if(sel) sel.addEventListener('change',()=>setTimeout(refreshStatus,60));
-
-  document.addEventListener('click',()=>setTimeout(refreshStatus,90));
-  document.addEventListener('change',()=>setTimeout(refreshStatus,60));
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>{
-      enhanceDashboard();
-      refreshStatus();
-    });
-  }else{
-    enhanceDashboard();
-    refreshStatus();
-  }
-
-  setInterval(refreshStatus,30000);
-})();
-</script>
-
-
 <script id="v76-dashboard-toggle">
 (function(){
   let lastKpi=null;
@@ -5011,250 +3866,208 @@ setInterval(refreshOperationalStatus,15000);
 </script>
 
 
-<script id="v77-operational-refresh">
+
+<script id="v91-final-engine">
 (function(){
-  function updateOperationalIndicator(){
-    const box=document.getElementById('v74MapStatus');
-    if(!box) return;
+  const TWO_HOURS=2*60*60*1000;
+  const rank={BAIXO:0,BOA:0,MODERADO:1,RUIM:2,ALTO:2,MUITO_RUIM:3,SEVERO:3,PESSIMA:4,EXTREMO:4};
+  let resizeTimer=null, refreshTimer=null;
 
-    let total=0;
-    try{
-      if(typeof GEO!=='undefined' && typeof getRisk==='function'){
-        const low=(typeof currentLowLevel==='function')?currentLowLevel():'BAIXO';
-        total=GEO.features.reduce((n,f)=>n+(getRisk(f)!==low?1:0),0);
-      }
-    }catch(e){}
-
-    let risk='risco';
-    try{
-      if(typeof currentConfig==='function'){
-        const cfg=currentConfig();
-        if(cfg){
-          risk=cfg.legendTitle || cfg.riskLabel || cfg.subtitle || risk;
-        }
-      }
-    }catch(e){}
-
-    if(risk==='risco' || !risk){
-      const sel=document.getElementById('alertTypeSelect');
-      const text=sel && sel.options[sel.selectedIndex]
-        ? sel.options[sel.selectedIndex].textContent.trim()
-        : '';
-      const p=text.toLowerCase();
-
-      if(p.includes('aviso meteor')) risk='Risco de Tempestade Local/ Convectiva';
-      else if(p.includes('chuva intensa')) risk='Risco de Chuva Intensa';
-      else if(p.includes('movimento de massa')) risk='Risco de Movimento de Massa';
-      else if(p.includes('alagamento')) risk='Risco de Alagamento';
-      else if(p.includes('qualidade do ar')) risk='Qualidade do Ar';
-      else if(text) risk=text;
-    }
-
-    const phrase = total===0
-      ? 'Nenhum município está sob a iminência de '+risk
-      : total===1
-        ? '1 município está sob a iminência de '+risk
-        : total+' municípios estão sob a iminência de '+risk;
-
-    box.innerHTML='<span class="v74-status-dot"></span><strong>'+phrase+'</strong>';
+  function featureName(f){return f&&f.properties?f.properties.nome||'':''}
+  function featureByName(nome){
+    try{return typeof getFeatureByName==='function'?getFeatureByName(nome):GEO.features.find(f=>featureName(f)===nome)||null}catch(e){return null}
   }
-
-  /* MutationObserver permite refletir edições no painel sem depender
-     exclusivamente dos handlers antigos. */
-  const observer=new MutationObserver(()=>{
-    clearTimeout(window.__v77IndicatorTimer);
-    window.__v77IndicatorTimer=setTimeout(updateOperationalIndicator,60);
-  });
-
-  const dashboard=document.querySelector('.kpis');
-  if(dashboard){
-    observer.observe(dashboard,{subtree:true,childList:true,characterData:true});
+  function getExpiry(f,type=currentAlertType){
+    try{return getAlertMeta(f,type).expiresAt||null}catch(e){return null}
   }
-
-  document.addEventListener('change',()=>setTimeout(updateOperationalIndicator,80));
-  document.addEventListener('click',()=>setTimeout(updateOperationalIndicator,100));
-  window.addEventListener('storage',()=>setTimeout(updateOperationalIndicator,80));
-
-  setTimeout(updateOperationalIndicator,400);
-})();
-</script>
-
-
-<script id="v78-indicator-color">
-(function(){
-  const priority=['EXTREMO','SEVERO','ALTO','MODERADO','BAIXO'];
-  const colorMap={
-    EXTREMO:'#9026c9',
-    SEVERO:'#e21c2b',
-    ALTO:'#f2790f',
-    MODERADO:'#f0b90b',
-    BAIXO:'#27ae52',
-    BOA:'#27ae52',
-    RUIM:'#f2790f',
-    MUITO_RUIM:'#e21c2b',
-    PESSIMA:'#9026c9'
-  };
-
-  function getHighest(){
-    try{
-      if(typeof GEO==='undefined' || typeof getRisk!=='function') return null;
-      const levels=GEO.features.map(f=>getRisk(f));
-      for(const p of priority){
-        if(levels.includes(p)) return p;
-      }
-      if(levels.includes('PESSIMA')) return 'PESSIMA';
-      if(levels.includes('MUITO_RUIM')) return 'MUITO_RUIM';
-      if(levels.includes('RUIM')) return 'RUIM';
-      if(levels.includes('MODERADO')) return 'MODERADO';
-      if(levels.includes('BOA')) return 'BOA';
-    }catch(e){}
-    return null;
+  function fmt(ts){
+    if(!ts)return '—';
+    const d=new Date(ts);
+    return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' · '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
   }
-
-  function refreshIndicatorColor(){
-    const box=document.getElementById('v74MapStatus');
-    if(!box) return;
-    const dot=box.querySelector('.v74-status-dot');
-    if(!dot) return;
-    const level=getHighest();
-    dot.style.background=colorMap[level] || '#5eaef2';
+  function remaining(ts){
+    if(!ts)return 'Sem prazo ativo';
+    const diff=ts-Date.now();
+    if(diff<=0)return 'Vigência encerrada';
+    const mins=Math.ceil(diff/60000),h=Math.floor(mins/60),m=mins%60;
+    return h?`${h}h ${String(m).padStart(2,'0')}min`:`${m} min`;
   }
-
-  document.addEventListener('click',()=>setTimeout(refreshIndicatorColor,80));
-  document.addEventListener('change',()=>setTimeout(refreshIndicatorColor,80));
-  setInterval(refreshIndicatorColor,30000);
-  setTimeout(refreshIndicatorColor,400);
-})();
-</script>
-
-
-<script id="v79-operational-summary">
-(function(){
-  function getCounts(){
-    const result={total:0,outside:0,highest:null};
-    try{
-      if(typeof GEO==='undefined' || typeof getRisk!=='function') return result;
-
-      const low=(typeof currentLowLevel==='function')?currentLowLevel():'BAIXO';
-      const levels=GEO.features.map(f=>getRisk(f));
-
-      result.total=levels.length;
-      result.outside=levels.filter(v=>v!==low).length;
-
-      const order=['EXTREMO','PESSIMA','SEVERO','MUITO_RUIM','ALTO','RUIM','MODERADO','BAIXO','BOA'];
-      result.highest=order.find(l=>levels.includes(l))||null;
-    }catch(e){}
-    return result;
+  function situation(f){
+    if(!f)return 'Monitoramento';
+    const cfg=currentConfig();
+    const r=getRisk(f);
+    const exp=getExpiry(f);
+    if(r===cfg.low)return cfg.isAlert?'Monitoramento':'Condição-base';
+    if(!cfg.isAlert)return 'Monitoramento ambiental';
+    if(exp && exp<=Date.now())return 'Vigência encerrada';
+    return 'Alerta ativo';
   }
-
-  function getRiskLabel(){
-    const sel=document.getElementById('alertTypeSelect');
-    const text=sel && sel.options[sel.selectedIndex]
-      ? sel.options[sel.selectedIndex].textContent.trim()
-      : '';
-
+  function trendFor(nome){
+    const h=operationalHistoryFor(nome);
+    if(!h||!h.previous||!h.current)return {cls:'flat',label:'→ Estável'};
+    const a=rank[h.previous]??0,b=rank[h.current]??0;
+    if(b>a)return {cls:'up',label:'↑ Agravamento'};
+    if(b<a)return {cls:'down',label:'↓ Redução'};
+    return {cls:'flat',label:'→ Estável'};
+  }
+  function riskPhrase(){
+    const s=document.getElementById('alertTypeSelect');
+    const text=s&&s.options[s.selectedIndex]?s.options[s.selectedIndex].textContent.trim():'';
     const p=text.toLowerCase();
-    if(p.includes('aviso meteor')) return 'Risco de Tempestade Local/ Convectiva';
-    if(p.includes('chuva intensa')) return 'Risco de Chuva Intensa';
-    if(p.includes('movimento de massa')) return 'Risco de Movimento de Massa';
-    if(p.includes('alagamento')) return 'Risco de Alagamento';
-    if(p.includes('qualidade do ar')) return 'Qualidade do Ar';
-    return text || 'risco';
+    if(p.includes('aviso meteor'))return 'Risco de Tempestade Local/ Convectiva';
+    if(p.includes('chuva intensa'))return 'Risco de Chuva Intensa';
+    if(p.includes('movimento de massa'))return 'Risco de Movimento de Massa';
+    if(p.includes('alagamento'))return 'Risco de Alagamento';
+    if(p.includes('qualidade do ar'))return 'Qualidade do Ar';
+    return text||'risco';
   }
 
-  function refresh(){
+  function stableResize(delay=70){
+    clearTimeout(resizeTimer);
+    let snap=null;
+    try{
+      if(typeof map!=='undefined'&&map)snap={center:map.getCenter(),zoom:map.getZoom()};
+    }catch(e){}
+    resizeTimer=setTimeout(()=>{
+      try{
+        if(typeof map==='undefined'||!map)return;
+        map.invalidateSize({pan:false,animate:false});
+        requestAnimationFrame(()=>{
+          try{
+            map.invalidateSize({pan:false,animate:false});
+            if(snap)map.setView(snap.center,snap.zoom,{animate:false});
+          }catch(e){}
+        });
+      }catch(e){}
+    },delay);
+  }
+  window.refreshMapLayout=stableResize;
+
+  function counts(){
+    let active=0,up=0,exp=0;
+    const low=currentLowLevel();
+    GEO.features.forEach(f=>{
+      const r=getRisk(f);
+      if(r!==low)active++;
+      const tr=trendFor(featureName(f));
+      if(r!==low && tr.cls==='up')up++;
+      const ex=getExpiry(f);
+      if(r!==low && ex && ex>Date.now() && ex-Date.now()<=TWO_HOURS)exp++;
+    });
+    return {active,up,exp};
+  }
+  function ensureOpbar(){
+    const wrap=document.querySelector('.mapwrap');if(!wrap)return null;
+    let b=document.getElementById('v91Opbar');
+    if(!b){b=document.createElement('div');b.id='v91Opbar';b.className='v91-opbar';wrap.appendChild(b)}
+    return b;
+  }
+  function updateSummary(){
+    const c=counts(),bar=ensureOpbar();
+    if(bar){
+      bar.innerHTML=
+        `<div class="v91-pill"><span class="v91-dot active"></span><b>${c.active}</b> ativos</div>`+
+        `<div class="v91-pill"><span class="v91-dot up"></span><b>${c.up}</b> em agravamento</div>`+
+        `<div class="v91-pill"><span class="v91-dot exp"></span><b>${c.exp}</b> vencem em até 2h</div>`;
+    }
     const box=document.getElementById('v74MapStatus');
-    if(!box) return;
-
-    const c=getCounts();
-    const label=getRiskLabel();
-
-    const phrase=c.outside===0
-      ? 'Nenhum município está sob a iminência de '+label
-      : c.outside===1
-        ? '1 município está sob a iminência de '+label
-        : c.outside+' municípios estão sob a iminência de '+label;
-
-    const colorMap={
-      EXTREMO:'#9026c9',
-      PESSIMA:'#9026c9',
-      SEVERO:'#e21c2b',
-      MUITO_RUIM:'#e21c2b',
-      ALTO:'#f2790f',
-      RUIM:'#f2790f',
-      MODERADO:'#f0b90b',
-      BAIXO:'#27ae52',
-      BOA:'#27ae52'
-    };
-
-    box.innerHTML='<span class="v74-status-dot"></span><strong>'+phrase+'</strong>';
-    const dot=box.querySelector('.v74-status-dot');
-    if(dot) dot.style.background=colorMap[c.highest]||'#5eaef2';
-
-    box.title=phrase;
-  }
-
-  document.addEventListener('click',()=>setTimeout(refresh,80));
-  document.addEventListener('change',()=>setTimeout(refresh,80));
-  window.addEventListener('storage',()=>setTimeout(refresh,80));
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',()=>setTimeout(refresh,250));
-  }else{
-    setTimeout(refresh,250);
-  }
-
-  setInterval(refresh,30000);
-})();
-</script>
-
-
-<script id="v82-focus-details">
-(function(){
-  const details=document.getElementById('details');
-  const mapwrap=document.querySelector('.mapwrap');
-  if(!details || !mapwrap) return;
-
-  const update=()=>{
-    mapwrap.classList.toggle('v82-details-open',details.classList.contains('open'));
-  };
-
-  const style=document.createElement('style');
-  style.textContent=`
-    .mapwrap.v82-details-open .legend,
-    .mapwrap.v82-details-open .data-source-box{
-      opacity:.86;
+    if(box){
+      const phrase=riskPhrase();
+      const txt=c.active===0
+        ? `Nenhum município está sob a iminência de ${phrase}`
+        : c.active===1
+          ? `1 município está sob a iminência de ${phrase}`
+          : `${c.active} municípios estão sob a iminência de ${phrase}`;
+      const dot=box.querySelector('.v74-status-dot');
+      box.innerHTML=`<span class="v74-status-dot"></span><strong>${txt}</strong>`;
+      const nd=box.querySelector('.v74-status-dot');
+      if(nd)nd.style.background=c.up?'#ef4444':(c.exp?'#f59e0b':'#3b82f6');
+      box.title=txt;
     }
-  `;
-  document.head.appendChild(style);
-
-  new MutationObserver(update).observe(details,{attributes:true,attributeFilter:['class']});
-  update();
-})();
-</script>
-
-
-<script id="v83-selection-focus">
-(function(){
-  const details=document.getElementById('details');
-  const mapwrap=document.querySelector('.mapwrap');
-  if(!details || !mapwrap) return;
-
-  function sync(){
-    const open=details.classList.contains('open');
-    mapwrap.classList.toggle('v83-detail-focus',open);
   }
 
-  const style=document.createElement('style');
-  style.textContent=`
-    .mapwrap.v83-detail-focus.v73-selection-active .leaflet-overlay-pane svg path:not(.v73-selected-path){
-      filter:saturate(.82);
-    }
-  `;
-  document.head.appendChild(style);
+  function selectedMunicipality(){
+    try{if(typeof selectedName!=='undefined'&&selectedName)return selectedName}catch(e){}
+    const t=document.querySelector('.detail-title');return t?t.textContent.trim():'';
+  }
+  function updateDetailOperational(){
+    const body=document.getElementById('detailBody');
+    const nome=selectedMunicipality();
+    if(!body||!nome)return;
+    const f=featureByName(nome);if(!f)return;
 
-  new MutationObserver(sync).observe(details,{attributes:true,attributeFilter:['class']});
-  sync();
+    let sec=document.getElementById('v91OperationalDetails');
+    if(!sec){sec=document.createElement('div');sec.id='v91OperationalDetails';body.appendChild(sec)}
+
+    const cfg=currentConfig(),r=getRisk(f),ex=getExpiry(f),hist=operationalHistoryFor(nome);
+    const tr=trendFor(nome);
+    const soon=cfg.isAlert && r!==cfg.low && ex && ex>Date.now() && ex-Date.now()<=TWO_HOURS;
+    const history=hist&&Array.isArray(hist.history)?hist.history.slice(0,6):[];
+
+    const vigencia=ex?`${hist&&hist.changedAt?fmt(hist.changedAt):'—'} → ${fmt(ex)}`:(cfg.isAlert?'Sem vigência ativa':'Não aplicável');
+    const currentLabel=typeof formatLevel==='function'?formatLevel(r):r;
+    const baseLabel=typeof formatLevel==='function'?formatLevel(cfg.low):cfg.low;
+
+    sec.innerHTML=`
+      <div class="v91-section">
+        <div class="v91-section-title">Acompanhamento operacional</div>
+        <div class="v91-grid">
+          <div class="v91-item"><small>Classificação atual</small><strong>${currentLabel}</strong></div>
+          <div class="v91-item"><small>Situação</small><strong>${situation(f)}</strong></div>
+          <div class="v91-item"><small>Vigência</small><strong>${vigencia}</strong></div>
+          <div class="v91-item"><small>Tempo restante</small><strong>${remaining(ex)}</strong></div>
+          <div class="v91-item"><small>Última alteração</small><strong>${hist&&hist.changedAt?fmt(hist.changedAt):'Sem registro'}</strong></div>
+          <div class="v91-item"><small>Tendência</small><strong class="v91-trend ${tr.cls}">${tr.label}</strong></div>
+        </div>
+        ${soon?'<div class="v91-warning">⚠ Alerta próximo do vencimento — menos de 2 horas restantes.</div>':''}
+        ${!cfg.isAlert?`<div class="v91-warning" style="background:rgba(59,130,246,.08);color:inherit">Qualidade do Ar utiliza classificação própria; nível-base: ${baseLabel}.</div>`:''}
+      </div>
+      <div class="v91-section">
+        <div class="v91-section-title">Histórico operacional</div>
+        <div class="v91-history">${
+          history.length?history.map(h=>{
+            const reason=operationalReasonLabel(h.reason);
+            const tm=new Date(h.at).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+            return `<div class="v91-history-row"><span class="v91-history-time">${tm}</span><span class="v91-history-text">${h.from} → <b>${h.to}</b> · ${reason}</span></div>`;
+          }).join(''):'<div class="v91-empty">Nenhuma alteração registrada para este produto.</div>'
+        }</div>
+      </div>`;
+  }
+
+  function refreshOperationalUI(){
+    clearTimeout(refreshTimer);
+    refreshTimer=setTimeout(()=>{
+      try{processExpiredAlerts()}catch(e){}
+      updateSummary();
+      updateDetailOperational();
+      stableResize(40);
+    },70);
+  }
+  window.refreshOperationalUI=refreshOperationalUI;
+
+  /* Eventos únicos e explícitos */
+  const details=document.getElementById('details');
+  if(details&&'MutationObserver'in window){
+    new MutationObserver(()=>stableResize(60)).observe(details,{attributes:true,attributeFilter:['class']});
+  }
+  const product=document.getElementById('alertTypeSelect');
+  if(product)product.addEventListener('change',refreshOperationalUI);
+  const theme=document.getElementById('themeToggle');
+  if(theme)theme.addEventListener('click',()=>stableResize(90));
+  document.addEventListener('click',e=>{
+    if(e.target.closest('.kpi,.row,#applyRiskBtn,.quick-status button,.duration-presets button'))refreshOperationalUI();
+  });
+  document.addEventListener('change',e=>{
+    if(e.target.closest('#alertTypeSelect,.quick-status select,.risk-editor-table select'))refreshOperationalUI();
+  });
+  window.addEventListener('storage',refreshOperationalUI);
+  window.addEventListener('cemoa:operational-change',refreshOperationalUI);
+  window.addEventListener('resize',()=>stableResize(110),{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshOperationalUI()});
+
+  /* Um único relógio operacional */
+  setInterval(refreshOperationalUI,60000);
+  setTimeout(refreshOperationalUI,400);
 })();
 </script>
 
