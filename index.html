@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Painel de Alertas CEMOA — V117 Salvamento Estável</title>
+<title>Painel de Alertas CEMOA — V122 Interface Limpa</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -4469,12 +4469,36 @@ body.cemoa-admin.v112-fast-mode .leaflet-overlay-pane svg path{
 </style>
 
 
-<style id="v117-save-status">
-.supabase-sync-status.busy{
-  opacity:.92;
+<style id="v119-save-diagnostic">
+.supabase-sync-status.error{
+  max-width:360px!important;
+  white-space:normal!important;
+  line-height:1.25!important;
 }
-.supabase-sync-status.ok{
-  opacity:1;
+</style>
+
+
+<style id="v121-fast-mode-performance">
+@media(min-width:721px){
+  body.cemoa-admin.v112-fast-mode .leaflet-interactive{
+    cursor:crosshair!important;
+    transition:none!important;
+  }
+  body.cemoa-admin.v112-fast-mode .municipality-name-label{
+    pointer-events:none!important;
+  }
+  body.cemoa-admin.v112-fast-mode #map{
+    outline:1px solid rgba(37,99,235,.22)!important;
+  }
+}
+</style>
+
+
+<style id="v122-clean-sync-error">
+.supabase-sync-status.error{
+  max-width:180px!important;
+  white-space:nowrap!important;
+  opacity:.88!important;
 }
 </style>
 
@@ -6227,6 +6251,8 @@ const CEMOA_SUPABASE_STATE_ID='main';
   let realtimeChannel=null;
   let remoteApply=false;
   let persistTimer=null;
+  let lastLocalSaveAt=0;
+  let lastLocalSaveBy=null;
 
   const authBtn=document.getElementById('adminAuthBtn');
   const modal=document.getElementById('adminLoginBackdrop');
@@ -6333,6 +6359,13 @@ const CEMOA_SUPABASE_STATE_ID='main';
 
   function applyPayload(payload){
     if(!payload || !payload.municipios || typeof GEO==='undefined')return false;
+    let mapSnapshot=null;
+    try{
+      if(typeof map!=='undefined' && map){
+        mapSnapshot={center:map.getCenter(),zoom:map.getZoom()};
+      }
+    }catch(e){}
+    const previousSelected=(typeof selectedName!=='undefined')?selectedName:null;
     remoteApply=true;
     try{
       GEO.features.forEach(f=>{
@@ -6365,9 +6398,24 @@ const CEMOA_SUPABASE_STATE_ID='main';
         localStorage.setItem(STORAGE_KEY,JSON.stringify(localPayload));
       }catch(e){}
 
-      activeFilter='TODOS';
-      selectedName=null;
       rebuildDashboard();rebuildLegend();drawMap();renderList();
+
+      /* Preserva a visão do operador quando atualização vem do Realtime. */
+      try{
+        if(mapSnapshot && typeof map!=='undefined' && map){
+          map.setView(mapSnapshot.center,mapSnapshot.zoom,{animate:false});
+        }
+      }catch(e){}
+
+      try{
+        if(previousSelected){
+          selectedName=previousSelected;
+          if(typeof selectMunicipio==='function'){
+            setTimeout(()=>selectMunicipio(previousSelected),30);
+          }
+        }
+      }catch(e){}
+
       if(typeof updateHeaderSummary==='function')updateHeaderSummary();
       if(typeof refreshOperationalUI==='function')refreshOperationalUI();
       setSync('Sincronizado','ok');
@@ -6398,95 +6446,96 @@ const CEMOA_SUPABASE_STATE_ID='main';
     return false;
   }
 
-  let saveInFlight=false;
-  let savePending=false;
+  let cemoaSaveRunning=false;
+  let cemoaSaveAgain=false;
+
+  function saveErrorText(error){
+    if(!error)return 'Erro desconhecido';
+    return error.message || error.details || error.hint || error.code || String(error);
+  }
+
+  async function doPanelUpsert(){
+    const payload=buildPayload();
+    return await sb.from('panel_state').upsert({
+      id:CEMOA_SUPABASE_STATE_ID,
+      payload,
+      updated_at:new Date().toISOString(),
+      updated_by:currentUser?currentUser.id:null
+    },{onConflict:'id'});
+  }
 
   async function persistCloudState(retry=true){
     if(!sb || !admin || remoteApply)return false;
 
-    /* Evita dois upserts simultâneos durante cliques rápidos. */
-    if(saveInFlight){
-      savePending=true;
+    if(cemoaSaveRunning){
+      cemoaSaveAgain=true;
       return true;
     }
 
-    saveInFlight=true;
+    cemoaSaveRunning=true;
     setSync('Salvando…','busy');
 
     try{
-      const payload=buildPayload();
+      let {error}=await doPanelUpsert();
 
-      /* Preferimos UPDATE porque o registro main já existe.
-         Isso reduz conflitos de RLS/UPSERT em alterações sucessivas. */
-      let {data,error}=await sb
-        .from('panel_state')
-        .update({
-          payload,
-          updated_at:new Date().toISOString(),
-          updated_by:currentUser?currentUser.id:null
-        })
-        .eq('id',CEMOA_SUPABASE_STATE_ID)
-        .select('id')
-        .maybeSingle();
+      if(error && retry){
+        console.warn('Primeira tentativa de salvamento falhou:',error);
 
-      /* Se ainda não existir o registro, tenta INSERT uma única vez. */
-      if(!error && !data){
-        const inserted=await sb.from('panel_state').insert({
-          id:CEMOA_SUPABASE_STATE_ID,
-          payload,
-          updated_at:new Date().toISOString(),
-          updated_by:currentUser?currentUser.id:null
-        });
-        error=inserted.error;
+        /* Renova a sessão antes de tentar novamente. */
+        try{
+          const refreshed=await sb.auth.refreshSession();
+          if(refreshed?.data?.session?.user){
+            currentUser=refreshed.data.session.user;
+            await checkAdmin(currentUser);
+          }
+        }catch(refreshError){
+          console.warn('Falha ao renovar sessão:',refreshError);
+        }
+
+        await new Promise(resolve=>setTimeout(resolve,350));
+        const second=await doPanelUpsert();
+        error=second.error;
       }
 
       if(error){
+        const reason=saveErrorText(error);
         console.error('Supabase save:',error);
 
-        /* Uma repetição curta resolve falhas transitórias de rede/realtime. */
-        if(retry){
-          await new Promise(resolve=>setTimeout(resolve,450));
-          saveInFlight=false;
-          return await persistCloudState(false);
-        }
+        /* Mostra erro real no status, sem esconder a causa. */
+        setSync('Não sincronizado','error'); setTimeout(()=>setSync('Somente leitura',''),3500);
 
-        setSync('Falha ao salvar','error');
+        /* Mantém estado local intacto; nada é perdido no navegador. */
         return false;
       }
 
+      lastLocalSaveAt=Date.now();
+      lastLocalSaveBy=currentUser?currentUser.id:null;
       setSync('Salvo na nuvem','ok');
       return true;
+
     }catch(error){
+      const reason=saveErrorText(error);
       console.error('Supabase save exception:',error);
-
-      if(retry){
-        await new Promise(resolve=>setTimeout(resolve,450));
-        saveInFlight=false;
-        return await persistCloudState(false);
-      }
-
-      setSync('Falha ao salvar','error');
+      setSync('Não sincronizado','error'); setTimeout(()=>setSync('Somente leitura',''),3500);
       return false;
-    }finally{
-      saveInFlight=false;
 
-      /* Se houve alteração enquanto salvava, grava o estado mais recente logo depois. */
-      if(savePending){
-        savePending=false;
+    }finally{
+      cemoaSaveRunning=false;
+
+      if(cemoaSaveAgain){
+        cemoaSaveAgain=false;
         clearTimeout(persistTimer);
-        persistTimer=setTimeout(()=>persistCloudState(),220);
+        persistTimer=setTimeout(()=>persistCloudState(true),300);
       }
     }
   }
 
   function queuePersist(){
     if(!admin || remoteApply)return;
-
-    /* Cliques rápidos viram uma única gravação com o último estado. */
     clearTimeout(persistTimer);
     persistTimer=setTimeout(()=>{
-      persistCloudState();
-    },420);
+      persistCloudState(true);
+    },550);
   }
 
   async function checkAdmin(sessionOrUser){
@@ -6656,7 +6705,21 @@ const CEMOA_SUPABASE_STATE_ID='main';
         filter:'id=eq.'+CEMOA_SUPABASE_STATE_ID
       },payload=>{
         const row=payload.new;
-        if(row && row.payload)applyPayload(row.payload);
+        if(!row || !row.payload)return;
+
+        /* Ignora o eco da própria gravação do admin atual.
+           Isso evita recriar o geoLayer logo após cada clique. */
+        const ownUser=currentUser?currentUser.id:null;
+        const sameUser=ownUser && row.updated_by===ownUser;
+        const veryRecent=(Date.now()-lastLocalSaveAt)<2500;
+
+        if(sameUser && veryRecent){
+          setSync('Salvo na nuvem','ok');
+          return;
+        }
+
+        /* Atualizações de outro admin/aba continuam chegando em tempo real. */
+        applyPayload(row.payload);
       })
       .subscribe();
   }
@@ -7316,10 +7379,14 @@ const CEMOA_SUPABASE_STATE_ID='main';
 
 
 
-<script id="v114-admin-fast-edit-stable">
+
+<script id="v121-admin-fast-edit-fluid">
 (function(){
   let fastMode=false;
   let saveTimer=null;
+  let uiTimer=null;
+  let changedCount=0;
+  let lastChangedName='';
 
   const panel=document.getElementById('v112AdminEdit');
   const openBtn=document.getElementById('v112OpenFastEdit');
@@ -7350,9 +7417,7 @@ const CEMOA_SUPABASE_STATE_ID='main';
     catch(e){return null}
   }
 
-  function featureName(f){
-    return f?.properties?.nome || '';
-  }
+  function featureName(f){ return f?.properties?.nome || ''; }
 
   function normalizeName(s){
     return String(s||'')
@@ -7386,9 +7451,9 @@ const CEMOA_SUPABASE_STATE_ID='main';
     let levels=[];
     try{levels=typeof currentLevels==='function'?currentLevels():[]}catch(e){}
 
-    const html=levels.map(l=>`<option value="${l}">${levelLabel(l)}</option>`).join('');
-    fastLevel.innerHTML=html;
-    batchLevel.innerHTML=html;
+    const levelHtml=levels.map(l=>`<option value="${l}">${levelLabel(l)}</option>`).join('');
+    fastLevel.innerHTML=levelHtml;
+    batchLevel.innerHTML=levelHtml;
 
     let durations=[];
     if(c?.isAlert){
@@ -7410,10 +7475,8 @@ const CEMOA_SUPABASE_STATE_ID='main';
 
   function syncDurationState(){
     const c=cfg();
-    const fBase=c && fastLevel.value===c.low;
-    const bBase=c && batchLevel.value===c.low;
-    fastDuration.disabled=!c?.isAlert || fBase;
-    batchDuration.disabled=!c?.isAlert || bBase;
+    fastDuration.disabled=!c?.isAlert || fastLevel.value===c?.low;
+    batchDuration.disabled=!c?.isAlert || batchLevel.value===c?.low;
   }
 
   function setStatus(el,text,type=''){
@@ -7422,23 +7485,27 @@ const CEMOA_SUPABASE_STATE_ID='main';
     el.className='v112-status'+(type?' '+type:'');
   }
 
+  /* Salva local/nuvem em lote após a sequência de cliques. */
   function queueSave(){
     clearTimeout(saveTimer);
     saveTimer=setTimeout(()=>{
       try{
         if(typeof saveAllAlertRisks==='function')saveAllAlertRisks();
       }catch(e){console.error(e)}
-    },120);
+    },700);
   }
 
-  /* Atualiza interface sem recriar geoLayer. */
-  function refreshUIWithoutRedraw(){
-    try{if(typeof rebuildDashboard==='function')rebuildDashboard()}catch(e){}
-    try{if(typeof rebuildLegend==='function')rebuildLegend()}catch(e){}
-    try{if(typeof renderList==='function')renderList()}catch(e){}
-    try{if(typeof updateHeaderSummary==='function')updateHeaderSummary()}catch(e){}
-    try{if(typeof refreshOperationalUI==='function')refreshOperationalUI()}catch(e){}
-    try{window.dispatchEvent(new CustomEvent('cemoa:operational-change'))}catch(e){}
+  /* Atualizações pesadas são agrupadas. Nada disso roda a cada clique. */
+  function queueHeavyUI(){
+    clearTimeout(uiTimer);
+    uiTimer=setTimeout(()=>{
+      try{if(typeof rebuildDashboard==='function')rebuildDashboard()}catch(e){}
+      try{if(typeof rebuildLegend==='function')rebuildLegend()}catch(e){}
+      try{if(typeof renderList==='function')renderList()}catch(e){}
+      try{if(typeof updateHeaderSummary==='function')updateHeaderSummary()}catch(e){}
+      try{window.dispatchEvent(new CustomEvent('cemoa:operational-change'))}catch(e){}
+      /* NÃO chama refreshOperationalUI aqui; ela envolve timers/map resize. */
+    },260);
   }
 
   function updateLayerOnly(f,layer=null){
@@ -7446,8 +7513,22 @@ const CEMOA_SUPABASE_STATE_ID='main';
     if(!l)return;
 
     try{
-      if(typeof featureStyle==='function')l.setStyle(featureStyle(f));
-    }catch(e){}
+      const risk=getRisk(f);
+      const colors=currentColors();
+      const selected=(typeof selectedName!=='undefined' && selectedName===featureName(f));
+      const match=(typeof activeFilter==='undefined'||activeFilter==='TODOS'||risk===activeFilter);
+
+      /* Estilo direto: evita executar lógica adicional de featureStyle. */
+      l.setStyle({
+        color:selected?'#0b3954':'#456474',
+        weight:selected?3.5:1.05,
+        opacity:1,
+        fillColor:colors[risk],
+        fillOpacity:selected?.92:(match?.78:.14)
+      });
+    }catch(e){
+      try{ if(typeof featureStyle==='function')l.setStyle(featureStyle(f)); }catch(_){}
+    }
 
     try{
       l.setTooltipContent(
@@ -7475,17 +7556,15 @@ const CEMOA_SUPABASE_STATE_ID='main';
       return false;
     }
 
-    /* Mesmo nível com nova duração também precisa atualizar tooltip/UI. */
+    /* ÚNICA atualização imediata: o polígono tocado. */
     updateLayerOnly(f,layer);
-    queueSave();
-    refreshUIWithoutRedraw();
 
-    return {
-      changed:oldRisk!==level,
-      oldRisk,
-      newRisk:level,
-      hours
-    };
+    changedCount++;
+    lastChangedName=featureName(f);
+    queueSave();
+    queueHeavyUI();
+
+    return {changed:oldRisk!==level,oldRisk,newRisk:level,hours};
   }
 
   function updateActiveText(){
@@ -7498,19 +7577,23 @@ const CEMOA_SUPABASE_STATE_ID='main';
 
   function startFast(){
     if(!isAdminDesktop())return;
+
+    /* Não redesenha mapa ao entrar no modo. */
     activeFilter='TODOS';
     selectedName=null;
-    try{if(typeof geoLayer!=='undefined'&&geoLayer)geoLayer.setStyle(featureStyle)}catch(e){}
     try{if(typeof closeDetails==='function')closeDetails()}catch(e){}
 
+    changedCount=0;
+    lastChangedName='';
     fastMode=true;
     document.body.classList.add('v112-fast-mode');
     fastToggle.classList.add('active');
     fastToggle.textContent='Encerrar edição por clique';
     updateActiveText();
+
     setStatus(
       fastStatus,
-      'Modo ativo: clique diretamente em cada município. A cor muda sem recarregar o mapa.',
+      'Modo ativo: clique nos municípios. A cor muda imediatamente; os demais dados atualizam em segundo plano.',
       'ok'
     );
   }
@@ -7520,20 +7603,28 @@ const CEMOA_SUPABASE_STATE_ID='main';
     document.body.classList.remove('v112-fast-mode');
     fastToggle.classList.remove('active');
     fastToggle.textContent='Ativar edição por clique';
-    setStatus(
-      fastStatus,
-      'Selecione o nível e a duração. Depois ative a edição e clique nos municípios diretamente no mapa.'
-    );
 
-    /* Ao finalizar a edição por clique, recolhe automaticamente o painel. */
+    /* Consolida tudo uma vez ao terminar. */
+    clearTimeout(uiTimer);
+    try{if(typeof rebuildDashboard==='function')rebuildDashboard()}catch(e){}
+    try{if(typeof rebuildLegend==='function')rebuildLegend()}catch(e){}
+    try{if(typeof renderList==='function')renderList()}catch(e){}
+    try{if(typeof updateHeaderSummary==='function')updateHeaderSummary()}catch(e){}
+    try{if(typeof refreshOperationalUI==='function')refreshOperationalUI()}catch(e){}
+    try{if(typeof saveAllAlertRisks==='function')saveAllAlertRisks()}catch(e){}
+
+    const msg=changedCount
+      ? `${changedCount} alteração(ões) concluída(s). Último município: ${lastChangedName}.`
+      : 'Nenhuma alteração realizada.';
+    setStatus(fastStatus,msg,changedCount?'ok':'');
+
     if(recolher && panel){
       panel.style.removeProperty('display');
       panel.setAttribute('aria-hidden','true');
     }
   }
 
-  /* Esta função é chamada pelo onEachFeature principal.
-     Não recria o mapa e não adiciona listeners paralelos. */
+  /* Hook acionado pelo clique principal do GeoJSON. */
   window.CEMOA_FAST_EDIT_CLICK=function(f,layer,ev){
     if(!fastMode || !isAdminDesktop())return false;
 
@@ -7552,13 +7643,13 @@ const CEMOA_SUPABASE_STATE_ID='main';
 
     const c=cfg();
     const dur=(c?.isAlert && fastLevel.value!==c.low)?` · ${fastDuration.value}h`:'';
+
+    /* Texto simples; sem rebuild de outros componentes. */
     setStatus(
       fastStatus,
-      `${featureName(f)} → ${levelLabel(fastLevel.value)}${dur}. Continue clicando nos demais municípios.`,
+      `${featureName(f)} → ${levelLabel(fastLevel.value)}${dur} · ${changedCount} alteração(ões) nesta sequência.`,
       'ok'
     );
-    updateActiveText();
-
     return true;
   };
 
@@ -7586,7 +7677,6 @@ const CEMOA_SUPABASE_STATE_ID='main';
     const found=[];
     const missing=[];
 
-    /* Dados primeiro, sem redraw e sem save individual. */
     names.forEach(name=>{
       const f=featureByTypedName(name);
       if(!f){missing.push(name);return}
@@ -7598,37 +7688,25 @@ const CEMOA_SUPABASE_STATE_ID='main';
         }else{
           setRisk(f,level);
         }
+        updateLayerOnly(f);
         found.push(featureName(f));
       }catch(e){
         missing.push(name);
       }
     });
 
-    /* Uma atualização visual só ao final do lote. */
-    try{
-      if(typeof geoLayer!=='undefined'&&geoLayer){
-        geoLayer.setStyle(featureStyle);
-        geoLayer.eachLayer(l=>{
-          try{
-            l.setTooltipContent(
-              `<b>${featureName(l.feature)}</b><br>${currentProductLegend()}: <b>${levelLabel(getRisk(l.feature))}</b>`
-            );
-          }catch(e){}
-        });
-      }
-    }catch(e){}
-
+    /* Consolida uma única vez. */
     try{if(typeof saveAllAlertRisks==='function')saveAllAlertRisks()}catch(e){}
-    refreshUIWithoutRedraw();
+    try{if(typeof rebuildDashboard==='function')rebuildDashboard()}catch(e){}
+    try{if(typeof rebuildLegend==='function')rebuildLegend()}catch(e){}
+    try{if(typeof renderList==='function')renderList()}catch(e){}
+    try{if(typeof updateHeaderSummary==='function')updateHeaderSummary()}catch(e){}
+    try{if(typeof refreshOperationalUI==='function')refreshOperationalUI()}catch(e){}
 
     if(found.length && !missing.length){
       setStatus(batchStatus,`${found.length} município(s) atualizados para ${levelLabel(level)}.`,'ok');
     }else if(found.length){
-      setStatus(
-        batchStatus,
-        `${found.length} atualizado(s). Não localizados: ${missing.join(', ')}.`,
-        'error'
-      );
+      setStatus(batchStatus,`${found.length} atualizado(s). Não localizados: ${missing.join(', ')}.`,'error');
     }else{
       setStatus(batchStatus,'Nenhum município foi localizado. Confira os nomes digitados.','error');
     }
@@ -7659,15 +7737,15 @@ const CEMOA_SUPABASE_STATE_ID='main';
 
   openBtn?.addEventListener('click',openPanel);
   closeBtn?.addEventListener('click',closePanel);
+  fastToggle?.addEventListener('click',()=>fastMode?stopFast(true):startFast());
 
-  fastToggle?.addEventListener('click',()=>fastMode?stopFast():startFast());
   fastLevel?.addEventListener('change',()=>{
     syncDurationState();
     updateActiveText();
   });
   fastDuration?.addEventListener('change',updateActiveText);
-
   batchLevel?.addEventListener('change',syncDurationState);
+
   batchApply?.addEventListener('click',applyBatch);
   batchClear?.addEventListener('click',()=>{
     batchNames.value='';
@@ -7676,7 +7754,7 @@ const CEMOA_SUPABASE_STATE_ID='main';
   });
 
   document.getElementById('alertTypeSelect')?.addEventListener('change',()=>{
-    stopFast(false);
+    if(fastMode)stopFast(false);
     panel.style.removeProperty('display');
     panel.setAttribute('aria-hidden','true');
     setTimeout(fillSelects,50);
@@ -7684,25 +7762,14 @@ const CEMOA_SUPABASE_STATE_ID='main';
 
   window.addEventListener('resize',()=>{
     if(!isAdminDesktop()){
-      stopFast();
+      if(fastMode)stopFast(false);
       panel.style.removeProperty('display');
     }
   },{passive:true});
 
-  if('MutationObserver' in window){
-    new MutationObserver(()=>{
-      if(!isAdminDesktop()){
-        stopFast();
-        panel.style.removeProperty('display');
-      }
-    }).observe(document.body,{attributes:true,attributeFilter:['class']});
-  }
-
   setTimeout(fillSelects,500);
 })();
 </script>
-
-
 <script id="v116-collapsible-fast-edit-js">
 (function(){
   const panel=document.getElementById('v112AdminEdit');
