@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Painel de Alertas CEMOA — V97 Admin Supabase Conectado</title>
+<title>Painel de Alertas CEMOA — V103 Final Desktop Admin</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2555,6 +2555,827 @@ html.dark-mode .supabase-sync-status{background:rgba(8,25,42,.90);color:#b8c9d9}
 }
 </style>
 
+
+<style id="v98-multiadmin-ui">
+.admin-grant-box{
+  margin-top:12px;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid rgba(148,163,184,.18);
+  background:rgba(37,99,235,.045);
+}
+.admin-grant-box h3{
+  margin:0 0 4px;
+  font-size:9px;
+}
+.admin-grant-box p{
+  margin:0 0 8px;
+  font-size:7.3px;
+  line-height:1.4;
+  color:#64748b;
+}
+html.dark-mode .admin-grant-box p{color:#9fb1c8}
+.admin-grant-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:6px;
+}
+.admin-grant-row input{
+  width:100%;
+  height:34px;
+  border-radius:7px;
+  border:1px solid rgba(148,163,184,.22);
+  padding:0 9px;
+  font-size:8.5px;
+}
+.admin-grant-row button{
+  min-height:34px!important;
+  width:auto!important;
+  padding:0 10px!important;
+  border-radius:7px!important;
+  background:#2563eb!important;
+  color:#fff!important;
+  border-color:#2563eb!important;
+  font-size:8px!important;
+  font-weight:850!important;
+}
+.admin-grant-msg{
+  margin-top:7px;
+  min-height:16px;
+  font-size:7px;
+  line-height:1.35;
+}
+.admin-grant-msg.ok{color:#16a34a}
+.admin-grant-msg.error{color:#dc2626}
+</style>
+
+
+<style id="v100-invite-admin">
+.admin-invite-help{
+  margin-top:6px;
+  font-size:6.8px;
+  line-height:1.4;
+  color:#64748b;
+}
+html.dark-mode .admin-invite-help{color:#9fb1c8}
+.admin-grant-row button{white-space:nowrap}
+</style>
+
+
+<style id="v101-admin-visual">
+/* ============================================================
+   V101 — VISUAL EXCLUSIVO DO MODO ADMIN
+   Painel público permanece visualmente igual
+   ============================================================ */
+
+body.cemoa-admin{
+  --admin-accent:#2563eb;
+  --admin-accent-soft:rgba(37,99,235,.10);
+  --admin-green:#16a34a;
+}
+
+/* ===== Barra administrativa discreta ===== */
+.v101-adminbar{
+  display:none;
+}
+body.cemoa-admin .v101-adminbar{
+  position:fixed;
+  left:50%;
+  bottom:34px;
+  transform:translateX(-50%);
+  z-index:9300;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-height:38px;
+  max-width:min(880px,92vw);
+  padding:5px 7px 5px 10px;
+  border-radius:12px;
+  border:1px solid rgba(37,99,235,.20);
+  background:rgba(255,255,255,.96);
+  color:#1e293b;
+  box-shadow:0 10px 30px rgba(15,23,42,.15);
+  backdrop-filter:blur(12px);
+}
+html.dark-mode body.cemoa-admin .v101-adminbar{
+  background:rgba(12,27,45,.96);
+  color:#eaf3fb;
+  border-color:rgba(96,165,250,.22);
+}
+.v101-adminbar-brand{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding-right:9px;
+  border-right:1px solid rgba(148,163,184,.18);
+  white-space:nowrap;
+}
+.v101-adminbar-shield{
+  display:grid;
+  place-items:center;
+  width:26px;height:26px;
+  border-radius:8px;
+  background:var(--admin-accent);
+  color:#fff;
+  font-size:13px;
+}
+.v101-adminbar-brand strong{
+  display:block;
+  font-size:7.7px;
+  line-height:1.15;
+}
+.v101-adminbar-brand small{
+  display:block;
+  margin-top:1px;
+  font-size:5.8px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#64748b;
+}
+html.dark-mode .v101-adminbar-brand small{color:#9fb1c8}
+
+.v101-adminbar-status{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  min-width:0;
+  font-size:6.8px;
+  font-weight:800;
+  color:#475569;
+}
+html.dark-mode .v101-adminbar-status{color:#b8c8d8}
+.v101-adminbar-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--admin-green);
+  flex:0 0 auto;
+}
+.v101-adminbar-user{
+  max-width:190px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.v101-adminbar-actions{
+  display:flex;
+  gap:5px;
+  margin-left:auto;
+}
+.v101-adminbar-actions button{
+  width:auto!important;
+  min-height:28px!important;
+  padding:0 9px!important;
+  border-radius:7px!important;
+  font-size:6.8px!important;
+  font-weight:850!important;
+}
+.v101-primary{
+  background:var(--admin-accent)!important;
+  color:#fff!important;
+  border-color:var(--admin-accent)!important;
+}
+
+/* ===== Cabeçalho ganha sinal sutil de Admin ===== */
+body.cemoa-admin header{
+  border-bottom-color:rgba(37,99,235,.28)!important;
+}
+body.cemoa-admin header::after{
+  content:"MODO ADMINISTRATIVO";
+  position:absolute;
+  right:54px;
+  top:4px;
+  z-index:4;
+  padding:2px 6px;
+  border-radius:999px;
+  background:rgba(37,99,235,.09);
+  color:#2563eb;
+  font-size:5.4px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+html.dark-mode body.cemoa-admin header::after{
+  background:rgba(96,165,250,.12);
+  color:#8fc7ff;
+}
+
+/* ===== Botão Admin ===== */
+body.cemoa-admin .admin-auth-btn{
+  background:rgba(37,99,235,.08)!important;
+  border-color:rgba(37,99,235,.24)!important;
+  color:#1d4ed8!important;
+}
+html.dark-mode body.cemoa-admin .admin-auth-btn{
+  color:#9ecbff!important;
+}
+
+/* ===== Controles editáveis ganham identidade própria ===== */
+body.cemoa-admin .quick-status{
+  border-color:rgba(37,99,235,.20)!important;
+  background:
+    linear-gradient(180deg,rgba(37,99,235,.045),rgba(37,99,235,.015))!important;
+}
+body.cemoa-admin .quick-status::before{
+  background:rgba(37,99,235,.15)!important;
+}
+body.cemoa-admin .quick-status select{
+  border-color:rgba(37,99,235,.24)!important;
+}
+body.cemoa-admin .quick-status button{
+  transition:transform .10s ease,box-shadow .10s ease!important;
+}
+body.cemoa-admin .quick-status button:hover{
+  transform:translateY(-1px)!important;
+}
+
+/* ===== Modal administrativo redesenhado ===== */
+body.cemoa-admin .admin-login-card{
+  width:min(520px,95vw);
+  border-radius:16px;
+  overflow:hidden;
+}
+body.cemoa-admin .admin-login-head{
+  padding:16px 18px;
+  background:
+    linear-gradient(135deg,rgba(37,99,235,.09),rgba(14,165,233,.035));
+}
+body.cemoa-admin .admin-login-head small{
+  color:#2563eb;
+}
+body.cemoa-admin .admin-login-head h2{
+  font-size:17px;
+  letter-spacing:-.025em;
+}
+body.cemoa-admin .admin-login-body{
+  padding:15px 18px 17px;
+}
+
+/* Sessão ativa em destaque */
+body.cemoa-admin .admin-session-box{
+  display:block!important;
+  padding:10px 11px!important;
+  border-radius:9px!important;
+  background:rgba(22,163,74,.07)!important;
+  border:1px solid rgba(22,163,74,.18)!important;
+  color:inherit!important;
+}
+body.cemoa-admin .admin-session-box::before{
+  content:"SESSÃO ADMINISTRATIVA";
+  display:block;
+  margin-bottom:4px;
+  font-size:5.8px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:#16a34a;
+}
+
+/* Gestão de administradores */
+body.cemoa-admin .admin-grant-box{
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  border-color:rgba(37,99,235,.18);
+  background:rgba(37,99,235,.045);
+}
+body.cemoa-admin .admin-grant-box h3{
+  font-size:10px;
+  margin-bottom:4px;
+}
+body.cemoa-admin .admin-grant-box p{
+  font-size:7.5px;
+  line-height:1.45;
+}
+body.cemoa-admin .admin-grant-row{
+  margin-top:8px;
+}
+body.cemoa-admin .admin-grant-row input{
+  height:36px;
+  border-radius:8px;
+}
+body.cemoa-admin .admin-grant-row button{
+  min-height:36px!important;
+  border-radius:8px!important;
+}
+
+/* ===== Status Supabase ===== */
+body.cemoa-admin .supabase-sync-status{
+  border-color:rgba(37,99,235,.18)!important;
+}
+body.cemoa-admin .supabase-sync-status.ok{
+  background:rgba(22,163,74,.08)!important;
+  border-color:rgba(22,163,74,.18)!important;
+}
+
+/* ===== Editor em massa ===== */
+body.cemoa-admin .risk-editor-card{
+  border-color:rgba(37,99,235,.18)!important;
+}
+body.cemoa-admin .risk-editor-head{
+  background:
+    linear-gradient(135deg,rgba(37,99,235,.07),rgba(14,165,233,.025));
+}
+body.cemoa-admin .risk-editor-head small::after{
+  content:" · ADMIN";
+  color:#2563eb;
+  font-weight:900;
+}
+
+/* ===== Mobile ===== */
+@media(max-width:720px){
+  body.cemoa-admin .v101-adminbar{
+    bottom:29px;
+    max-width:96vw;
+    min-height:36px;
+    padding:4px 5px 4px 7px;
+  }
+  .v101-adminbar-brand small{display:none}
+  .v101-adminbar-user{max-width:100px}
+  .v101-adminbar-actions button{
+    padding:0 7px!important;
+    min-height:27px!important;
+  }
+  body.cemoa-admin header::after{
+    display:none;
+  }
+}
+</style>
+
+
+<style id="v102-mobile-simple">
+/* ============================================================
+   V102 — MOBILE SIMPLES E MAIS INFORMATIVO
+   Desktop preservado.
+   ============================================================ */
+@media(max-width:720px){
+
+  /* Estrutura: menos faixas, mais mapa */
+  .app{
+    grid-template-rows:46px 48px 18px minmax(0,1fr) 24px!important;
+  }
+  .main{
+    padding:1px!important;
+    gap:1px!important;
+  }
+
+  /* Cabeçalho */
+  header{
+    height:46px!important;
+    min-height:46px!important;
+    padding:3px 6px!important;
+  }
+  header .brand{
+    min-width:0!important;
+    gap:5px!important;
+  }
+  header .brand img,
+  header .logo{
+    height:30px!important;
+    max-height:30px!important;
+  }
+  header .brand h1{
+    font-size:12px!important;
+    line-height:1.05!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    max-width:44vw!important;
+  }
+  .alert-type-select{
+    min-height:26px!important;
+    height:26px!important;
+    max-width:42vw!important;
+    font-size:7.8px!important;
+    padding:0 24px 0 7px!important;
+  }
+
+  /* Dashboard horizontal compacto */
+  .kpis{
+    display:flex!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    gap:4px!important;
+    padding:4px 5px!important;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+  }
+  .kpis::-webkit-scrollbar{display:none}
+  .kpi{
+    flex:0 0 92px!important;
+    min-width:92px!important;
+    min-height:39px!important;
+    padding:5px 6px!important;
+    scroll-snap-align:start;
+  }
+  .kpi small{
+    font-size:6.3px!important;
+    white-space:nowrap!important;
+  }
+  .kpi b{
+    font-size:15px!important;
+  }
+
+  /* Indicador principal: mostra só a informação mais útil */
+  .v74-map-status{
+    top:5px!important;
+    left:50%!important;
+    transform:translateX(-50%)!important;
+    max-width:72%!important;
+    min-height:28px!important;
+    padding:4px 8px!important;
+    font-size:6.7px!important;
+    border-radius:8px!important;
+  }
+  .v74-map-status strong{
+    white-space:normal!important;
+    text-align:center!important;
+    line-height:1.18!important;
+  }
+
+  /* Resumo operacional: 3 dados compactos */
+  .v91-opbar{
+    top:36px!important;
+    left:50%!important;
+    transform:translateX(-50%)!important;
+    width:auto!important;
+    max-width:88%!important;
+    display:flex!important;
+    gap:3px!important;
+    overflow-x:auto!important;
+    scrollbar-width:none;
+  }
+  .v91-opbar::-webkit-scrollbar{display:none}
+  .v91-pill{
+    padding:3px 5px!important;
+    font-size:5.7px!important;
+    min-height:22px!important;
+  }
+  .v91-pill b{font-size:6.4px!important}
+
+  /* Sidebar não compete com mapa no mobile */
+  .sidebar{
+    display:none!important;
+  }
+
+  /* Mapa ocupa tudo */
+  .mapwrap{
+    border-radius:5px!important;
+  }
+
+  /* Controles: só essenciais permanentes */
+  #risk-help-btn{
+    top:5px!important;
+    left:5px!important;
+    width:30px!important;
+    height:30px!important;
+    min-height:30px!important;
+    padding:3px!important;
+  }
+  #risk-help-btn .risk-help-label{display:none!important}
+  #risk-help-btn .risk-help-icon{
+    width:22px!important;
+    height:22px!important;
+  }
+
+  .map-tools{
+    top:5px!important;
+    right:5px!important;
+  }
+  .tools-trigger{
+    width:30px!important;
+    height:30px!important;
+    min-width:30px!important;
+    min-height:30px!important;
+  }
+
+  /* Zoom e tela cheia menores */
+  .leaflet-top.leaflet-left{
+    top:40px!important;
+    right:5px!important;
+  }
+  .leaflet-control-zoom a{
+    width:28px!important;
+    height:28px!important;
+    line-height:28px!important;
+  }
+  .fullscreen-map-btn{
+    top:100px!important;
+    right:5px!important;
+    width:28px!important;
+    height:28px!important;
+    min-width:28px!important;
+    min-height:28px!important;
+  }
+
+  /* Legenda e fonte sob demanda / discretas */
+  .legend{
+    left:5px!important;
+    bottom:42px!important;
+    min-width:128px!important;
+    max-width:140px!important;
+    padding:6px 7px!important;
+    font-size:6.8px!important;
+  }
+  .legend h3{font-size:7.4px!important}
+  .leg{font-size:6.8px!important}
+  .data-source-box{
+    display:none!important;
+  }
+
+  /* Ficha vira bottom sheet simples */
+  .details{
+    position:fixed!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    top:auto!important;
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    max-height:72vh!important;
+    border-radius:14px 14px 0 0!important;
+    z-index:9200!important;
+    box-shadow:0 -10px 30px rgba(0,0,0,.22)!important;
+    overflow-y:auto!important;
+  }
+  .details .sidehead{
+    position:sticky!important;
+    top:0!important;
+    z-index:2!important;
+    padding:8px 42px 7px 10px!important;
+    background:inherit!important;
+    border-radius:14px 14px 0 0!important;
+  }
+  .detail-title{
+    font-size:16px!important;
+  }
+  .badge{
+    font-size:7px!important;
+  }
+
+  /* Conteúdo da ficha mais informativo, sem excesso */
+  #detailBody{
+    padding:7px 9px 12px!important;
+  }
+  .metric{
+    min-height:40px!important;
+    padding:6px 7px!important;
+  }
+  .metric small{font-size:6px!important}
+  .metric strong,.metric .value{font-size:8px!important}
+
+  .v91-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:4px!important;
+  }
+  .v91-item{
+    padding:5px 6px!important;
+  }
+  .v91-item small{font-size:5.8px!important}
+  .v91-item strong{font-size:7.6px!important}
+
+  .v91-history{
+    max-height:85px!important;
+  }
+
+  /* Admin mobile: barra mínima */
+  body.cemoa-admin .v101-adminbar{
+    bottom:26px!important;
+    left:50%!important;
+    transform:translateX(-50%)!important;
+    width:auto!important;
+    max-width:94vw!important;
+    min-height:34px!important;
+    padding:4px 5px!important;
+    border-radius:10px!important;
+    gap:4px!important;
+  }
+  .v101-adminbar-brand{
+    padding-right:5px!important;
+  }
+  .v101-adminbar-brand strong{
+    font-size:6.5px!important;
+  }
+  .v101-adminbar-user{
+    display:none!important;
+  }
+  .v101-adminbar-status{
+    min-width:auto!important;
+  }
+  .v101-adminbar-actions{
+    gap:3px!important;
+  }
+  .v101-adminbar-actions button{
+    min-height:26px!important;
+    padding:0 6px!important;
+    font-size:5.9px!important;
+  }
+
+  /* Modal admin mobile */
+  .admin-login-card{
+    width:96vw!important;
+    max-height:86vh!important;
+    overflow:auto!important;
+  }
+  .admin-login-head{
+    padding:12px!important;
+  }
+  .admin-login-body{
+    padding:11px 12px 13px!important;
+  }
+  .admin-grant-row{
+    grid-template-columns:1fr!important;
+  }
+  .admin-grant-row button{
+    width:100%!important;
+  }
+
+  /* Rodapé */
+  .v69-footer{
+    height:24px!important;
+    min-height:24px!important;
+    font-size:5.8px!important;
+  }
+}
+</style>
+
+
+<style id="v103-final-desktop-admin">
+/* ============================================================
+   V103 FINAL — Admin somente desktop + claro/escuro refinados
+   ============================================================ */
+
+/* ---------- ADMIN: LIGHT ---------- */
+body.cemoa-admin:not(.dark-mode),
+html:not(.dark-mode) body.cemoa-admin{
+  --admin-bg:#ffffff;
+  --admin-bg-soft:#f7fafc;
+  --admin-border:rgba(15,23,42,.12);
+  --admin-text:#172033;
+  --admin-muted:#64748b;
+  --admin-accent:#2563eb;
+  --admin-accent-soft:rgba(37,99,235,.08);
+  --admin-success:#16a34a;
+}
+html:not(.dark-mode) body.cemoa-admin .v101-adminbar{
+  background:rgba(255,255,255,.97)!important;
+  color:var(--admin-text)!important;
+  border-color:rgba(37,99,235,.18)!important;
+  box-shadow:0 10px 28px rgba(15,23,42,.12)!important;
+}
+html:not(.dark-mode) body.cemoa-admin .admin-login-card,
+html:not(.dark-mode) body.cemoa-admin .risk-editor-card{
+  background:#fff!important;
+  color:var(--admin-text)!important;
+  border-color:var(--admin-border)!important;
+}
+html:not(.dark-mode) body.cemoa-admin .admin-login-head,
+html:not(.dark-mode) body.cemoa-admin .risk-editor-head{
+  background:linear-gradient(135deg,#f7fbff,#ffffff)!important;
+}
+html:not(.dark-mode) body.cemoa-admin .admin-grant-box{
+  background:#f7fbff!important;
+  border-color:rgba(37,99,235,.16)!important;
+}
+html:not(.dark-mode) body.cemoa-admin .quick-status{
+  background:linear-gradient(180deg,#f8fbff,#ffffff)!important;
+  border-color:rgba(37,99,235,.18)!important;
+}
+
+/* ---------- ADMIN: DARK ---------- */
+html.dark-mode body.cemoa-admin{
+  --admin-bg:#0d1726;
+  --admin-bg-soft:#132238;
+  --admin-border:rgba(148,163,184,.18);
+  --admin-text:#edf5ff;
+  --admin-muted:#9fb1c8;
+  --admin-accent:#60a5fa;
+  --admin-accent-soft:rgba(96,165,250,.10);
+  --admin-success:#4ade80;
+}
+html.dark-mode body.cemoa-admin .v101-adminbar{
+  background:rgba(10,24,40,.97)!important;
+  color:var(--admin-text)!important;
+  border-color:rgba(96,165,250,.20)!important;
+  box-shadow:0 10px 30px rgba(0,0,0,.28)!important;
+}
+html.dark-mode body.cemoa-admin .admin-login-card,
+html.dark-mode body.cemoa-admin .risk-editor-card{
+  background:#0f1d30!important;
+  color:var(--admin-text)!important;
+  border-color:var(--admin-border)!important;
+}
+html.dark-mode body.cemoa-admin .admin-login-head,
+html.dark-mode body.cemoa-admin .risk-editor-head{
+  background:linear-gradient(135deg,#13263f,#0f1d30)!important;
+}
+html.dark-mode body.cemoa-admin .admin-grant-box{
+  background:rgba(96,165,250,.07)!important;
+  border-color:rgba(96,165,250,.16)!important;
+}
+html.dark-mode body.cemoa-admin .admin-grant-box p,
+html.dark-mode body.cemoa-admin .admin-invite-help{
+  color:#aebed0!important;
+}
+html.dark-mode body.cemoa-admin .quick-status{
+  background:linear-gradient(180deg,rgba(96,165,250,.08),rgba(15,29,48,.96))!important;
+  border-color:rgba(96,165,250,.18)!important;
+}
+html.dark-mode body.cemoa-admin .quick-status select,
+html.dark-mode body.cemoa-admin .quick-status input,
+html.dark-mode body.cemoa-admin .admin-login-body input,
+html.dark-mode body.cemoa-admin .admin-grant-row input{
+  background:#0b1625!important;
+  color:#edf5ff!important;
+  border-color:rgba(148,163,184,.22)!important;
+}
+html.dark-mode body.cemoa-admin .admin-session-box{
+  background:rgba(34,197,94,.07)!important;
+  border-color:rgba(74,222,128,.16)!important;
+}
+html.dark-mode body.cemoa-admin .supabase-sync-status.ok{
+  background:rgba(34,197,94,.08)!important;
+  color:#c8f7d4!important;
+}
+
+/* ---------- ADMIN BAR refinada ---------- */
+@media(min-width:721px){
+  body.cemoa-admin .v101-adminbar{
+    bottom:32px!important;
+    min-height:40px!important;
+    padding:6px 8px 6px 10px!important;
+  }
+  .v101-adminbar-actions button{
+    min-height:29px!important;
+    padding:0 10px!important;
+    font-size:6.9px!important;
+  }
+  .v101-adminbar-user{
+    max-width:220px!important;
+  }
+}
+
+/* ---------- MODO ADMIN TOTALMENTE DESATIVADO NO MOBILE ---------- */
+@media(max-width:720px){
+  #adminAuthBtn,
+  #adminLoginBackdrop,
+  #v101AdminBar,
+  #editRiskTool,
+  .admin-grant-box,
+  .supabase-sync-status{
+    display:none!important;
+  }
+
+  body.cemoa-admin{
+    /* mesmo que exista sessão persistida, mobile continua consulta */
+  }
+
+  body.cemoa-admin .quick-status select,
+  body.cemoa-admin .quick-status input,
+  body.cemoa-admin .quick-status button,
+  body.cemoa-admin .duration-presets button{
+    pointer-events:none!important;
+    opacity:.48!important;
+    cursor:not-allowed!important;
+  }
+
+  body.cemoa-admin .quick-status::after{
+    content:"Modo mobile: alterações administrativas disponíveis apenas no desktop.";
+    display:block;
+    margin-top:7px;
+    padding:6px 7px;
+    border-radius:6px;
+    border:1px dashed rgba(148,163,184,.28);
+    color:#64748b;
+    font-size:6.8px;
+    font-weight:800;
+    line-height:1.3;
+  }
+
+  html.dark-mode body.cemoa-admin .quick-status::after{
+    color:#9fb1c8;
+  }
+}
+
+/* ---------- Pequenos refinamentos finais ---------- */
+body.cemoa-admin .admin-login-actions{
+  align-items:center;
+}
+body.cemoa-admin .admin-login-primary,
+body.cemoa-admin .admin-grant-row button,
+body.cemoa-admin .v101-primary{
+  box-shadow:none!important;
+}
+body.cemoa-admin .admin-login-primary:hover,
+body.cemoa-admin .admin-grant-row button:hover,
+body.cemoa-admin .v101-primary:hover{
+  filter:brightness(.98);
+}
+body.cemoa-admin .risk-editor-body{
+  scrollbar-width:thin;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2697,6 +3518,16 @@ html.dark-mode .supabase-sync-status{background:rgba(8,25,42,.90);color:#b8c9d9}
         </div>
       </div>
       <div id="adminSessionBox" class="admin-session-box"></div>
+<div id="adminGrantBox" class="admin-grant-box" style="display:none">
+  <h3>Convidar ou autorizar administrador</h3>
+  <p>Informe o e-mail. Se a conta já existir no Supabase Auth, ela será autorizada em admin_painel. Se ainda não existir, o Supabase enviará um convite para criação da senha.</p>
+  <div class="admin-grant-row">
+    <input id="adminGrantEmail" type="email" placeholder="novo.admin@exemplo.gov.br">
+    <button id="adminGrantSubmit" type="button">Convidar / Autorizar</button>
+  </div>
+  <div id="adminGrantMessage" class="admin-grant-msg"></div><div class="admin-invite-help">O convite é enviado pelo Supabase. A senha é definida pelo próprio usuário no link recebido por e-mail.</div>
+</div>
+
       <div id="adminLoginMessage" class="admin-login-message"></div>
     </div>
   </section>
@@ -4256,12 +5087,15 @@ setInterval(refreshOperationalStatus,15000);
 </script>
 
 
-<script id="v96-admin-supabase-engine">
+
+<script id="v98-admin-supabase-engine">
 /* =====================================================================
-   CONFIGURAÇÃO SUPABASE
-   Substitua SOMENTE os dois valores abaixo pelas credenciais públicas
-   do seu projeto Supabase. A anon key pode ficar no navegador; a
-   segurança de escrita é garantida pelas políticas RLS do banco.
+   CEMOA — Administração Multiusuário
+   Regra principal (multiadmin + convite):
+   1) Supabase Auth autentica.
+   2) public.is_admin_painel() autoriza.
+   3) admin_painel(user_id, ativo) é a fonte principal.
+   4) profiles/user_roles podem ser usados apenas como compatibilidade.
    ===================================================================== */
 const CEMOA_SUPABASE_URL='https://iivcorxaulxxlpknnkpj.supabase.co';
 const CEMOA_SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlpdmNvcnhhdWx4eGxwa25ua3BqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NDI4NDgsImV4cCI6MjEwMzQxODg0OH0.jxoDqvBYlU6LRikBjo-L3Jfcyw1G9huETtV87WpiPJI';
@@ -4284,17 +5118,14 @@ const CEMOA_SUPABASE_STATE_ID='main';
   const passwordInput=document.getElementById('adminPassword');
   const message=document.getElementById('adminLoginMessage');
   const sessionBox=document.getElementById('adminSessionBox');
-  const configWarning=document.getElementById('adminConfigWarning');
   const syncStatus=document.getElementById('supabaseSyncStatus');
+  const grantBox=document.getElementById('adminGrantBox');
+  const grantEmail=document.getElementById('adminGrantEmail');
+  const grantSubmit=document.getElementById('adminGrantSubmit');
+  const grantMessage=document.getElementById('adminGrantMessage');
 
-  function configured(){
-    return !!(
-      window.supabase &&
-      CEMOA_SUPABASE_URL &&
-      CEMOA_SUPABASE_ANON_KEY &&
-      !CEMOA_SUPABASE_URL.includes('SEU-PROJETO') &&
-      !CEMOA_SUPABASE_ANON_KEY.includes('SUA_CHAVE')
-    );
+  function escapeHtml(s){
+    return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   }
 
   function setMessage(text='',cls=''){
@@ -4302,7 +5133,11 @@ const CEMOA_SUPABASE_STATE_ID='main';
     message.textContent=text;
     message.className='admin-login-message'+(cls?' '+cls:'');
   }
-
+  function setGrantMessage(text='',cls=''){
+    if(!grantMessage)return;
+    grantMessage.textContent=text;
+    grantMessage.className='admin-grant-msg'+(cls?' '+cls:'');
+  }
   function setSync(text,cls=''){
     if(!syncStatus)return;
     syncStatus.className='supabase-sync-status'+(cls?' '+cls:'');
@@ -4312,21 +5147,16 @@ const CEMOA_SUPABASE_STATE_ID='main';
 
   function setAdminUI(){
     document.body.classList.toggle('cemoa-admin',admin);
-    if(!authBtn)return;
-    authBtn.classList.remove('is-admin','is-user','is-locked');
 
-    if(admin){
-      authBtn.classList.add('is-admin');
-      authBtn.querySelector('.admin-auth-label').textContent='Admin ativo';
-      authBtn.title='Sessão administrativa ativa';
-    }else if(currentUser){
-      authBtn.classList.add('is-user');
-      authBtn.querySelector('.admin-auth-label').textContent='Sem permissão';
-      authBtn.title='Usuário autenticado sem perfil admin';
-    }else{
-      authBtn.classList.add('is-locked');
-      authBtn.querySelector('.admin-auth-label').textContent='Admin';
-      authBtn.title='Entrar na área administrativa';
+    if(authBtn){
+      authBtn.style.display=admin?'inline-flex':'none';
+      authBtn.classList.remove('is-admin','is-user','is-locked');
+      if(admin){
+        authBtn.classList.add('is-admin');
+        const lbl=authBtn.querySelector('.admin-auth-label');
+        if(lbl)lbl.textContent='Admin ativo';
+        authBtn.title='Sessão administrativa ativa';
+      }
     }
 
     const edit=document.getElementById('editRiskTool');
@@ -4336,40 +5166,35 @@ const CEMOA_SUPABASE_STATE_ID='main';
       if(currentUser){
         sessionBox.classList.add('show');
         sessionBox.innerHTML='<b>'+escapeHtml(currentUser.email||'Usuário')+'</b><br>'+
-          (admin?'Perfil: Administrador — edição habilitada.':'Perfil sem permissão administrativa — painel permanece somente leitura.');
+          (admin?'Administrador autorizado em admin_painel.':'Usuário autenticado sem autorização administrativa.');
       }else{
         sessionBox.classList.remove('show');
         sessionBox.textContent='';
       }
     }
+
     if(logoutBtn)logoutBtn.style.display=currentUser?'inline-flex':'none';
+    if(grantBox)grantBox.style.display=admin?'block':'none';
 
     applyDetailGate();
-  }
-
-  function escapeHtml(s){
-    return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-  }
-
-  function requireAdmin(action='alterar o painel'){
-    if(admin)return true;
-    setMessage('Ação bloqueada: somente administradores podem '+action+'.','error');
-    openModal();
-    return false;
   }
 
   function openModal(){
     if(!modal)return;
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');
-    if(configWarning)configWarning.style.display=configured()?'none':'block';
     setAdminUI();
-    setTimeout(()=>{if(!currentUser && emailInput)emailInput.focus()},50);
   }
   function closeModal(){
     if(!modal)return;
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden','true');
+  }
+
+  function requireAdmin(action='alterar o painel'){
+    if(admin)return true;
+    setMessage('Ação bloqueada: somente administradores autorizados podem '+action+'.','error');
+    return false;
   }
 
   function buildPayload(){
@@ -4396,9 +5221,7 @@ const CEMOA_SUPABASE_STATE_ID='main';
         if(!obj)return;
         if(obj.alertas){
           Object.keys(ALERT_TYPES).forEach(t=>{
-            if(Object.prototype.hasOwnProperty.call(obj.alertas,t)){
-              f.properties.alertas[t]=obj.alertas[t];
-            }
+            if(Object.prototype.hasOwnProperty.call(obj.alertas,t))f.properties.alertas[t]=obj.alertas[t];
           });
         }
         if(obj.alertasMeta){
@@ -4410,9 +5233,11 @@ const CEMOA_SUPABASE_STATE_ID='main';
           });
         }
       });
+
       if(payload.operationalHistory){
         localStorage.setItem('cemoa_v91_operational_history',JSON.stringify(payload.operationalHistory));
       }
+
       try{
         const localPayload={};
         GEO.features.forEach(f=>{
@@ -4436,11 +5261,11 @@ const CEMOA_SUPABASE_STATE_ID='main';
   async function loadCloudState(){
     if(!sb)return false;
     setSync('Carregando…','busy');
-    const {data,error}=await sb
-      .from('panel_state')
+    const {data,error}=await sb.from('panel_state')
       .select('payload,updated_at')
       .eq('id',CEMOA_SUPABASE_STATE_ID)
       .maybeSingle();
+
     if(error){
       console.warn('Supabase load:',error);
       setSync('Erro de leitura','error');
@@ -4457,13 +5282,13 @@ const CEMOA_SUPABASE_STATE_ID='main';
   async function persistCloudState(){
     if(!sb || !admin || remoteApply)return false;
     setSync('Salvando…','busy');
-    const payload=buildPayload();
     const {error}=await sb.from('panel_state').upsert({
       id:CEMOA_SUPABASE_STATE_ID,
-      payload,
+      payload:buildPayload(),
       updated_at:new Date().toISOString(),
       updated_by:currentUser?currentUser.id:null
     },{onConflict:'id'});
+
     if(error){
       console.error('Supabase save:',error);
       setSync('Falha ao salvar','error');
@@ -4479,52 +5304,160 @@ const CEMOA_SUPABASE_STATE_ID='main';
     persistTimer=setTimeout(()=>persistCloudState(),180);
   }
 
-  async function checkRole(user){
+  async function checkAdmin(sessionOrUser){
+    const user=sessionOrUser && sessionOrUser.user ? sessionOrUser.user : sessionOrUser;
     currentUser=user||null;
     admin=false;
-    if(!user || !sb){setAdminUI();return false}
-    const {data,error}=await sb
-      .from('profiles')
-      .select('role')
-      .eq('id',user.id)
-      .maybeSingle();
-    if(error)console.warn('Role check:',error);
-    admin=!!(data && data.role==='admin');
+
+    if(!currentUser || !sb){
+      setAdminUI();
+      return false;
+    }
+
+    /* REGRA PRINCIPAL: RPC is_admin_painel() */
+    try{
+      const {data,error}=await sb.rpc('is_admin_painel');
+      if(!error && data===true){
+        admin=true;
+        setAdminUI();
+        return true;
+      }
+      if(error)console.warn('is_admin_painel:',error);
+    }catch(e){
+      console.warn('is_admin_painel RPC indisponível:',e);
+    }
+
+    /* COMPATIBILIDADE: profiles.role = admin */
+    try{
+      const {data,error}=await sb.from('profiles')
+        .select('role')
+        .eq('id',currentUser.id)
+        .maybeSingle();
+
+      if(!error && data && data.role==='admin'){
+        admin=true;
+        setAdminUI();
+        return true;
+      }
+    }catch(e){}
+
+    /* COMPATIBILIDADE OPCIONAL: user_roles.role = admin */
+    try{
+      const {data,error}=await sb.from('user_roles')
+        .select('role')
+        .eq('user_id',currentUser.id)
+        .maybeSingle();
+
+      if(!error && data && data.role==='admin'){
+        admin=true;
+        setAdminUI();
+        return true;
+      }
+    }catch(e){}
+
+    admin=false;
     setAdminUI();
-    return admin;
+    return false;
   }
 
   async function login(){
-    if(!configured()){
-      setMessage('Configure URL e anon key do Supabase antes de efetuar login.','error');
-      return;
-    }
     const email=(emailInput.value||'').trim();
     const password=passwordInput.value||'';
     if(!email || !password){
-      setMessage('Informe e-mail e senha.','error');return;
+      setMessage('Informe e-mail e senha.','error');
+      return;
     }
+
     loginBtn.disabled=true;
     setMessage('Autenticando…');
+
     const {data,error}=await sb.auth.signInWithPassword({email,password});
     loginBtn.disabled=false;
+
     if(error){
-      setMessage('Não foi possível entrar: '+error.message,'error');return;
+      setMessage('Não foi possível entrar: '+error.message,'error');
+      return;
     }
-    await checkRole(data.user);
+
+    await checkAdmin(data.user);
+
     if(admin){
       setMessage('Acesso administrativo liberado.','ok');
       await loadCloudState();
+      openModal();
     }else{
-      setMessage('Login realizado, mas este usuário não possui perfil admin.','error');
+      setMessage('Login realizado, mas este usuário ainda não está autorizado em admin_painel.','error');
     }
   }
 
   async function logout(){
     if(sb)await sb.auth.signOut();
-    currentUser=null;admin=false;setAdminUI();
+    currentUser=null;
+    admin=false;
+    setAdminUI();
     setMessage('Sessão encerrada.','ok');
     setSync('Somente leitura','');
+    closeModal();
+  }
+
+  async function grantAdminByEmail(){
+    if(!admin || !sb){
+      setGrantMessage('Somente um administrador atual pode convidar ou autorizar outro administrador.','error');
+      return;
+    }
+
+    const targetEmail=(grantEmail.value||'').trim();
+    if(!targetEmail){
+      setGrantMessage('Informe o e-mail do novo administrador.','error');
+      return;
+    }
+
+    grantSubmit.disabled=true;
+    setGrantMessage('Processando…');
+
+    try{
+      const {data:{session}}=await sb.auth.getSession();
+      if(!session || !session.access_token){
+        setGrantMessage('Sessão administrativa não encontrada. Faça login novamente.','error');
+        return;
+      }
+
+      const endpoint=CEMOA_SUPABASE_URL+'/functions/v1/invite-admin-painel';
+      const response=await fetch(endpoint,{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'Authorization':'Bearer '+session.access_token,
+          'apikey':CEMOA_SUPABASE_ANON_KEY
+        },
+        body:JSON.stringify({
+          target_email:targetEmail,
+          redirect_to:window.location.origin+window.location.pathname
+        })
+      });
+
+      let result={};
+      try{result=await response.json()}catch(e){}
+
+      if(!response.ok){
+        throw new Error(result.error||result.message||('Erro HTTP '+response.status));
+      }
+
+      if(result.status==='authorized_existing'){
+        setGrantMessage('Usuário já existia no Supabase Auth e foi autorizado em admin_painel.','ok');
+      }else if(result.status==='invited'){
+        setGrantMessage('Convite enviado por e-mail. O usuário deverá abrir o link e definir sua senha.','ok');
+      }else{
+        setGrantMessage(result.message||'Administrador processado com sucesso.','ok');
+      }
+
+      grantEmail.value='';
+    }catch(error){
+      console.error('invite-admin-painel:',error);
+      setGrantMessage('Não foi possível concluir: '+(error.message||error),'error');
+    }finally{
+      grantSubmit.disabled=false;
+    }
   }
 
   function subscribeRealtime(){
@@ -4532,7 +5465,9 @@ const CEMOA_SUPABASE_STATE_ID='main';
     if(realtimeChannel)try{sb.removeChannel(realtimeChannel)}catch(e){}
     realtimeChannel=sb.channel('cemoa-panel-state')
       .on('postgres_changes',{
-        event:'*',schema:'public',table:'panel_state',
+        event:'*',
+        schema:'public',
+        table:'panel_state',
         filter:'id=eq.'+CEMOA_SUPABASE_STATE_ID
       },payload=>{
         const row=payload.new;
@@ -4544,21 +5479,22 @@ const CEMOA_SUPABASE_STATE_ID='main';
   function applyDetailGate(){
     const quick=document.querySelector('.quick-status');
     if(!quick)return;
+
     quick.querySelectorAll('select,button,input').forEach(el=>{
       el.disabled=!admin;
       el.setAttribute('aria-disabled',admin?'false':'true');
     });
+
     let note=quick.querySelector('.admin-readonly-note');
     if(!note){
       note=document.createElement('div');
       note.className='admin-readonly-note';
-      note.textContent='Modo consulta: faça login como administrador para alterar nível e duração.';
+      note.textContent='Modo consulta: somente administradores autorizados podem alterar nível e duração.';
       quick.appendChild(note);
     }
   }
 
   function installActionGuards(){
-    /* Editor em massa */
     const edit=document.getElementById('editRiskTool');
     if(edit){
       const old=edit.onclick;
@@ -4568,22 +5504,22 @@ const CEMOA_SUPABASE_STATE_ID='main';
       };
     }
 
-    /* Aplicar rápido: captura antes do handler legado */
     document.addEventListener('click',ev=>{
       const btn=ev.target.closest('#quickStatusApply,#applyRiskBtn,#allLowBtn,#restoreRiskBtn,.duration-presets button');
       if(!btn)return;
       if(!admin){
-        ev.preventDefault();ev.stopImmediatePropagation();
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
         requireAdmin('alterar níveis ou duração');
       }
     },true);
 
-    /* Impede alteração de selects por não-admin */
     document.addEventListener('change',ev=>{
       const el=ev.target;
       if(!el.matches('#quickStatusSelect,#quickDurationSelect,.risk-editor-table select'))return;
       if(!admin){
-        ev.preventDefault();ev.stopImmediatePropagation();
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
         requireAdmin('alterar níveis ou duração');
         try{
           if(selectedName)setTimeout(()=>selectMunicipio(selectedName),20);
@@ -4591,7 +5527,6 @@ const CEMOA_SUPABASE_STATE_ID='main';
       }
     },true);
 
-    /* Atualiza gate sempre que a ficha for redesenhada */
     const body=document.getElementById('detailBody');
     if(body && 'MutationObserver' in window){
       new MutationObserver(()=>applyDetailGate()).observe(body,{childList:true,subtree:true});
@@ -4609,50 +5544,225 @@ const CEMOA_SUPABASE_STATE_ID='main';
   }
 
   async function init(){
-    setAdminUI();
+    /* botão admin fica oculto até checkAdmin confirmar */
+    if(authBtn)authBtn.style.display='none';
+
     installActionGuards();
     wrapPersistence();
 
-    if(!configured()){
-      setSync('Supabase não configurado','');
-      if(configWarning)configWarning.style.display='block';
-      return;
-    }
-
-    sb=window.supabase.createClient(CEMOA_SUPABASE_URL,CEMOA_SUPABASE_ANON_KEY,{
-      auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
-    });
+    sb=window.supabase.createClient(
+      CEMOA_SUPABASE_URL,
+      CEMOA_SUPABASE_ANON_KEY,
+      {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}
+    );
 
     const {data:{session}}=await sb.auth.getSession();
-    await checkRole(session?session.user:null);
+    await checkAdmin(session?session.user:null);
 
     sb.auth.onAuthStateChange(async(_event,session)=>{
-      await checkRole(session?session.user:null);
+      await checkAdmin(session?session.user:null);
     });
 
     await loadCloudState();
     subscribeRealtime();
   }
 
-  /* UI */
   if(authBtn)authBtn.addEventListener('click',openModal);
   if(closeBtn)closeBtn.addEventListener('click',closeModal);
   if(modal)modal.addEventListener('click',ev=>{if(ev.target===modal)closeModal()});
   if(loginBtn)loginBtn.addEventListener('click',login);
   if(logoutBtn)logoutBtn.addEventListener('click',logout);
   if(passwordInput)passwordInput.addEventListener('keydown',ev=>{if(ev.key==='Enter')login()});
+  if(grantSubmit)grantSubmit.addEventListener('click',grantAdminByEmail);
+  if(grantEmail)grantEmail.addEventListener('keydown',ev=>{if(ev.key==='Enter')grantAdminByEmail()});
   document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&modal&&modal.classList.contains('open'))closeModal()});
 
   window.CEMOA_ADMIN={
     isAdmin:()=>admin,
     user:()=>currentUser,
-    requireAdmin,
+    checkAdmin,
+    grantAdminByEmail,
     persistState:persistCloudState,
     loadState:loadCloudState
   };
 
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,50));
-  else setTimeout(init,50);
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(init,50));
+  }else{
+    setTimeout(init,50);
+  }
+})();
+</script>
+
+
+
+<div id="v101AdminBar" class="v101-adminbar" aria-hidden="true">
+  <div class="v101-adminbar-brand">
+    <span class="v101-adminbar-shield">◆</span>
+    <span>
+      <strong>Painel CEMOA</strong>
+      <small>Administração</small>
+    </span>
+  </div>
+  <div class="v101-adminbar-status">
+    <span class="v101-adminbar-dot"></span>
+    <span class="v101-adminbar-user" id="v101AdminUser">Administrador</span>
+  </div>
+  <div class="v101-adminbar-actions">
+    <button id="v101EditLevels" class="v101-primary" type="button">Editar níveis</button>
+    <button id="v101ManageAdmins" type="button">Administradores</button>
+    <button id="v101Logout" type="button">Sair</button>
+  </div>
+</div>
+
+
+<script id="v101-admin-visual-js">
+(function(){
+  function refreshAdminVisual(){
+    const isAdmin=document.body.classList.contains('cemoa-admin');
+    const bar=document.getElementById('v101AdminBar');
+    if(bar){
+      bar.setAttribute('aria-hidden',isAdmin?'false':'true');
+    }
+
+    const user=document.getElementById('v101AdminUser');
+    try{
+      const u=window.CEMOA_ADMIN&&window.CEMOA_ADMIN.user?window.CEMOA_ADMIN.user():null;
+      if(user)user.textContent=(u&&u.email)?u.email:'Administrador';
+    }catch(e){}
+  }
+
+  document.getElementById('v101EditLevels')?.addEventListener('click',()=>{
+    const edit=document.getElementById('editRiskTool');
+    if(edit)edit.click();
+  });
+
+  document.getElementById('v101ManageAdmins')?.addEventListener('click',()=>{
+    const btn=document.getElementById('adminAuthBtn');
+    if(btn)btn.click();
+    setTimeout(()=>{
+      const email=document.getElementById('adminGrantEmail');
+      if(email)email.focus();
+    },120);
+  });
+
+  document.getElementById('v101Logout')?.addEventListener('click',()=>{
+    const btn=document.getElementById('adminLogoutBtn');
+    if(btn)btn.click();
+  });
+
+  if('MutationObserver' in window){
+    new MutationObserver(refreshAdminVisual)
+      .observe(document.body,{attributes:true,attributeFilter:['class']});
+  }
+
+  document.addEventListener('click',()=>setTimeout(refreshAdminVisual,80));
+  setTimeout(refreshAdminVisual,400);
+})();
+</script>
+
+
+<script id="v102-mobile-simple-js">
+(function(){
+  function isMobile(){return window.matchMedia('(max-width:720px)').matches}
+
+  document.addEventListener('click',ev=>{
+    if(!isMobile())return;
+
+    if(ev.target.closest('.tools-item')){
+      const menu=document.getElementById('toolsMenu');
+      const trigger=document.getElementById('toolsTrigger');
+      if(menu)menu.classList.remove('open');
+      if(trigger)trigger.setAttribute('aria-expanded','false');
+    }
+  });
+
+  const details=document.getElementById('details');
+  if(details && 'MutationObserver' in window){
+    new MutationObserver(()=>{
+      if(!isMobile())return;
+      setTimeout(()=>{
+        try{
+          if(typeof refreshMapLayout==='function')refreshMapLayout(80);
+        }catch(e){}
+      },80);
+    }).observe(details,{attributes:true,attributeFilter:['class']});
+  }
+})();
+</script>
+
+
+<script id="v103-final-admin-behavior">
+(function(){
+  function isDesktop(){
+    return window.matchMedia('(min-width:721px)').matches;
+  }
+
+  function enforceDesktopAdmin(){
+    const adminBtn=document.getElementById('adminAuthBtn');
+    const adminBar=document.getElementById('v101AdminBar');
+    const adminModal=document.getElementById('adminLoginBackdrop');
+
+    if(!isDesktop()){
+      if(adminBtn)adminBtn.style.display='none';
+      if(adminBar)adminBar.style.display='none';
+      if(adminModal){
+        adminModal.classList.remove('open');
+        adminModal.setAttribute('aria-hidden','true');
+      }
+      return;
+    }
+
+    try{
+      const isAdmin=window.CEMOA_ADMIN && window.CEMOA_ADMIN.isAdmin
+        ? window.CEMOA_ADMIN.isAdmin()
+        : document.body.classList.contains('cemoa-admin');
+
+      if(adminBtn)adminBtn.style.display=isAdmin?'inline-flex':'none';
+      if(adminBar)adminBar.style.display=isAdmin?'flex':'none';
+    }catch(e){}
+  }
+
+  /* Bloqueio funcional no mobile, além do CSS */
+  document.addEventListener('click',ev=>{
+    if(isDesktop())return;
+    const blocked=ev.target.closest(
+      '#editRiskTool,#adminAuthBtn,#v101EditLevels,#v101ManageAdmins,#v101Logout,'+
+      '#quickStatusApply,#applyRiskBtn,#allLowBtn,#restoreRiskBtn,.duration-presets button'
+    );
+    if(blocked){
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+    }
+  },true);
+
+  document.addEventListener('change',ev=>{
+    if(isDesktop())return;
+    if(ev.target.matches('#quickStatusSelect,#quickDurationSelect,.risk-editor-table select')){
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+      try{
+        if(typeof selectedName!=='undefined' && selectedName){
+          setTimeout(()=>selectMunicipio(selectedName),20);
+        }
+      }catch(e){}
+    }
+  },true);
+
+  /* Mantém claro/escuro consistente após troca de tema */
+  const theme=document.getElementById('themeToggle');
+  if(theme){
+    theme.addEventListener('click',()=>setTimeout(enforceDesktopAdmin,80));
+  }
+
+  window.addEventListener('resize',()=>setTimeout(enforceDesktopAdmin,80),{passive:true});
+
+  if('MutationObserver' in window){
+    new MutationObserver(enforceDesktopAdmin)
+      .observe(document.body,{attributes:true,attributeFilter:['class']});
+  }
+
+  setTimeout(enforceDesktopAdmin,500);
 })();
 </script>
 
