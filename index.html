@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Painel de Alertas CEMOA — V103 Final Desktop Admin</title>
+<title>Painel de Alertas CEMOA — V108 Mobile Ficha Moderna</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3376,6 +3376,760 @@ body.cemoa-admin .risk-editor-body{
 }
 </style>
 
+
+<style id="v104-mobile-lightweight">
+/* ============================================================
+   V104 — MOBILE MAIS LEVE, FLUIDO E COMPACTO
+   Desktop preservado.
+   ============================================================ */
+@media(max-width:720px){
+
+  /* Menos camadas visuais */
+  *{
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mapwrap,
+  .details,
+  .v74-map-status,
+  .v91-opbar,
+  .legend,
+  .tools-trigger,
+  #risk-help-btn,
+  .fullscreen-map-btn{
+    backdrop-filter:none!important;
+    box-shadow:none!important;
+  }
+
+  /* App mais enxuto */
+  .app{
+    grid-template-rows:44px 44px 17px minmax(0,1fr) 22px!important;
+  }
+  header{
+    height:44px!important;
+    min-height:44px!important;
+    padding:3px 5px!important;
+  }
+  header .brand img,
+  header .logo{
+    height:28px!important;
+    max-height:28px!important;
+  }
+  header .brand h1{
+    font-size:11px!important;
+    max-width:42vw!important;
+  }
+  .alert-type-select{
+    height:24px!important;
+    min-height:24px!important;
+    font-size:7.4px!important;
+    max-width:43vw!important;
+  }
+
+  /* Dashboard horizontal menor */
+  .kpis{
+    padding:3px 4px!important;
+    gap:3px!important;
+  }
+  .kpi{
+    flex:0 0 82px!important;
+    min-width:82px!important;
+    min-height:36px!important;
+    padding:4px 5px!important;
+    border-radius:6px!important;
+  }
+  .kpi small{
+    font-size:5.8px!important;
+  }
+  .kpi b{
+    font-size:14px!important;
+    margin-top:2px!important;
+  }
+
+  /* Indicador principal menor */
+  .v74-map-status{
+    top:4px!important;
+    max-width:68%!important;
+    min-height:24px!important;
+    padding:3px 7px!important;
+    border-radius:6px!important;
+    font-size:6.1px!important;
+  }
+
+  /* Resumo operacional mais compacto */
+  .v91-opbar{
+    top:31px!important;
+    max-width:84%!important;
+    gap:2px!important;
+  }
+  .v91-pill{
+    min-height:19px!important;
+    padding:2px 4px!important;
+    font-size:5.1px!important;
+  }
+  .v91-pill b{
+    font-size:5.8px!important;
+  }
+  .v91-dot{
+    width:5px!important;
+    height:5px!important;
+  }
+
+  /* Controles mínimos */
+  #risk-help-btn,
+  .tools-trigger{
+    width:28px!important;
+    height:28px!important;
+    min-width:28px!important;
+    min-height:28px!important;
+  }
+  #risk-help-btn{
+    top:4px!important;
+    left:4px!important;
+  }
+  .map-tools{
+    top:4px!important;
+    right:4px!important;
+  }
+  .leaflet-top.leaflet-left{
+    top:36px!important;
+    right:4px!important;
+  }
+  .leaflet-control-zoom a{
+    width:26px!important;
+    height:26px!important;
+    line-height:26px!important;
+    font-size:13px!important;
+  }
+  .fullscreen-map-btn{
+    top:92px!important;
+    right:4px!important;
+    width:26px!important;
+    height:26px!important;
+    min-width:26px!important;
+    min-height:26px!important;
+  }
+
+  /* Legenda menor e menos dominante */
+  .legend{
+    left:4px!important;
+    bottom:38px!important;
+    min-width:118px!important;
+    max-width:128px!important;
+    padding:5px 6px!important;
+    border-radius:6px!important;
+  }
+  .legend h3{
+    font-size:6.8px!important;
+    margin-bottom:3px!important;
+  }
+  .leg{
+    font-size:6.1px!important;
+    margin:2px 0!important;
+  }
+  .sw{
+    width:8px!important;
+    height:8px!important;
+  }
+
+  /* Ficha municipal muito mais compacta */
+  .details{
+    max-height:58vh!important;
+    border-radius:11px 11px 0 0!important;
+    box-shadow:0 -6px 18px rgba(0,0,0,.16)!important;
+  }
+  .details .sidehead{
+    padding:6px 36px 5px 8px!important;
+    min-height:42px!important;
+  }
+  .details h2{
+    font-size:5.8px!important;
+  }
+  .detail-title{
+    font-size:14px!important;
+    line-height:1.05!important;
+    margin-top:1px!important;
+  }
+  .badge{
+    margin-top:4px!important;
+    min-height:19px!important;
+    padding:2px 6px!important;
+    font-size:6.2px!important;
+  }
+  .detail-close-btn{
+    width:26px!important;
+    height:26px!important;
+    min-width:26px!important;
+    right:6px!important;
+    top:6px!important;
+  }
+
+  #detailBody{
+    padding:5px 7px 8px!important;
+  }
+
+  /* Métricas em duas colunas compactas */
+  #detailBody > .metric{
+    min-height:36px!important;
+    margin-top:3px!important;
+    padding:5px 6px!important;
+    border-radius:5px!important;
+  }
+  .metric{
+    grid-template-columns:22px minmax(0,1fr)!important;
+    gap:2px 5px!important;
+  }
+  .metric .ico{
+    width:22px!important;
+    font-size:12px!important;
+  }
+  .metric small{
+    font-size:5.4px!important;
+  }
+  .metric strong,
+  .metric .value{
+    font-size:7.1px!important;
+    line-height:1.15!important;
+  }
+
+  /* Blocos operacionais menores */
+  .operational-status,
+  .quick-status,
+  .alert-expiry,
+  .v91-section{
+    margin-top:4px!important;
+    padding:5px 6px!important;
+    border-radius:5px!important;
+  }
+  .v91-section-title{
+    font-size:5.4px!important;
+    margin-bottom:4px!important;
+  }
+  .v91-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:3px!important;
+  }
+  .v91-item{
+    padding:4px 5px!important;
+    border-radius:4px!important;
+  }
+  .v91-item small{
+    font-size:5.1px!important;
+    margin-bottom:2px!important;
+  }
+  .v91-item strong{
+    font-size:6.7px!important;
+    line-height:1.15!important;
+  }
+  .v91-trend{
+    padding:2px 4px!important;
+  }
+  .v91-warning{
+    margin-top:4px!important;
+    padding:4px 5px!important;
+    font-size:6px!important;
+  }
+
+  /* Histórico mais curto */
+  .v91-history{
+    max-height:58px!important;
+    gap:2px!important;
+  }
+  .v91-history-row{
+    grid-template-columns:34px minmax(0,1fr)!important;
+    gap:4px!important;
+    padding:3px 4px!important;
+  }
+  .v91-history-time{
+    font-size:5.4px!important;
+  }
+  .v91-history-text{
+    font-size:6px!important;
+  }
+
+  /* Como mobile é consulta, esconde bloco de edição */
+  .quick-status{
+    display:none!important;
+  }
+
+  /* Rodapé mínimo */
+  .v69-footer{
+    height:22px!important;
+    min-height:22px!important;
+    font-size:5.3px!important;
+  }
+
+  /* Remove transições que pesam no mobile */
+  .kpi,
+  .row,
+  .details,
+  .leaflet-overlay-pane svg path{
+    transition:none!important;
+  }
+}
+</style>
+
+
+
+<style id="v107-mobile-compact-details">
+/* ============================================================
+   V107 — ficha municipal mobile compacta e estável
+   ============================================================ */
+@media(max-width:720px){
+
+  /* mapa continua ocupando toda a largura */
+  .main{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    padding:0!important;
+    margin:0!important;
+    overflow:hidden!important;
+  }
+  .mapwrap,#map{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    height:100%!important;
+    margin:0!important;
+  }
+  .sidebar{
+    display:none!important;
+  }
+
+  /* ficha mobile = bottom sheet pequena */
+  #details.details{
+    display:none!important;
+    position:fixed!important;
+    left:6px!important;
+    right:6px!important;
+    bottom:26px!important;
+    top:auto!important;
+    width:auto!important;
+    max-width:none!important;
+    min-width:0!important;
+    max-height:42vh!important;
+    margin:0!important;
+    padding:0!important;
+    border-radius:12px!important;
+    z-index:9250!important;
+    overflow:hidden!important;
+    box-shadow:0 8px 24px rgba(0,0,0,.18)!important;
+  }
+
+  #details.details.open{
+    display:flex!important;
+    flex-direction:column!important;
+  }
+
+  /* cabeçalho da ficha */
+  #details .sidehead{
+    position:relative!important;
+    flex:0 0 auto!important;
+    min-height:38px!important;
+    padding:6px 34px 5px 8px!important;
+    border-radius:12px 12px 0 0!important;
+  }
+  #details h2{
+    margin:0!important;
+    font-size:5.5px!important;
+    line-height:1.1!important;
+  }
+  #details .detail-title{
+    margin-top:1px!important;
+    font-size:13px!important;
+    line-height:1.05!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  #details .badge{
+    min-height:18px!important;
+    margin-top:3px!important;
+    padding:2px 6px!important;
+    font-size:6px!important;
+  }
+  #details .detail-close-btn{
+    position:absolute!important;
+    right:5px!important;
+    top:5px!important;
+    width:24px!important;
+    height:24px!important;
+    min-width:24px!important;
+    min-height:24px!important;
+    margin:0!important;
+  }
+
+  /* corpo interno com rolagem leve */
+  #detailBody{
+    flex:1 1 auto!important;
+    min-height:0!important;
+    padding:4px 6px 7px!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    overscroll-behavior:contain!important;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* métricas mais compactas */
+  #detailBody > .metric,
+  #details .metric{
+    min-height:31px!important;
+    margin-top:2px!important;
+    padding:4px 5px!important;
+    border-radius:5px!important;
+    grid-template-columns:18px minmax(0,1fr)!important;
+    grid-template-areas:"ico label" "ico value"!important;
+    gap:1px 4px!important;
+  }
+  #details .metric .ico{
+    grid-area:ico!important;
+    width:18px!important;
+    font-size:10px!important;
+    align-self:center!important;
+  }
+  #details .metric small{
+    grid-area:label!important;
+    font-size:4.9px!important;
+    line-height:1.05!important;
+  }
+  #details .metric strong,
+  #details .metric .value{
+    grid-area:value!important;
+    font-size:6.5px!important;
+    line-height:1.1!important;
+    text-align:left!important;
+  }
+
+  /* situação operacional muito enxuta */
+  #details .operational-status{
+    margin-top:3px!important;
+    padding:4px 5px!important;
+    border-radius:5px!important;
+    gap:3px!important;
+  }
+  #details .operational-status .op-copy small{
+    font-size:4.9px!important;
+  }
+  #details .operational-status .op-copy strong{
+    font-size:6.8px!important;
+  }
+  #details .operational-status .op-chip{
+    padding:2px 5px!important;
+    font-size:5.3px!important;
+  }
+
+  /* camada operacional: somente o essencial */
+  #details .v91-section{
+    margin-top:3px!important;
+    padding:4px 5px!important;
+    border-radius:5px!important;
+  }
+  #details .v91-section-title{
+    margin-bottom:3px!important;
+    font-size:4.9px!important;
+  }
+  #details .v91-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:3px!important;
+  }
+  #details .v91-item{
+    padding:3px 4px!important;
+    border-radius:4px!important;
+  }
+  #details .v91-item small{
+    margin-bottom:1px!important;
+    font-size:4.7px!important;
+  }
+  #details .v91-item strong{
+    font-size:6.1px!important;
+    line-height:1.08!important;
+  }
+  #details .v91-trend{
+    padding:1px 3px!important;
+    font-size:5.7px!important;
+  }
+  #details .v91-warning{
+    margin-top:3px!important;
+    padding:3px 4px!important;
+    font-size:5.4px!important;
+  }
+
+  /* histórico compacto, com altura controlada */
+  #details .v91-history{
+    max-height:45px!important;
+    gap:2px!important;
+  }
+  #details .v91-history-row{
+    grid-template-columns:30px minmax(0,1fr)!important;
+    gap:3px!important;
+    padding:2px 3px!important;
+  }
+  #details .v91-history-time{
+    font-size:4.8px!important;
+  }
+  #details .v91-history-text{
+    font-size:5.4px!important;
+    line-height:1.08!important;
+  }
+
+  /* mobile continua somente consulta */
+  #details .quick-status,
+  #details .duration-presets{
+    display:none!important;
+  }
+
+  /* não reservar espaço lateral */
+  .panel-toggle-tabs,
+  .panel-toggle-tab,
+  #quickListToggle,
+  #quickDashboardToggle,
+  [data-panel="list"],
+  [data-panel="dashboard"],
+  [data-target="list"],
+  [data-target="dashboard"]{
+    display:none!important;
+  }
+
+  /* legenda sobe um pouco quando ficha abre */
+  body.v107-detail-open .legend{
+    opacity:.55!important;
+  }
+}
+</style>
+
+
+<style id="v108-mobile-modern-card">
+/* ============================================================
+   V108 — FICHA MUNICIPAL MOBILE MAIS MODERNA
+   Restante da V107 preservado
+   ============================================================ */
+@media(max-width:720px){
+
+  /* bottom sheet com visual mais moderno */
+  #details.details{
+    left:8px!important;
+    right:8px!important;
+    bottom:24px!important;
+    max-height:44vh!important;
+    border-radius:16px!important;
+    overflow:hidden!important;
+    border:1px solid rgba(148,163,184,.18)!important;
+    background:rgba(255,255,255,.98)!important;
+    box-shadow:0 12px 34px rgba(15,23,42,.18)!important;
+  }
+  html.dark-mode #details.details{
+    background:rgba(11,24,40,.98)!important;
+    border-color:rgba(148,163,184,.16)!important;
+    box-shadow:0 12px 34px rgba(0,0,0,.30)!important;
+  }
+
+  /* "pegador" visual */
+  #details.details.open::before{
+    content:"";
+    display:block;
+    width:36px;
+    height:4px;
+    margin:6px auto 2px;
+    border-radius:999px;
+    background:rgba(100,116,139,.28);
+  }
+
+  /* cabeçalho mais limpo */
+  #details .sidehead{
+    padding:5px 36px 6px 10px!important;
+    min-height:36px!important;
+    border-radius:0!important;
+    border-bottom:1px solid rgba(148,163,184,.10)!important;
+  }
+  #details h2{
+    font-size:5.2px!important;
+    letter-spacing:.08em!important;
+    opacity:.62!important;
+  }
+  #details .detail-title{
+    margin-top:2px!important;
+    font-size:14.5px!important;
+    font-weight:900!important;
+    letter-spacing:-.02em!important;
+    color:#16263a!important;
+  }
+  html.dark-mode #details .detail-title{
+    color:#f2f7fc!important;
+  }
+
+  #details .badge{
+    display:inline-flex!important;
+    align-items:center!important;
+    min-height:20px!important;
+    margin-top:4px!important;
+    padding:2px 7px!important;
+    border-radius:999px!important;
+    font-size:6.2px!important;
+    font-weight:900!important;
+  }
+
+  #details .detail-close-btn{
+    top:7px!important;
+    right:7px!important;
+    width:25px!important;
+    height:25px!important;
+    min-width:25px!important;
+    min-height:25px!important;
+    border-radius:50%!important;
+    font-size:14px!important;
+  }
+
+  /* corpo */
+  #detailBody{
+    padding:6px 8px 9px!important;
+  }
+
+  /* métricas como cards modernos */
+  #details .metric{
+    min-height:34px!important;
+    margin-top:3px!important;
+    padding:5px 6px!important;
+    border-radius:8px!important;
+    border:1px solid rgba(148,163,184,.10)!important;
+    background:rgba(248,250,252,.88)!important;
+  }
+  html.dark-mode #details .metric{
+    background:rgba(15,29,48,.90)!important;
+    border-color:rgba(148,163,184,.10)!important;
+  }
+  #details .metric .ico{
+    width:20px!important;
+    height:20px!important;
+    display:grid!important;
+    place-items:center!important;
+    border-radius:6px!important;
+    background:rgba(37,99,235,.08)!important;
+    color:#2563eb!important;
+    font-size:10px!important;
+  }
+  html.dark-mode #details .metric .ico{
+    background:rgba(96,165,250,.10)!important;
+    color:#8fc7ff!important;
+  }
+  #details .metric small{
+    font-size:5px!important;
+    font-weight:800!important;
+    letter-spacing:.04em!important;
+    opacity:.62!important;
+  }
+  #details .metric strong,
+  #details .metric .value{
+    font-size:6.8px!important;
+    font-weight:850!important;
+    color:#1e293b!important;
+  }
+  html.dark-mode #details .metric strong,
+  html.dark-mode #details .metric .value{
+    color:#e9f2fb!important;
+  }
+
+  /* situação operacional */
+  #details .operational-status{
+    margin-top:4px!important;
+    padding:5px 6px!important;
+    border-radius:8px!important;
+    border:1px solid rgba(59,130,246,.12)!important;
+    background:rgba(59,130,246,.045)!important;
+  }
+  #details .operational-status .op-copy small{
+    font-size:5px!important;
+  }
+  #details .operational-status .op-copy strong{
+    font-size:6.8px!important;
+  }
+  #details .operational-status .op-chip{
+    border-radius:999px!important;
+    padding:2px 6px!important;
+    font-size:5.4px!important;
+  }
+
+  /* acompanhamento operacional em cards */
+  #details .v91-section{
+    margin-top:4px!important;
+    padding:5px 6px!important;
+    border-radius:8px!important;
+    border:1px solid rgba(148,163,184,.11)!important;
+  }
+  #details .v91-section-title{
+    margin-bottom:4px!important;
+    font-size:5px!important;
+    letter-spacing:.08em!important;
+  }
+  #details .v91-grid{
+    gap:4px!important;
+  }
+  #details .v91-item{
+    padding:4px 5px!important;
+    border-radius:7px!important;
+    background:rgba(248,250,252,.85)!important;
+  }
+  html.dark-mode #details .v91-item{
+    background:rgba(15,29,48,.88)!important;
+  }
+  #details .v91-item small{
+    font-size:4.8px!important;
+    opacity:.60!important;
+  }
+  #details .v91-item strong{
+    font-size:6.3px!important;
+    font-weight:850!important;
+  }
+
+  /* tendência com chip */
+  #details .v91-trend{
+    display:inline-flex!important;
+    width:auto!important;
+    border-radius:999px!important;
+    padding:2px 5px!important;
+    font-size:5.8px!important;
+  }
+
+  /* aviso */
+  #details .v91-warning{
+    margin-top:4px!important;
+    padding:4px 5px!important;
+    border-radius:7px!important;
+    font-size:5.6px!important;
+  }
+
+  /* histórico mais elegante */
+  #details .v91-history{
+    max-height:48px!important;
+    gap:3px!important;
+  }
+  #details .v91-history-row{
+    padding:3px 4px!important;
+    border-radius:5px!important;
+    background:rgba(148,163,184,.055)!important;
+  }
+  #details .v91-history-time{
+    font-size:4.8px!important;
+    font-weight:850!important;
+  }
+  #details .v91-history-text{
+    font-size:5.5px!important;
+  }
+
+  /* consulta mobile sem edição */
+  #details .quick-status,
+  #details .duration-presets{
+    display:none!important;
+  }
+
+  /* menos interferência visual no mapa quando ficha abre */
+  body.v107-detail-open .legend,
+  body.v107-detail-open .v74-map-status,
+  body.v107-detail-open .v91-opbar{
+    opacity:.42!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -5763,6 +6517,79 @@ const CEMOA_SUPABASE_STATE_ID='main';
   }
 
   setTimeout(enforceDesktopAdmin,500);
+})();
+</script>
+
+
+<script id="v104-mobile-performance">
+(function(){
+  let timer=null;
+  function isMobile(){return window.matchMedia('(max-width:720px)').matches}
+
+  function lightweightResize(){
+    if(!isMobile())return;
+    clearTimeout(timer);
+    timer=setTimeout(()=>{
+      try{
+        if(typeof map!=='undefined' && map){
+          map.invalidateSize({pan:false,animate:false});
+        }
+      }catch(e){}
+    },120);
+  }
+
+  window.addEventListener('resize',lightweightResize,{passive:true});
+  window.addEventListener('orientationchange',lightweightResize,{passive:true});
+
+  document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden)lightweightResize();
+  });
+})();
+</script>
+
+
+
+<script id="v107-mobile-compact-details-js">
+(function(){
+  function isMobile(){
+    return window.matchMedia('(max-width:720px)').matches;
+  }
+
+  function sync(){
+    const details=document.getElementById('details');
+    if(!details)return;
+
+    if(isMobile()){
+      details.style.removeProperty('display');
+      document.body.classList.toggle('v107-detail-open',details.classList.contains('open'));
+    }else{
+      document.body.classList.remove('v107-detail-open');
+      details.style.removeProperty('display');
+    }
+  }
+
+  const details=document.getElementById('details');
+  if(details && 'MutationObserver' in window){
+    new MutationObserver(()=>{
+      sync();
+      setTimeout(()=>{
+        try{
+          if(typeof map!=='undefined' && map){
+            map.invalidateSize({pan:false,animate:false});
+          }
+        }catch(e){}
+      },50);
+    }).observe(details,{attributes:true,attributeFilter:['class']});
+  }
+
+  window.addEventListener('resize',sync,{passive:true});
+  window.addEventListener('orientationchange',sync,{passive:true});
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',sync);
+  }else{
+    sync();
+  }
 })();
 </script>
 
