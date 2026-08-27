@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Painel de Alertas CEMOA — Defesa Civil do Amazonas | V95 Final</title>
+<title>Painel de Alertas CEMOA — V97 Admin Supabase Conectado</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2408,6 +2408,153 @@ html.dark-mode .v91-warning{color:#fbbf24}
 }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style id="v96-admin-supabase">
+:root{
+  --admin-blue:#2563eb;
+  --admin-green:#16a34a;
+  --admin-red:#dc2626;
+}
+.admin-auth-btn{
+  flex:0 0 auto;
+  min-height:34px!important;
+  width:auto!important;
+  max-width:230px;
+  padding:0 10px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  border-radius:9px!important;
+  font-size:8px!important;
+  font-weight:850!important;
+  white-space:nowrap;
+}
+.admin-auth-btn .admin-state-dot{
+  width:7px;height:7px;border-radius:50%;background:#94a3b8;flex:0 0 auto
+}
+.admin-auth-btn.is-admin .admin-state-dot{background:var(--admin-green)}
+.admin-auth-btn.is-user .admin-state-dot{background:#f59e0b}
+.admin-auth-btn.is-locked .admin-state-dot{background:#94a3b8}
+
+.admin-readonly-note{
+  display:none;
+  margin-top:7px;padding:7px 8px;border-radius:7px;
+  border:1px solid rgba(148,163,184,.18);
+  background:rgba(37,99,235,.06);
+  font-size:7px;line-height:1.35;font-weight:750
+}
+body:not(.cemoa-admin) .admin-readonly-note{display:block}
+
+/* Controles de alteração realmente inativos para não-admin */
+body:not(.cemoa-admin) #editRiskTool{display:none!important}
+body:not(.cemoa-admin) .quick-status select,
+body:not(.cemoa-admin) .quick-status button,
+body:not(.cemoa-admin) .duration-presets button,
+body:not(.cemoa-admin) #applyRiskBtn,
+body:not(.cemoa-admin) #allLowBtn,
+body:not(.cemoa-admin) #restoreRiskBtn,
+body:not(.cemoa-admin) .risk-editor-table select{
+  pointer-events:none!important;
+  opacity:.48!important;
+  cursor:not-allowed!important;
+}
+body:not(.cemoa-admin) .quick-status{
+  position:relative;
+}
+body:not(.cemoa-admin) .quick-status::after{
+  content:"Somente administradores podem alterar níveis e duração.";
+  display:block;
+  margin-top:7px;padding:6px 7px;border-radius:6px;
+  border:1px dashed rgba(148,163,184,.28);
+  color:#64748b;font-size:6.8px;font-weight:800;line-height:1.3
+}
+html.dark-mode body:not(.cemoa-admin) .quick-status::after{color:#9fb1c8}
+
+/* Modal de login */
+.admin-login-backdrop{
+  position:fixed;inset:0;z-index:10000;display:none;
+  align-items:center;justify-content:center;padding:16px;
+  background:rgba(2,8,18,.68);backdrop-filter:blur(6px)
+}
+.admin-login-backdrop.open{display:flex}
+.admin-login-card{
+  width:min(390px,94vw);overflow:hidden;border-radius:14px;
+  border:1px solid rgba(148,163,184,.24);
+  background:#fff;color:#172033;box-shadow:0 24px 70px rgba(0,0,0,.32)
+}
+html.dark-mode .admin-login-card{background:#101c2d;color:#edf5ff}
+.admin-login-head{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:12px;padding:15px 16px;border-bottom:1px solid rgba(148,163,184,.16)
+}
+.admin-login-head small{
+  display:block;font-size:7px;font-weight:900;letter-spacing:.08em;
+  color:#2563eb;text-transform:uppercase
+}
+.admin-login-head h2{margin:4px 0 2px;font-size:16px}
+.admin-login-head p{margin:0;font-size:8px;color:#64748b;line-height:1.35}
+html.dark-mode .admin-login-head p{color:#9fb1c8}
+.admin-login-close{
+  width:30px!important;height:30px!important;min-width:30px!important;
+  border-radius:50%!important
+}
+.admin-login-body{padding:14px 16px}
+.admin-login-body label{
+  display:block;margin:9px 0 4px;font-size:7px;font-weight:900;
+  text-transform:uppercase;letter-spacing:.05em;color:#64748b
+}
+.admin-login-body input{
+  width:100%;height:36px;border-radius:8px;border:1px solid rgba(148,163,184,.24);
+  padding:0 10px;font-size:9px
+}
+.admin-login-actions{display:flex;gap:7px;margin-top:13px}
+.admin-login-actions button{
+  min-height:36px;width:auto!important;padding:0 12px!important;border-radius:8px!important;
+  font-size:8.5px!important;font-weight:850!important
+}
+.admin-login-primary{background:#2563eb!important;color:#fff!important;border-color:#2563eb!important;flex:1}
+.admin-login-secondary{background:transparent!important;flex:0 0 auto}
+.admin-login-message{
+  min-height:18px;margin-top:9px;font-size:7.4px;line-height:1.35;color:#64748b
+}
+.admin-login-message.error{color:#dc2626}
+.admin-login-message.ok{color:#16a34a}
+.admin-session-box{
+  display:none;margin-top:11px;padding:8px;border-radius:7px;
+  background:rgba(22,163,74,.07);border:1px solid rgba(22,163,74,.16);
+  font-size:7.5px;line-height:1.4
+}
+.admin-session-box.show{display:block}
+.admin-config-warning{
+  padding:8px;border-radius:7px;background:rgba(245,158,11,.08);
+  border:1px solid rgba(245,158,11,.18);font-size:7.3px;line-height:1.4;
+  color:#92400e
+}
+html.dark-mode .admin-config-warning{color:#fbbf24}
+
+/* Status de sincronização */
+.supabase-sync-status{
+  position:absolute;top:5px;right:42px;z-index:805;
+  display:inline-flex;align-items:center;gap:5px;min-height:28px;
+  padding:4px 7px;border-radius:7px;font-size:6.5px;font-weight:850;
+  border:1px solid rgba(148,163,184,.18);
+  background:rgba(255,255,255,.92);color:#475569;pointer-events:none
+}
+html.dark-mode .supabase-sync-status{background:rgba(8,25,42,.90);color:#b8c9d9}
+.supabase-sync-status .sync-dot{width:6px;height:6px;border-radius:50%;background:#94a3b8}
+.supabase-sync-status.ok .sync-dot{background:#16a34a}
+.supabase-sync-status.busy .sync-dot{background:#f59e0b}
+.supabase-sync-status.error .sync-dot{background:#dc2626}
+
+@media(max-width:720px){
+  .admin-auth-btn{width:32px!important;min-width:32px!important;padding:0!important}
+  .admin-auth-btn .admin-auth-label{display:none}
+  .supabase-sync-status{display:none}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2437,6 +2584,11 @@ html.dark-mode .v91-warning{color:#fbbf24}
       <strong id="headerIssuedAt">—</strong>
     </div>
   </div>
+
+  <button id="adminAuthBtn" class="admin-auth-btn admin-btn is-locked" type="button" title="Acesso administrativo">
+    <span class="admin-state-dot"></span><span class="admin-auth-label">Admin</span>
+  </button>
+
 </header>
 
 <section class="kpis" id="kpis"></section>
@@ -2468,6 +2620,7 @@ html.dark-mode .v91-warning{color:#fbbf24}
       <button type="button" id="quickDashboardToggle" class="panel-toggle-tab">▤ <span>Dashboard</span></button>
     </div>
 
+    <div id="supabaseSyncStatus" class="supabase-sync-status"><span class="sync-dot"></span><span>Somente leitura</span></div>
     <div class="map-tools" id="mapTools">
 <button id="themeToggle" type="button" aria-label="Ativar modo escuro" title="Alternar modo claro/escuro">
   <span class="theme-dot"></span><span id="themeIcon">🌙</span><span class="theme-label" id="themeLabel">Escuro</span>
@@ -2517,6 +2670,37 @@ html.dark-mode .v91-warning{color:#fbbf24}
     <div id="detailBody"><div class="empty">Selecione um município na lista ou diretamente no mapa para visualizar a avaliação meteorológica.</div></div>
   </aside>
 </main>
+
+
+<div class="admin-login-backdrop" id="adminLoginBackdrop" aria-hidden="true">
+  <section class="admin-login-card" role="dialog" aria-modal="true" aria-labelledby="adminLoginTitle">
+    <div class="admin-login-head">
+      <div>
+        <small>CEMOA · Controle de acesso</small>
+        <h2 id="adminLoginTitle">Área administrativa</h2>
+        <p>Somente perfis autorizados como administrador podem alterar níveis e duração dos alertas.</p>
+      </div>
+      <button id="adminLoginClose" class="admin-login-close" type="button" aria-label="Fechar">×</button>
+    </div>
+    <div class="admin-login-body">
+      <div id="adminConfigWarning" class="admin-config-warning" style="display:none">
+        Supabase ainda não configurado neste HTML. Informe URL e chave anon pública na seção <b>CONFIGURAÇÃO SUPABASE</b> do código.
+      </div>
+      <div id="adminLoginForm">
+        <label for="adminEmail">E-mail</label>
+        <input id="adminEmail" type="email" autocomplete="username" placeholder="usuario@exemplo.gov.br">
+        <label for="adminPassword">Senha</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Senha">
+        <div class="admin-login-actions">
+          <button id="adminLoginSubmit" class="admin-login-primary" type="button">Entrar</button>
+          <button id="adminLogoutBtn" class="admin-login-secondary" type="button" style="display:none">Sair</button>
+        </div>
+      </div>
+      <div id="adminSessionBox" class="admin-session-box"></div>
+      <div id="adminLoginMessage" class="admin-login-message"></div>
+    </div>
+  </section>
+</div>
 
 <div class="risk-editor-backdrop" id="riskEditorBackdrop" aria-hidden="true">
   <section class="risk-editor" role="dialog" aria-modal="true" aria-labelledby="riskEditorTitle">
@@ -4068,6 +4252,407 @@ setInterval(refreshOperationalStatus,15000);
   /* Um único relógio operacional */
   setInterval(refreshOperationalUI,60000);
   setTimeout(refreshOperationalUI,400);
+})();
+</script>
+
+
+<script id="v96-admin-supabase-engine">
+/* =====================================================================
+   CONFIGURAÇÃO SUPABASE
+   Substitua SOMENTE os dois valores abaixo pelas credenciais públicas
+   do seu projeto Supabase. A anon key pode ficar no navegador; a
+   segurança de escrita é garantida pelas políticas RLS do banco.
+   ===================================================================== */
+const CEMOA_SUPABASE_URL='https://iivcorxaulxxlpknnkpj.supabase.co';
+const CEMOA_SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlpdmNvcnhhdWx4eGxwa25ua3BqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NDI4NDgsImV4cCI6MjEwMzQxODg0OH0.jxoDqvBYlU6LRikBjo-L3Jfcyw1G9huETtV87WpiPJI';
+const CEMOA_SUPABASE_STATE_ID='main';
+
+(function(){
+  let sb=null;
+  let currentUser=null;
+  let admin=false;
+  let realtimeChannel=null;
+  let remoteApply=false;
+  let persistTimer=null;
+
+  const authBtn=document.getElementById('adminAuthBtn');
+  const modal=document.getElementById('adminLoginBackdrop');
+  const closeBtn=document.getElementById('adminLoginClose');
+  const loginBtn=document.getElementById('adminLoginSubmit');
+  const logoutBtn=document.getElementById('adminLogoutBtn');
+  const emailInput=document.getElementById('adminEmail');
+  const passwordInput=document.getElementById('adminPassword');
+  const message=document.getElementById('adminLoginMessage');
+  const sessionBox=document.getElementById('adminSessionBox');
+  const configWarning=document.getElementById('adminConfigWarning');
+  const syncStatus=document.getElementById('supabaseSyncStatus');
+
+  function configured(){
+    return !!(
+      window.supabase &&
+      CEMOA_SUPABASE_URL &&
+      CEMOA_SUPABASE_ANON_KEY &&
+      !CEMOA_SUPABASE_URL.includes('SEU-PROJETO') &&
+      !CEMOA_SUPABASE_ANON_KEY.includes('SUA_CHAVE')
+    );
+  }
+
+  function setMessage(text='',cls=''){
+    if(!message)return;
+    message.textContent=text;
+    message.className='admin-login-message'+(cls?' '+cls:'');
+  }
+
+  function setSync(text,cls=''){
+    if(!syncStatus)return;
+    syncStatus.className='supabase-sync-status'+(cls?' '+cls:'');
+    const span=syncStatus.querySelector('span:last-child');
+    if(span)span.textContent=text;
+  }
+
+  function setAdminUI(){
+    document.body.classList.toggle('cemoa-admin',admin);
+    if(!authBtn)return;
+    authBtn.classList.remove('is-admin','is-user','is-locked');
+
+    if(admin){
+      authBtn.classList.add('is-admin');
+      authBtn.querySelector('.admin-auth-label').textContent='Admin ativo';
+      authBtn.title='Sessão administrativa ativa';
+    }else if(currentUser){
+      authBtn.classList.add('is-user');
+      authBtn.querySelector('.admin-auth-label').textContent='Sem permissão';
+      authBtn.title='Usuário autenticado sem perfil admin';
+    }else{
+      authBtn.classList.add('is-locked');
+      authBtn.querySelector('.admin-auth-label').textContent='Admin';
+      authBtn.title='Entrar na área administrativa';
+    }
+
+    const edit=document.getElementById('editRiskTool');
+    if(edit)edit.style.display=admin?'flex':'none';
+
+    if(sessionBox){
+      if(currentUser){
+        sessionBox.classList.add('show');
+        sessionBox.innerHTML='<b>'+escapeHtml(currentUser.email||'Usuário')+'</b><br>'+
+          (admin?'Perfil: Administrador — edição habilitada.':'Perfil sem permissão administrativa — painel permanece somente leitura.');
+      }else{
+        sessionBox.classList.remove('show');
+        sessionBox.textContent='';
+      }
+    }
+    if(logoutBtn)logoutBtn.style.display=currentUser?'inline-flex':'none';
+
+    applyDetailGate();
+  }
+
+  function escapeHtml(s){
+    return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  }
+
+  function requireAdmin(action='alterar o painel'){
+    if(admin)return true;
+    setMessage('Ação bloqueada: somente administradores podem '+action+'.','error');
+    openModal();
+    return false;
+  }
+
+  function openModal(){
+    if(!modal)return;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    if(configWarning)configWarning.style.display=configured()?'none':'block';
+    setAdminUI();
+    setTimeout(()=>{if(!currentUser && emailInput)emailInput.focus()},50);
+  }
+  function closeModal(){
+    if(!modal)return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+  }
+
+  function buildPayload(){
+    const municipios={};
+    if(typeof GEO!=='undefined'){
+      GEO.features.forEach(f=>{
+        municipios[f.properties.nome]={
+          alertas:f.properties.alertas||{},
+          alertasMeta:f.properties.alertasMeta||{}
+        };
+      });
+    }
+    let history={};
+    try{history=JSON.parse(localStorage.getItem('cemoa_v91_operational_history')||'{}')}catch(e){}
+    return {version:1,municipios,operationalHistory:history};
+  }
+
+  function applyPayload(payload){
+    if(!payload || !payload.municipios || typeof GEO==='undefined')return false;
+    remoteApply=true;
+    try{
+      GEO.features.forEach(f=>{
+        const obj=payload.municipios[f.properties.nome];
+        if(!obj)return;
+        if(obj.alertas){
+          Object.keys(ALERT_TYPES).forEach(t=>{
+            if(Object.prototype.hasOwnProperty.call(obj.alertas,t)){
+              f.properties.alertas[t]=obj.alertas[t];
+            }
+          });
+        }
+        if(obj.alertasMeta){
+          Object.keys(ALERT_TYPES).forEach(t=>{
+            if(!f.properties.alertasMeta[t])f.properties.alertasMeta[t]={expiresAt:null};
+            if(obj.alertasMeta[t] && Object.prototype.hasOwnProperty.call(obj.alertasMeta[t],'expiresAt')){
+              f.properties.alertasMeta[t].expiresAt=obj.alertasMeta[t].expiresAt;
+            }
+          });
+        }
+      });
+      if(payload.operationalHistory){
+        localStorage.setItem('cemoa_v91_operational_history',JSON.stringify(payload.operationalHistory));
+      }
+      try{
+        const localPayload={};
+        GEO.features.forEach(f=>{
+          localPayload[f.properties.nome]={alertas:f.properties.alertas,alertasMeta:f.properties.alertasMeta};
+        });
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(localPayload));
+      }catch(e){}
+
+      activeFilter='TODOS';
+      selectedName=null;
+      rebuildDashboard();rebuildLegend();drawMap();renderList();
+      if(typeof updateHeaderSummary==='function')updateHeaderSummary();
+      if(typeof refreshOperationalUI==='function')refreshOperationalUI();
+      setSync('Sincronizado','ok');
+      return true;
+    }finally{
+      setTimeout(()=>{remoteApply=false},50);
+    }
+  }
+
+  async function loadCloudState(){
+    if(!sb)return false;
+    setSync('Carregando…','busy');
+    const {data,error}=await sb
+      .from('panel_state')
+      .select('payload,updated_at')
+      .eq('id',CEMOA_SUPABASE_STATE_ID)
+      .maybeSingle();
+    if(error){
+      console.warn('Supabase load:',error);
+      setSync('Erro de leitura','error');
+      return false;
+    }
+    if(data && data.payload){
+      applyPayload(data.payload);
+      return true;
+    }
+    setSync('Sem estado remoto','');
+    return false;
+  }
+
+  async function persistCloudState(){
+    if(!sb || !admin || remoteApply)return false;
+    setSync('Salvando…','busy');
+    const payload=buildPayload();
+    const {error}=await sb.from('panel_state').upsert({
+      id:CEMOA_SUPABASE_STATE_ID,
+      payload,
+      updated_at:new Date().toISOString(),
+      updated_by:currentUser?currentUser.id:null
+    },{onConflict:'id'});
+    if(error){
+      console.error('Supabase save:',error);
+      setSync('Falha ao salvar','error');
+      return false;
+    }
+    setSync('Salvo na nuvem','ok');
+    return true;
+  }
+
+  function queuePersist(){
+    if(!admin || remoteApply)return;
+    clearTimeout(persistTimer);
+    persistTimer=setTimeout(()=>persistCloudState(),180);
+  }
+
+  async function checkRole(user){
+    currentUser=user||null;
+    admin=false;
+    if(!user || !sb){setAdminUI();return false}
+    const {data,error}=await sb
+      .from('profiles')
+      .select('role')
+      .eq('id',user.id)
+      .maybeSingle();
+    if(error)console.warn('Role check:',error);
+    admin=!!(data && data.role==='admin');
+    setAdminUI();
+    return admin;
+  }
+
+  async function login(){
+    if(!configured()){
+      setMessage('Configure URL e anon key do Supabase antes de efetuar login.','error');
+      return;
+    }
+    const email=(emailInput.value||'').trim();
+    const password=passwordInput.value||'';
+    if(!email || !password){
+      setMessage('Informe e-mail e senha.','error');return;
+    }
+    loginBtn.disabled=true;
+    setMessage('Autenticando…');
+    const {data,error}=await sb.auth.signInWithPassword({email,password});
+    loginBtn.disabled=false;
+    if(error){
+      setMessage('Não foi possível entrar: '+error.message,'error');return;
+    }
+    await checkRole(data.user);
+    if(admin){
+      setMessage('Acesso administrativo liberado.','ok');
+      await loadCloudState();
+    }else{
+      setMessage('Login realizado, mas este usuário não possui perfil admin.','error');
+    }
+  }
+
+  async function logout(){
+    if(sb)await sb.auth.signOut();
+    currentUser=null;admin=false;setAdminUI();
+    setMessage('Sessão encerrada.','ok');
+    setSync('Somente leitura','');
+  }
+
+  function subscribeRealtime(){
+    if(!sb)return;
+    if(realtimeChannel)try{sb.removeChannel(realtimeChannel)}catch(e){}
+    realtimeChannel=sb.channel('cemoa-panel-state')
+      .on('postgres_changes',{
+        event:'*',schema:'public',table:'panel_state',
+        filter:'id=eq.'+CEMOA_SUPABASE_STATE_ID
+      },payload=>{
+        const row=payload.new;
+        if(row && row.payload)applyPayload(row.payload);
+      })
+      .subscribe();
+  }
+
+  function applyDetailGate(){
+    const quick=document.querySelector('.quick-status');
+    if(!quick)return;
+    quick.querySelectorAll('select,button,input').forEach(el=>{
+      el.disabled=!admin;
+      el.setAttribute('aria-disabled',admin?'false':'true');
+    });
+    let note=quick.querySelector('.admin-readonly-note');
+    if(!note){
+      note=document.createElement('div');
+      note.className='admin-readonly-note';
+      note.textContent='Modo consulta: faça login como administrador para alterar nível e duração.';
+      quick.appendChild(note);
+    }
+  }
+
+  function installActionGuards(){
+    /* Editor em massa */
+    const edit=document.getElementById('editRiskTool');
+    if(edit){
+      const old=edit.onclick;
+      edit.onclick=(ev)=>{
+        if(!requireAdmin('editar a classificação'))return;
+        if(typeof old==='function')return old.call(edit,ev);
+      };
+    }
+
+    /* Aplicar rápido: captura antes do handler legado */
+    document.addEventListener('click',ev=>{
+      const btn=ev.target.closest('#quickStatusApply,#applyRiskBtn,#allLowBtn,#restoreRiskBtn,.duration-presets button');
+      if(!btn)return;
+      if(!admin){
+        ev.preventDefault();ev.stopImmediatePropagation();
+        requireAdmin('alterar níveis ou duração');
+      }
+    },true);
+
+    /* Impede alteração de selects por não-admin */
+    document.addEventListener('change',ev=>{
+      const el=ev.target;
+      if(!el.matches('#quickStatusSelect,#quickDurationSelect,.risk-editor-table select'))return;
+      if(!admin){
+        ev.preventDefault();ev.stopImmediatePropagation();
+        requireAdmin('alterar níveis ou duração');
+        try{
+          if(selectedName)setTimeout(()=>selectMunicipio(selectedName),20);
+        }catch(e){}
+      }
+    },true);
+
+    /* Atualiza gate sempre que a ficha for redesenhada */
+    const body=document.getElementById('detailBody');
+    if(body && 'MutationObserver' in window){
+      new MutationObserver(()=>applyDetailGate()).observe(body,{childList:true,subtree:true});
+    }
+  }
+
+  function wrapPersistence(){
+    if(typeof saveAllAlertRisks!=='function')return;
+    const localSave=saveAllAlertRisks;
+    saveAllAlertRisks=function(){
+      const ok=localSave.apply(this,arguments);
+      queuePersist();
+      return ok;
+    };
+  }
+
+  async function init(){
+    setAdminUI();
+    installActionGuards();
+    wrapPersistence();
+
+    if(!configured()){
+      setSync('Supabase não configurado','');
+      if(configWarning)configWarning.style.display='block';
+      return;
+    }
+
+    sb=window.supabase.createClient(CEMOA_SUPABASE_URL,CEMOA_SUPABASE_ANON_KEY,{
+      auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+    });
+
+    const {data:{session}}=await sb.auth.getSession();
+    await checkRole(session?session.user:null);
+
+    sb.auth.onAuthStateChange(async(_event,session)=>{
+      await checkRole(session?session.user:null);
+    });
+
+    await loadCloudState();
+    subscribeRealtime();
+  }
+
+  /* UI */
+  if(authBtn)authBtn.addEventListener('click',openModal);
+  if(closeBtn)closeBtn.addEventListener('click',closeModal);
+  if(modal)modal.addEventListener('click',ev=>{if(ev.target===modal)closeModal()});
+  if(loginBtn)loginBtn.addEventListener('click',login);
+  if(logoutBtn)logoutBtn.addEventListener('click',logout);
+  if(passwordInput)passwordInput.addEventListener('keydown',ev=>{if(ev.key==='Enter')login()});
+  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&modal&&modal.classList.contains('open'))closeModal()});
+
+  window.CEMOA_ADMIN={
+    isAdmin:()=>admin,
+    user:()=>currentUser,
+    requireAdmin,
+    persistState:persistCloudState,
+    loadState:loadCloudState
+  };
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,50));
+  else setTimeout(init,50);
 })();
 </script>
 
