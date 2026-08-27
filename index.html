@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Painel de Alertas CEMOA — V108 Mobile Ficha Moderna</title>
+<title>Painel de Alertas CEMOA — V117 Salvamento Estável</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -4130,6 +4130,354 @@ body.cemoa-admin .risk-editor-body{
 }
 </style>
 
+
+<style id="v109-municipality-labels">
+.municipality-name-label{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:#172033!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  line-height:1!important;
+  text-shadow:
+    -1px -1px 0 rgba(255,255,255,.92),
+     1px -1px 0 rgba(255,255,255,.92),
+    -1px  1px 0 rgba(255,255,255,.92),
+     1px  1px 0 rgba(255,255,255,.92);
+  white-space:nowrap!important;
+  pointer-events:none!important;
+}
+html.dark-mode .municipality-name-label{
+  color:#f3f7fb!important;
+  text-shadow:
+    -1px -1px 0 rgba(0,0,0,.88),
+     1px -1px 0 rgba(0,0,0,.88),
+    -1px  1px 0 rgba(0,0,0,.88),
+     1px  1px 0 rgba(0,0,0,.88);
+}
+.municipality-name-label::before{display:none!important}
+
+/* No mobile, nomes ficam ocultos para manter o mapa leve e limpo */
+@media(max-width:720px){
+  .municipality-name-label{display:none!important}
+  #toggleMunicipalityNames{display:none!important}
+}
+</style>
+
+
+<style id="v111-modern-municipality-icon">
+.municipality-label-icon{
+  display:grid!important;
+  place-items:center!important;
+}
+.municipality-label-icon svg{
+  display:block;
+  width:17px;
+  height:17px;
+}
+</style>
+
+
+<style id="v112-admin-fast-edit">
+/* ============================================================
+   V112 — EDIÇÃO RÁPIDA ADMIN + EDIÇÃO EM LOTE
+   Somente desktop/admin
+   ============================================================ */
+
+.v112-admin-edit{
+  display:none;
+}
+
+@media(min-width:721px){
+  body.cemoa-admin .v112-admin-edit{
+    display:block;
+    position:fixed;
+    right:14px;
+    bottom:82px;
+    z-index:9350;
+    width:330px;
+    max-height:calc(100vh - 130px);
+    overflow:auto;
+    border-radius:14px;
+    border:1px solid rgba(37,99,235,.20);
+    background:rgba(255,255,255,.97);
+    color:#172033;
+    box-shadow:0 14px 38px rgba(15,23,42,.16);
+    backdrop-filter:blur(12px);
+  }
+  html.dark-mode body.cemoa-admin .v112-admin-edit{
+    background:rgba(11,24,40,.97);
+    color:#edf5ff;
+    border-color:rgba(96,165,250,.20);
+    box-shadow:0 14px 38px rgba(0,0,0,.30);
+  }
+}
+
+.v112-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+  padding:11px 12px 9px;
+  border-bottom:1px solid rgba(148,163,184,.14);
+}
+.v112-head small{
+  display:block;
+  font-size:5.8px;
+  font-weight:900;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:#2563eb;
+}
+html.dark-mode .v112-head small{color:#8fc7ff}
+.v112-head h3{
+  margin:3px 0 0;
+  font-size:11px;
+  letter-spacing:-.015em;
+}
+.v112-close{
+  width:26px!important;
+  height:26px!important;
+  min-width:26px!important;
+  border-radius:50%!important;
+  padding:0!important;
+}
+
+.v112-body{padding:10px 12px 12px}
+.v112-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4px;
+  margin-bottom:9px;
+}
+.v112-tab{
+  min-height:30px!important;
+  border-radius:7px!important;
+  font-size:7px!important;
+  font-weight:850!important;
+}
+.v112-tab.active{
+  background:#2563eb!important;
+  color:#fff!important;
+  border-color:#2563eb!important;
+}
+
+.v112-pane{display:none}
+.v112-pane.active{display:block}
+
+.v112-field{margin-top:7px}
+.v112-field label{
+  display:block;
+  margin-bottom:4px;
+  font-size:6.2px;
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#64748b;
+}
+html.dark-mode .v112-field label{color:#9fb1c8}
+.v112-field select,
+.v112-field textarea,
+.v112-field input{
+  width:100%;
+  border:1px solid rgba(148,163,184,.22);
+  border-radius:7px;
+  background:#fff;
+  color:#172033;
+  font-size:8px;
+}
+html.dark-mode .v112-field select,
+html.dark-mode .v112-field textarea,
+html.dark-mode .v112-field input{
+  background:#0b1625;
+  color:#edf5ff;
+  border-color:rgba(148,163,184,.22);
+}
+.v112-field select{
+  height:32px;
+  padding:0 8px;
+}
+.v112-field textarea{
+  min-height:92px;
+  resize:vertical;
+  padding:8px;
+  line-height:1.35;
+}
+
+.v112-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+
+.v112-fast-toggle{
+  width:100%!important;
+  min-height:34px!important;
+  margin-top:9px;
+  border-radius:8px!important;
+  background:#2563eb!important;
+  color:#fff!important;
+  border-color:#2563eb!important;
+  font-size:7.5px!important;
+  font-weight:900!important;
+}
+.v112-fast-toggle.active{
+  background:#dc2626!important;
+  border-color:#dc2626!important;
+}
+
+.v112-status{
+  margin-top:8px;
+  padding:7px 8px;
+  border-radius:7px;
+  background:rgba(37,99,235,.055);
+  border:1px solid rgba(37,99,235,.12);
+  font-size:6.8px;
+  line-height:1.4;
+}
+.v112-status strong{font-size:7.1px}
+.v112-status.error{
+  background:rgba(220,38,38,.055);
+  border-color:rgba(220,38,38,.14);
+  color:#b91c1c;
+}
+html.dark-mode .v112-status.error{color:#fca5a5}
+.v112-status.ok{
+  background:rgba(22,163,74,.055);
+  border-color:rgba(22,163,74,.14);
+  color:#15803d;
+}
+html.dark-mode .v112-status.ok{color:#86efac}
+
+.v112-batch-actions{
+  display:flex;
+  gap:5px;
+  margin-top:9px;
+}
+.v112-batch-actions button{
+  width:auto!important;
+  min-height:32px!important;
+  padding:0 10px!important;
+  border-radius:7px!important;
+  font-size:7px!important;
+  font-weight:850!important;
+}
+.v112-apply{
+  flex:1;
+  background:#2563eb!important;
+  color:#fff!important;
+  border-color:#2563eb!important;
+}
+
+.v112-fast-active{
+  position:fixed;
+  left:50%;
+  top:64px;
+  transform:translateX(-50%);
+  z-index:9400;
+  display:none;
+  align-items:center;
+  gap:7px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(220,38,38,.95);
+  color:#fff;
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+  font-size:7px;
+  font-weight:900;
+  pointer-events:none;
+}
+body.cemoa-admin.v112-fast-mode .v112-fast-active{
+  display:flex;
+}
+.v112-fast-active i{
+  width:7px;height:7px;border-radius:50%;background:#fff;
+}
+
+body.cemoa-admin.v112-fast-mode .leaflet-overlay-pane svg path{
+  cursor:crosshair!important;
+}
+
+/* botão na barra admin */
+#v112OpenFastEdit{
+  min-height:29px!important;
+  padding:0 10px!important;
+  border-radius:7px!important;
+  font-size:6.9px!important;
+  font-weight:850!important;
+}
+</style>
+
+
+<style id="v113-fast-edit-fix">
+@media(min-width:721px){
+  body.cemoa-admin.v112-fast-mode #map{
+    outline:2px solid rgba(37,99,235,.20);
+    outline-offset:-2px;
+  }
+  body.cemoa-admin.v112-fast-mode .leaflet-interactive{
+    cursor:crosshair!important;
+  }
+}
+</style>
+
+
+<style id="v114-stable-fast-edit">
+@media(min-width:721px){
+  body.cemoa-admin.v112-fast-mode #map{
+    outline:2px solid rgba(37,99,235,.28);
+    outline-offset:-2px;
+  }
+  body.cemoa-admin.v112-fast-mode .leaflet-interactive{
+    cursor:crosshair!important;
+  }
+}
+</style>
+
+
+<style id="v116-collapsible-fast-edit">
+.v116-head-actions{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+.v116-collapse{
+  font-size:16px!important;
+  line-height:1!important;
+}
+.v112-admin-edit.v116-collapsed{
+  width:230px!important;
+  max-height:none!important;
+  overflow:hidden!important;
+}
+.v112-admin-edit.v116-collapsed .v112-body{
+  display:none!important;
+}
+.v112-admin-edit.v116-collapsed .v112-head{
+  border-bottom:0!important;
+  padding:8px 9px!important;
+  align-items:center!important;
+}
+.v112-admin-edit.v116-collapsed .v112-head small{
+  display:none!important;
+}
+.v112-admin-edit.v116-collapsed .v112-head h3{
+  margin:0!important;
+  font-size:9px!important;
+}
+</style>
+
+
+<style id="v117-save-status">
+.supabase-sync-status.busy{
+  opacity:.92;
+}
+.supabase-sync-status.ok{
+  opacity:1;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -4206,7 +4554,21 @@ body.cemoa-admin .risk-editor-body{
         <button class="tools-item" id="centerTool" type="button">◎ <span>Centralizar Amazonas</span></button>
         <button class="tools-item" id="editRiskTool" type="button">✎ <span>Editar classificação</span></button>
         <button class="tools-item" id="exportTool" type="button">⇩ <span>Exportar PNG</span></button>
-      </div>
+      
+<button class="tools-item" id="toggleMunicipalityNames" type="button" role="menuitem" aria-pressed="false">
+  <span class="tools-item-ico municipality-label-icon" aria-hidden="true">
+  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 6.5 9 4l6 2.5L20 4v13.5L15 20l-6-2.5L4 20V6.5Z"/>
+    <path d="M9 4v13.5M15 6.5V20"/>
+    <path d="M11.2 9.2h1.6M11.2 12h1.6"/>
+  </svg>
+</span>
+  <span class="tools-item-copy">
+    <strong>Nomes dos municípios</strong>
+    <small>Exibir nomes no mapa</small>
+  </span>
+</button>
+</div>
     </div>
     <div class="export-wait" id="exportWait"><span>Gerando imagem do mapa…</span></div>
 
@@ -4651,7 +5013,10 @@ function featureStyle(f){
 }
 function onEachFeature(f,layer){
   layer.bindTooltip(`<b>${f.properties.nome}</b><br>${currentProductLegend()}: <b>${formatLevel(getRisk(f))}</b>`,{sticky:true});
-  layer.on('click',()=>selectMunicipio(f.properties.nome));
+  layer.on('click',(ev)=>{
+    if(window.CEMOA_FAST_EDIT_CLICK && window.CEMOA_FAST_EDIT_CLICK(f,layer,ev)===true) return;
+    selectMunicipio(f.properties.nome);
+  });
   layer.on('mouseover',()=>{layer.setStyle({weight:2.2,fillOpacity:.9});if(layer.bringToFront)layer.bringToFront()});
   layer.on('mouseout',()=>{if(geoLayer)geoLayer.resetStyle(layer)});
 }
@@ -6033,29 +6398,95 @@ const CEMOA_SUPABASE_STATE_ID='main';
     return false;
   }
 
-  async function persistCloudState(){
-    if(!sb || !admin || remoteApply)return false;
-    setSync('Salvando…','busy');
-    const {error}=await sb.from('panel_state').upsert({
-      id:CEMOA_SUPABASE_STATE_ID,
-      payload:buildPayload(),
-      updated_at:new Date().toISOString(),
-      updated_by:currentUser?currentUser.id:null
-    },{onConflict:'id'});
+  let saveInFlight=false;
+  let savePending=false;
 
-    if(error){
-      console.error('Supabase save:',error);
+  async function persistCloudState(retry=true){
+    if(!sb || !admin || remoteApply)return false;
+
+    /* Evita dois upserts simultâneos durante cliques rápidos. */
+    if(saveInFlight){
+      savePending=true;
+      return true;
+    }
+
+    saveInFlight=true;
+    setSync('Salvando…','busy');
+
+    try{
+      const payload=buildPayload();
+
+      /* Preferimos UPDATE porque o registro main já existe.
+         Isso reduz conflitos de RLS/UPSERT em alterações sucessivas. */
+      let {data,error}=await sb
+        .from('panel_state')
+        .update({
+          payload,
+          updated_at:new Date().toISOString(),
+          updated_by:currentUser?currentUser.id:null
+        })
+        .eq('id',CEMOA_SUPABASE_STATE_ID)
+        .select('id')
+        .maybeSingle();
+
+      /* Se ainda não existir o registro, tenta INSERT uma única vez. */
+      if(!error && !data){
+        const inserted=await sb.from('panel_state').insert({
+          id:CEMOA_SUPABASE_STATE_ID,
+          payload,
+          updated_at:new Date().toISOString(),
+          updated_by:currentUser?currentUser.id:null
+        });
+        error=inserted.error;
+      }
+
+      if(error){
+        console.error('Supabase save:',error);
+
+        /* Uma repetição curta resolve falhas transitórias de rede/realtime. */
+        if(retry){
+          await new Promise(resolve=>setTimeout(resolve,450));
+          saveInFlight=false;
+          return await persistCloudState(false);
+        }
+
+        setSync('Falha ao salvar','error');
+        return false;
+      }
+
+      setSync('Salvo na nuvem','ok');
+      return true;
+    }catch(error){
+      console.error('Supabase save exception:',error);
+
+      if(retry){
+        await new Promise(resolve=>setTimeout(resolve,450));
+        saveInFlight=false;
+        return await persistCloudState(false);
+      }
+
       setSync('Falha ao salvar','error');
       return false;
+    }finally{
+      saveInFlight=false;
+
+      /* Se houve alteração enquanto salvava, grava o estado mais recente logo depois. */
+      if(savePending){
+        savePending=false;
+        clearTimeout(persistTimer);
+        persistTimer=setTimeout(()=>persistCloudState(),220);
+      }
     }
-    setSync('Salvo na nuvem','ok');
-    return true;
   }
 
   function queuePersist(){
     if(!admin || remoteApply)return;
+
+    /* Cliques rápidos viram uma única gravação com o último estado. */
     clearTimeout(persistTimer);
-    persistTimer=setTimeout(()=>persistCloudState(),180);
+    persistTimer=setTimeout(()=>{
+      persistCloudState();
+    },420);
   }
 
   async function checkAdmin(sessionOrUser){
@@ -6363,6 +6794,7 @@ const CEMOA_SUPABASE_STATE_ID='main';
     <span class="v101-adminbar-user" id="v101AdminUser">Administrador</span>
   </div>
   <div class="v101-adminbar-actions">
+<button id="v112OpenFastEdit" class="v101-primary" type="button">Edição rápida</button>
     <button id="v101EditLevels" class="v101-primary" type="button">Editar níveis</button>
     <button id="v101ManageAdmins" type="button">Administradores</button>
     <button id="v101Logout" type="button">Sair</button>
@@ -6590,6 +7022,714 @@ const CEMOA_SUPABASE_STATE_ID='main';
   }else{
     sync();
   }
+})();
+</script>
+
+
+
+<script id="v110-municipality-labels-by-level">
+(function(){
+  let labelsLayer=null;
+  let labelsVisible=false;
+
+  function getMunicipalityName(props){
+    if(!props)return '';
+    return props.NM_MUN || props.name || props.nome || props.NOME ||
+           props.MUNICIPIO || props.Municipio || props.municipio || props.NAME || '';
+  }
+
+  function getMunicipalityRisk(feature){
+    try{
+      if(typeof getRisk==='function') return getRisk(feature);
+    }catch(e){}
+    try{
+      const p=feature?.properties||{};
+      if(p.alertas && typeof currentAlertType!=='undefined'){
+        return p.alertas[currentAlertType];
+      }
+      return p.risk || p.risco || p.status || '';
+    }catch(e){}
+    return '';
+  }
+
+  function currentSelectedLevel(){
+    try{
+      if(typeof activeFilter!=='undefined' && activeFilter) return activeFilter;
+    }catch(e){}
+    return 'TODOS';
+  }
+
+  function findMunicipalityGeoLayer(){
+    const candidates=[];
+    try{ if(typeof geoLayer!=='undefined' && geoLayer)candidates.push(geoLayer); }catch(e){}
+    try{ if(typeof municipiosLayer!=='undefined' && municipiosLayer)candidates.push(municipiosLayer); }catch(e){}
+    try{ if(typeof municipalityLayer!=='undefined' && municipalityLayer)candidates.push(municipalityLayer); }catch(e){}
+
+    for(const layer of candidates){
+      if(layer && typeof layer.eachLayer==='function') return layer;
+    }
+
+    try{
+      if(typeof map!=='undefined' && map && map.eachLayer){
+        let found=null;
+        map.eachLayer(layer=>{
+          if(found || !layer || typeof layer.eachLayer!=='function')return;
+          let hits=0,total=0;
+          layer.eachLayer(child=>{
+            total++;
+            if(getMunicipalityName(child?.feature?.properties))hits++;
+          });
+          if(total>=20 && hits>=20)found=layer;
+        });
+        return found;
+      }
+    }catch(e){}
+    return null;
+  }
+
+  function shouldShowFeature(feature){
+    const filter=currentSelectedLevel();
+    if(!filter || filter==='TODOS') return true;
+    const r=String(getMunicipalityRisk(feature)||'').toUpperCase();
+    return r===String(filter).toUpperCase();
+  }
+
+  function clearLabels(){
+    if(labelsLayer){
+      try{ labelsLayer.clearLayers(); }catch(e){}
+    }
+  }
+
+  function rebuildLabels(){
+    if(window.matchMedia('(max-width:720px)').matches)return false;
+    if(typeof L==='undefined' || typeof map==='undefined' || !map)return false;
+
+    const source=findMunicipalityGeoLayer();
+    if(!source)return false;
+
+    if(!labelsLayer) labelsLayer=L.layerGroup();
+    clearLabels();
+
+    const used=new Set();
+
+    source.eachLayer(layer=>{
+      try{
+        const feature=layer?.feature;
+        if(!feature || !shouldShowFeature(feature))return;
+
+        const name=getMunicipalityName(feature.properties);
+        if(!name || used.has(name) || !layer.getBounds)return;
+
+        const bounds=layer.getBounds();
+        if(!bounds || !bounds.isValid())return;
+
+        used.add(name);
+
+        const center=bounds.getCenter();
+        const safeName=String(name).replace(/[&<>"']/g,s=>({
+          '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+        })[s]);
+
+        const marker=L.marker(center,{
+          interactive:false,
+          keyboard:false,
+          icon:L.divIcon({
+            className:'municipality-name-label',
+            html:'<span>'+safeName+'</span>',
+            iconSize:null
+          })
+        });
+
+        labelsLayer.addLayer(marker);
+      }catch(e){}
+    });
+
+    if(labelsVisible){
+      try{
+        if(!map.hasLayer(labelsLayer))labelsLayer.addTo(map);
+      }catch(e){}
+    }
+
+    return used.size>0;
+  }
+
+  function updateButton(){
+    const btn=document.getElementById('toggleMunicipalityNames');
+    if(!btn)return;
+
+    btn.setAttribute('aria-pressed',labelsVisible?'true':'false');
+    const small=btn.querySelector('small');
+
+    const filter=currentSelectedLevel();
+    if(small){
+      if(labelsVisible && filter && filter!=='TODOS'){
+        small.textContent='Mostrando nomes: '+filter;
+      }else{
+        small.textContent=labelsVisible?'Ocultar nomes no mapa':'Exibir nomes no mapa';
+      }
+    }
+    btn.classList.toggle('active',labelsVisible);
+  }
+
+  function toggleLabels(){
+    if(window.matchMedia('(max-width:720px)').matches)return;
+
+    if(!labelsLayer)rebuildLabels();
+
+    if(labelsVisible){
+      try{map.removeLayer(labelsLayer)}catch(e){}
+      labelsVisible=false;
+    }else{
+      rebuildLabels();
+      try{labelsLayer.addTo(map)}catch(e){}
+      labelsVisible=true;
+    }
+    updateButton();
+  }
+
+  function syncToDashboard(){
+    if(!labelsVisible)return;
+    rebuildLabels();
+    updateButton();
+  }
+
+  document.getElementById('toggleMunicipalityNames')?.addEventListener('click',function(ev){
+    ev.preventDefault();
+    ev.stopPropagation();
+    toggleLabels();
+  });
+
+  /* Ao clicar no dashboard, sincroniza nomes com o grupo selecionado */
+  document.querySelectorAll('.kpi').forEach(kpi=>{
+    kpi.addEventListener('click',()=>{
+      setTimeout(syncToDashboard,90);
+    });
+  });
+
+  /* Troca de produto/risco também atualiza os nomes */
+  const typeSelect=document.getElementById('alertTypeSelect');
+  if(typeSelect){
+    typeSelect.addEventListener('change',()=>{
+      setTimeout(syncToDashboard,100);
+    });
+  }
+
+  /* Atualizações operacionais também reavaliam nomes */
+  window.addEventListener('cemoa:operational-change',()=>{
+    setTimeout(syncToDashboard,100);
+  });
+
+  document.addEventListener('change',ev=>{
+    if(ev.target.closest('.quick-status,.risk-editor-table')){
+      setTimeout(syncToDashboard,120);
+    }
+  });
+
+  /* OFF por padrão */
+  setTimeout(()=>{
+    rebuildLabels();
+    updateButton();
+  },1200);
+
+  window.addEventListener('resize',()=>{
+    if(window.matchMedia('(max-width:720px)').matches && labelsVisible){
+      try{map.removeLayer(labelsLayer)}catch(e){}
+      labelsVisible=false;
+      updateButton();
+    }
+  },{passive:true});
+})();
+</script>
+
+
+<div id="v112AdminEdit" class="v112-admin-edit" aria-hidden="true">
+  <div class="v112-head">
+    <div>
+      <small>CEMOA · Admin</small>
+      <h3>Edição rápida de alertas</h3>
+    </div>
+    <div class="v116-head-actions">
+  <button id="v116CollapseEdit" class="v112-close v116-collapse" type="button" aria-label="Recolher edição rápida" title="Recolher">−</button>
+  <button id="v112CloseEdit" class="v112-close" type="button" aria-label="Fechar">×</button>
+</div>
+  </div>
+
+  <div class="v112-body">
+    <div class="v112-tabs">
+      <button class="v112-tab active" data-v112-tab="map" type="button">Clique no mapa</button>
+      <button class="v112-tab" data-v112-tab="batch" type="button">Edição em lote</button>
+    </div>
+
+    <div id="v112PaneMap" class="v112-pane active">
+      <div class="v112-row">
+        <div class="v112-field">
+          <label>Nível</label>
+          <select id="v112FastLevel"></select>
+        </div>
+        <div class="v112-field">
+          <label>Duração</label>
+          <select id="v112FastDuration"></select>
+        </div>
+      </div>
+
+      <button id="v112FastToggle" class="v112-fast-toggle" type="button">
+        Ativar edição por clique
+      </button>
+
+      <div id="v112FastStatus" class="v112-status">
+        Selecione o nível e a duração. Depois ative a edição e clique nos municípios diretamente no mapa.
+      </div>
+    </div>
+
+    <div id="v112PaneBatch" class="v112-pane">
+      <div class="v112-field">
+        <label>Municípios</label>
+        <textarea id="v112BatchNames" placeholder="Ex.: Manaus, Iranduba, Manacapuru&#10;ou um município por linha"></textarea>
+      </div>
+
+      <div class="v112-row">
+        <div class="v112-field">
+          <label>Nível</label>
+          <select id="v112BatchLevel"></select>
+        </div>
+        <div class="v112-field">
+          <label>Duração</label>
+          <select id="v112BatchDuration"></select>
+        </div>
+      </div>
+
+      <div class="v112-batch-actions">
+        <button id="v112BatchApply" class="v112-apply" type="button">Aplicar em lote</button>
+        <button id="v112BatchClear" type="button">Limpar</button>
+      </div>
+
+      <div id="v112BatchStatus" class="v112-status">
+        Digite os nomes separados por vírgula, ponto e vírgula ou por linha.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="v112FastActive" class="v112-fast-active">
+  <i></i><span id="v112FastActiveText">Edição rápida ativa</span>
+</div>
+
+
+
+<script id="v114-admin-fast-edit-stable">
+(function(){
+  let fastMode=false;
+  let saveTimer=null;
+
+  const panel=document.getElementById('v112AdminEdit');
+  const openBtn=document.getElementById('v112OpenFastEdit');
+  const closeBtn=document.getElementById('v112CloseEdit');
+  const fastLevel=document.getElementById('v112FastLevel');
+  const fastDuration=document.getElementById('v112FastDuration');
+  const fastToggle=document.getElementById('v112FastToggle');
+  const fastStatus=document.getElementById('v112FastStatus');
+  const fastActiveText=document.getElementById('v112FastActiveText');
+  const batchNames=document.getElementById('v112BatchNames');
+  const batchLevel=document.getElementById('v112BatchLevel');
+  const batchDuration=document.getElementById('v112BatchDuration');
+  const batchApply=document.getElementById('v112BatchApply');
+  const batchClear=document.getElementById('v112BatchClear');
+  const batchStatus=document.getElementById('v112BatchStatus');
+
+  function isAdminDesktop(){
+    try{
+      return window.matchMedia('(min-width:721px)').matches &&
+        window.CEMOA_ADMIN &&
+        typeof window.CEMOA_ADMIN.isAdmin==='function' &&
+        window.CEMOA_ADMIN.isAdmin();
+    }catch(e){return false}
+  }
+
+  function cfg(){
+    try{return typeof currentConfig==='function'?currentConfig():null}
+    catch(e){return null}
+  }
+
+  function featureName(f){
+    return f?.properties?.nome || '';
+  }
+
+  function normalizeName(s){
+    return String(s||'')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .trim().toLowerCase().replace(/\s+/g,' ');
+  }
+
+  function featureByTypedName(name){
+    const target=normalizeName(name);
+    if(!target || typeof GEO==='undefined')return null;
+    return GEO.features.find(f=>normalizeName(featureName(f))===target)||null;
+  }
+
+  function layerForFeature(f){
+    if(!f || typeof geoLayer==='undefined' || !geoLayer)return null;
+    let found=null;
+    geoLayer.eachLayer(l=>{
+      if(found)return;
+      if(l.feature===f || l?.feature?.properties?.nome===featureName(f))found=l;
+    });
+    return found;
+  }
+
+  function levelLabel(level){
+    try{return typeof formatLevel==='function'?formatLevel(level):level}
+    catch(e){return level}
+  }
+
+  function fillSelects(){
+    const c=cfg();
+    let levels=[];
+    try{levels=typeof currentLevels==='function'?currentLevels():[]}catch(e){}
+
+    const html=levels.map(l=>`<option value="${l}">${levelLabel(l)}</option>`).join('');
+    fastLevel.innerHTML=html;
+    batchLevel.innerHTML=html;
+
+    let durations=[];
+    if(c?.isAlert){
+      for(let h=2;h<=24;h+=2)durations.push(h);
+      durations.push(48,72);
+    }else{
+      durations=[0];
+    }
+    const dh=durations.map(h=>`<option value="${h}">${h===0?'Não aplicável':h+'h'}</option>`).join('');
+    fastDuration.innerHTML=dh;
+    batchDuration.innerHTML=dh;
+
+    if(c?.low){
+      fastLevel.value=c.low;
+      batchLevel.value=c.low;
+    }
+    syncDurationState();
+  }
+
+  function syncDurationState(){
+    const c=cfg();
+    const fBase=c && fastLevel.value===c.low;
+    const bBase=c && batchLevel.value===c.low;
+    fastDuration.disabled=!c?.isAlert || fBase;
+    batchDuration.disabled=!c?.isAlert || bBase;
+  }
+
+  function setStatus(el,text,type=''){
+    if(!el)return;
+    el.textContent=text;
+    el.className='v112-status'+(type?' '+type:'');
+  }
+
+  function queueSave(){
+    clearTimeout(saveTimer);
+    saveTimer=setTimeout(()=>{
+      try{
+        if(typeof saveAllAlertRisks==='function')saveAllAlertRisks();
+      }catch(e){console.error(e)}
+    },120);
+  }
+
+  /* Atualiza interface sem recriar geoLayer. */
+  function refreshUIWithoutRedraw(){
+    try{if(typeof rebuildDashboard==='function')rebuildDashboard()}catch(e){}
+    try{if(typeof rebuildLegend==='function')rebuildLegend()}catch(e){}
+    try{if(typeof renderList==='function')renderList()}catch(e){}
+    try{if(typeof updateHeaderSummary==='function')updateHeaderSummary()}catch(e){}
+    try{if(typeof refreshOperationalUI==='function')refreshOperationalUI()}catch(e){}
+    try{window.dispatchEvent(new CustomEvent('cemoa:operational-change'))}catch(e){}
+  }
+
+  function updateLayerOnly(f,layer=null){
+    const l=layer || layerForFeature(f);
+    if(!l)return;
+
+    try{
+      if(typeof featureStyle==='function')l.setStyle(featureStyle(f));
+    }catch(e){}
+
+    try{
+      l.setTooltipContent(
+        `<b>${featureName(f)}</b><br>${currentProductLegend()}: <b>${levelLabel(getRisk(f))}</b>`
+      );
+    }catch(e){}
+  }
+
+  function applyOne(f,level,duration,reason='edicao_rapida_mapa',layer=null){
+    if(!f || !isAdminDesktop())return false;
+    const c=cfg();
+    if(!c)return false;
+
+    const oldRisk=getRisk(f);
+    const hours=(c.isAlert && level!==c.low)?Number(duration||2):0;
+
+    try{
+      if(typeof setAlertWithDuration==='function'){
+        setAlertWithDuration(f,level,hours,reason);
+      }else{
+        setRisk(f,level);
+      }
+    }catch(e){
+      console.error(e);
+      return false;
+    }
+
+    /* Mesmo nível com nova duração também precisa atualizar tooltip/UI. */
+    updateLayerOnly(f,layer);
+    queueSave();
+    refreshUIWithoutRedraw();
+
+    return {
+      changed:oldRisk!==level,
+      oldRisk,
+      newRisk:level,
+      hours
+    };
+  }
+
+  function updateActiveText(){
+    const c=cfg();
+    if(!c)return;
+    const level=fastLevel.value;
+    const duration=(c.isAlert && level!==c.low)?fastDuration.value+'h':'sem duração';
+    fastActiveText.textContent=`Aplicando ${levelLabel(level)} · ${duration}`;
+  }
+
+  function startFast(){
+    if(!isAdminDesktop())return;
+    activeFilter='TODOS';
+    selectedName=null;
+    try{if(typeof geoLayer!=='undefined'&&geoLayer)geoLayer.setStyle(featureStyle)}catch(e){}
+    try{if(typeof closeDetails==='function')closeDetails()}catch(e){}
+
+    fastMode=true;
+    document.body.classList.add('v112-fast-mode');
+    fastToggle.classList.add('active');
+    fastToggle.textContent='Encerrar edição por clique';
+    updateActiveText();
+    setStatus(
+      fastStatus,
+      'Modo ativo: clique diretamente em cada município. A cor muda sem recarregar o mapa.',
+      'ok'
+    );
+  }
+
+  function stopFast(recolher=true){
+    fastMode=false;
+    document.body.classList.remove('v112-fast-mode');
+    fastToggle.classList.remove('active');
+    fastToggle.textContent='Ativar edição por clique';
+    setStatus(
+      fastStatus,
+      'Selecione o nível e a duração. Depois ative a edição e clique nos municípios diretamente no mapa.'
+    );
+
+    /* Ao finalizar a edição por clique, recolhe automaticamente o painel. */
+    if(recolher && panel){
+      panel.style.removeProperty('display');
+      panel.setAttribute('aria-hidden','true');
+    }
+  }
+
+  /* Esta função é chamada pelo onEachFeature principal.
+     Não recria o mapa e não adiciona listeners paralelos. */
+  window.CEMOA_FAST_EDIT_CLICK=function(f,layer,ev){
+    if(!fastMode || !isAdminDesktop())return false;
+
+    try{
+      if(ev?.originalEvent){
+        L.DomEvent.stopPropagation(ev.originalEvent);
+        L.DomEvent.preventDefault(ev.originalEvent);
+      }
+    }catch(e){}
+
+    const result=applyOne(f,fastLevel.value,fastDuration.value,'edicao_rapida_mapa',layer);
+    if(!result){
+      setStatus(fastStatus,`Falha ao alterar ${featureName(f)}.`,'error');
+      return true;
+    }
+
+    const c=cfg();
+    const dur=(c?.isAlert && fastLevel.value!==c.low)?` · ${fastDuration.value}h`:'';
+    setStatus(
+      fastStatus,
+      `${featureName(f)} → ${levelLabel(fastLevel.value)}${dur}. Continue clicando nos demais municípios.`,
+      'ok'
+    );
+    updateActiveText();
+
+    return true;
+  };
+
+  function parseBatchNames(){
+    return [...new Set(
+      String(batchNames.value||'')
+        .split(/[\n,;]+/)
+        .map(v=>v.trim())
+        .filter(Boolean)
+    )];
+  }
+
+  function applyBatch(){
+    if(!isAdminDesktop())return;
+
+    const names=parseBatchNames();
+    if(!names.length){
+      setStatus(batchStatus,'Informe pelo menos um município.','error');
+      return;
+    }
+
+    const c=cfg();
+    const level=batchLevel.value;
+    const duration=batchDuration.value;
+    const found=[];
+    const missing=[];
+
+    /* Dados primeiro, sem redraw e sem save individual. */
+    names.forEach(name=>{
+      const f=featureByTypedName(name);
+      if(!f){missing.push(name);return}
+
+      const hours=(c?.isAlert && level!==c.low)?Number(duration||2):0;
+      try{
+        if(typeof setAlertWithDuration==='function'){
+          setAlertWithDuration(f,level,hours,'edicao_em_massa');
+        }else{
+          setRisk(f,level);
+        }
+        found.push(featureName(f));
+      }catch(e){
+        missing.push(name);
+      }
+    });
+
+    /* Uma atualização visual só ao final do lote. */
+    try{
+      if(typeof geoLayer!=='undefined'&&geoLayer){
+        geoLayer.setStyle(featureStyle);
+        geoLayer.eachLayer(l=>{
+          try{
+            l.setTooltipContent(
+              `<b>${featureName(l.feature)}</b><br>${currentProductLegend()}: <b>${levelLabel(getRisk(l.feature))}</b>`
+            );
+          }catch(e){}
+        });
+      }
+    }catch(e){}
+
+    try{if(typeof saveAllAlertRisks==='function')saveAllAlertRisks()}catch(e){}
+    refreshUIWithoutRedraw();
+
+    if(found.length && !missing.length){
+      setStatus(batchStatus,`${found.length} município(s) atualizados para ${levelLabel(level)}.`,'ok');
+    }else if(found.length){
+      setStatus(
+        batchStatus,
+        `${found.length} atualizado(s). Não localizados: ${missing.join(', ')}.`,
+        'error'
+      );
+    }else{
+      setStatus(batchStatus,'Nenhum município foi localizado. Confira os nomes digitados.','error');
+    }
+  }
+
+  function openPanel(){
+    if(!isAdminDesktop())return;
+    fillSelects();
+    panel.style.display='block';
+    panel.setAttribute('aria-hidden','false');
+  }
+
+  function closePanel(){
+    stopFast(false);
+    panel.style.removeProperty('display');
+    panel.setAttribute('aria-hidden','true');
+  }
+
+  document.querySelectorAll('.v112-tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.v112-tab').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.v112-pane').forEach(x=>x.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.v112Tab==='batch'?'v112PaneBatch':'v112PaneMap')
+        ?.classList.add('active');
+    });
+  });
+
+  openBtn?.addEventListener('click',openPanel);
+  closeBtn?.addEventListener('click',closePanel);
+
+  fastToggle?.addEventListener('click',()=>fastMode?stopFast():startFast());
+  fastLevel?.addEventListener('change',()=>{
+    syncDurationState();
+    updateActiveText();
+  });
+  fastDuration?.addEventListener('change',updateActiveText);
+
+  batchLevel?.addEventListener('change',syncDurationState);
+  batchApply?.addEventListener('click',applyBatch);
+  batchClear?.addEventListener('click',()=>{
+    batchNames.value='';
+    setStatus(batchStatus,'Digite os nomes separados por vírgula, ponto e vírgula ou por linha.');
+    batchNames.focus();
+  });
+
+  document.getElementById('alertTypeSelect')?.addEventListener('change',()=>{
+    stopFast(false);
+    panel.style.removeProperty('display');
+    panel.setAttribute('aria-hidden','true');
+    setTimeout(fillSelects,50);
+  });
+
+  window.addEventListener('resize',()=>{
+    if(!isAdminDesktop()){
+      stopFast();
+      panel.style.removeProperty('display');
+    }
+  },{passive:true});
+
+  if('MutationObserver' in window){
+    new MutationObserver(()=>{
+      if(!isAdminDesktop()){
+        stopFast();
+        panel.style.removeProperty('display');
+      }
+    }).observe(document.body,{attributes:true,attributeFilter:['class']});
+  }
+
+  setTimeout(fillSelects,500);
+})();
+</script>
+
+
+<script id="v116-collapsible-fast-edit-js">
+(function(){
+  const panel=document.getElementById('v112AdminEdit');
+  const btn=document.getElementById('v116CollapseEdit');
+  if(!panel || !btn)return;
+
+  function sync(){
+    const collapsed=panel.classList.contains('v116-collapsed');
+    btn.textContent=collapsed?'＋':'−';
+    btn.setAttribute('aria-label',collapsed?'Expandir edição rápida':'Recolher edição rápida');
+    btn.title=collapsed?'Expandir':'Recolher';
+  }
+
+  btn.addEventListener('click',function(ev){
+    ev.preventDefault();
+    ev.stopPropagation();
+    panel.classList.toggle('v116-collapsed');
+    sync();
+  });
+
+  /* Ao abrir pelo botão da barra Admin, volta expandido para facilitar nova configuração. */
+  document.getElementById('v112OpenFastEdit')?.addEventListener('click',()=>{
+    panel.classList.remove('v116-collapsed');
+    sync();
+  });
+
+  sync();
 })();
 </script>
 
